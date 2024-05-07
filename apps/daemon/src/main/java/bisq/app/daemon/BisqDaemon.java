@@ -108,6 +108,14 @@ public class BisqDaemon {
         // ------------------------------------------------------------------
 
         new BisqNode(options).run();
+
+        // Keep it running until killed
+        try {
+            Thread.currentThread().join();
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
+
         return EXIT_SUCCESS;
     }
 }

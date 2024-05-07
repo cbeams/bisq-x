@@ -5,5 +5,6 @@ include(
     "core:trade",
     "core:node",
     "apps:cli",
-    "apps:daemon"
+    "apps:daemon",
+    "apps:desktop"
 )

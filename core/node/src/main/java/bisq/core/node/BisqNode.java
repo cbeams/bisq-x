@@ -38,12 +38,5 @@ public class BisqNode implements Runnable {
             log.info("Receiving shutdown signal");
             log.info("Shutting down");
         }));
-
-        // Keep alive
-        try {
-            Thread.currentThread().join();
-        } catch (InterruptedException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 }
