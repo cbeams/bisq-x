@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Vim
+*.sw?
+
+# IDEA
+*.iml
+.idea
+out
+
+# Gradle
+.gradle
+build
+
+# Obsidian
+.obsidian/bookmarks.json
+.obsidian/plugins
+.obsidian/workspace.json
+
+# core dumps
+hs_err_pid*.log
