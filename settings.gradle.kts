@@ -3,5 +3,6 @@ include(
     "core:util",
     "core:p2p",
     "core:trade",
-    "core:node"
+    "core:node",
+    "apps:daemon"
 )
