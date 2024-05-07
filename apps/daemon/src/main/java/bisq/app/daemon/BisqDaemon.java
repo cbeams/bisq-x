@@ -42,6 +42,7 @@ public class BisqDaemon {
         System.exit(status);
     }
 
+    @SuppressWarnings("SameReturnValue")
     public static int execute(String... args) throws Exception {
 
         // ------------------------------------------------------------------

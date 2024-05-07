@@ -30,7 +30,7 @@ public class Logging {
     public static final Logger confLog = ALL_LOGS.get(CONF_LOG_NAME);
     public static final Logger nodeLog = ALL_LOGS.get(NODE_LOG_NAME);
     public static final Logger p2pLog = ALL_LOGS.get(P2P_LOG_NAME);
-    public static final Logger tradeLog = ALL_LOGS.get(TRADE_LOG_NAME);;
+    public static final Logger tradeLog = ALL_LOGS.get(TRADE_LOG_NAME);
 
     public static Logger getLog(String name) {
         return ALL_LOGS.get(name);

@@ -265,8 +265,4 @@ public final class Options {
                 dataDirExists ? "" : " (does not yet exist)");
         this.dataDir = dataDir;
     }
-
-    public File getDataDir() {
-        return dataDir;
-    }
 }

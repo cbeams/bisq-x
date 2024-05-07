@@ -26,8 +26,7 @@ class LogController {
     @Get("/{name}")
     public LogConfig get(String name) {
         ch.qos.logback.classic.Logger log = ((ch.qos.logback.classic.Logger) Logging.getLog(name));
-        LogConfig logConfig = new LogConfig(name, log.getLevel().levelStr);
-        return logConfig;
+        return new LogConfig(name, log.getLevel().levelStr);
     }
 
     @Put("/{name}")

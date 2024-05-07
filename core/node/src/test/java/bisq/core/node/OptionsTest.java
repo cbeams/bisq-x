@@ -61,6 +61,7 @@ public class OptionsTest {
     public void loadFromDataDir_thatDoesNotExist() throws IOException {
         var dataDir = Files.createTempDirectory("bisq").toFile();
 
+        //noinspection ResultOfMethodCallIgnored
         dataDir.delete();
 
         var options = Options.withDefaultValues();

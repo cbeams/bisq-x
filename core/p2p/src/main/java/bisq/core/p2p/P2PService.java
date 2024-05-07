@@ -23,6 +23,7 @@ public class P2PService extends Thread {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             log.info("Listening for peer connections at bisq://localhost:{}", port);
 
+            //noinspection InfiniteLoopStatement
             while (true) {
                 Socket socket = serverSocket.accept();
                 log.debug("New client connected");
@@ -41,7 +42,7 @@ public class P2PService extends Thread {
 
     // Thread class to handle each client connection
     private static class ClientHandler extends Thread {
-        private Socket socket;
+        private final Socket socket;
 
         public ClientHandler(Socket socket) {
             this.socket = socket;
