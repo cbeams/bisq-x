@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class BisqCli {
     public static void main(String... args) {
-        System.out.println("Bisq API client version v2.1.0");
+        System.out.println("Bisq X client version v2.1.0");
         fetchVersion();
     }
 

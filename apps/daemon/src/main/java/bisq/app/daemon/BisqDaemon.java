@@ -15,7 +15,7 @@ import static bisq.core.node.Options.*;
 
 public class BisqDaemon {
 
-    private static final String APP_NAME_AND_VERSION = "Bisq version v2.1.0";
+    private static final String APP_NAME_AND_VERSION = "Bisq X version v2.1.0";
 
     private static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
     private static final int EXIT_SUCCESS = 0;
@@ -28,13 +28,7 @@ public class BisqDaemon {
         try {
             status = execute(args);
         } catch (Exception ex) {
-            // Unwrap excessively nested exceptions for better log output
-            Throwable t = ex;
-            while (t.getCause() != null && t.getMessage().contains("Exception:")) {
-                t = t.getCause();
-            }
-            // Log
-            log.error("Error: {}", t.getMessage());
+            log.error("Error: ", unwrapped(ex));
             status = EXIT_FAILURE;
         }
         // Exit
@@ -117,5 +111,14 @@ public class BisqDaemon {
         }
 
         return EXIT_SUCCESS;
+    }
+
+    // Unwrap excessive exception nesting for better log output
+    private static Throwable unwrapped(Exception ex) {
+        Throwable t = ex;
+        while (t.getCause() != null && t.getMessage().contains("Exception:")) {
+            t = t.getCause();
+        }
+        return t;
     }
 }
