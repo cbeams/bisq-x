@@ -15,29 +15,29 @@ import static bisq.core.node.Options.*;
 
 public class BisqDaemon {
 
-    private static final String APP_NAME_AND_VERSION = "Bisq X version v2.1.0";
-
-    private static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
     private static final int EXIT_SUCCESS = 0;
     private static final int EXIT_FAILURE = 1;
+
+    private static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
+
+    private static final String APP_NAME_AND_VERSION = "Bisq X version v2.1.0";
 
     private static final Logger log = Logging.appLog;
 
     public static void main(String... args) {
         int status;
         try {
-            status = execute(args);
+            execute(args);
+            status = EXIT_SUCCESS;
         } catch (Exception ex) {
-            log.error("Error: ", unwrapped(ex));
+            log.error("Error: ", unwrap(ex));
             status = EXIT_FAILURE;
         }
-        // Exit
         log.info("Exiting with status {}", status);
         System.exit(status);
     }
 
-    @SuppressWarnings("SameReturnValue")
-    public static int execute(String... args) throws Exception {
+     static void execute(String... args) throws Exception {
 
         // ------------------------------------------------------------------
         // Initialize console output
@@ -92,7 +92,7 @@ public class BisqDaemon {
 
                     """);
             parser.printHelpOn(System.out);
-            return EXIT_SUCCESS;
+            return;
         }
 
         options.handleParsedCliOptions(cliOptions);
@@ -109,12 +109,10 @@ public class BisqDaemon {
         } catch (InterruptedException ex) {
             throw new RuntimeException(ex);
         }
-
-        return EXIT_SUCCESS;
     }
 
     // Unwrap excessive exception nesting for better log output
-    private static Throwable unwrapped(Exception ex) {
+    private static Throwable unwrap(Exception ex) {
         Throwable t = ex;
         while (t.getCause() != null && t.getMessage().contains("Exception:")) {
             t = t.getCause();
