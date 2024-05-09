@@ -29,8 +29,8 @@ public class BisqDaemon {
         try {
             execute(args);
             status = EXIT_SUCCESS;
-        } catch (Exception ex) {
-            log.error("Error: ", unwrap(ex));
+        } catch (Throwable t) {
+            log.error("Error: {}", unwrap(t).getMessage());
             status = EXIT_FAILURE;
         }
         log.info("Exiting with status {}", status);
@@ -112,8 +112,7 @@ public class BisqDaemon {
     }
 
     // Unwrap excessive exception nesting for better log output
-    private static Throwable unwrap(Exception ex) {
-        Throwable t = ex;
+    private static Throwable unwrap(Throwable t) {
         while (t.getCause() != null && t.getMessage().contains("Exception:")) {
             t = t.getCause();
         }
