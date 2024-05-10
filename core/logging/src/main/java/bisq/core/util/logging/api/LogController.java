@@ -1,18 +1,26 @@
-package bisq.core.node.api;
+package bisq.core.util.logging.api;
 
-import bisq.core.util.Logging;
+import bisq.core.util.logging.Logging;
 import ch.qos.logback.classic.Level;
+import org.slf4j.Logger;
+
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Put;
+import io.micronaut.openapi.annotation.OpenAPIInclude;
+
 import io.swagger.v3.oas.annotations.Parameter;
-import org.slf4j.Logger;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+@OpenAPIInclude(
+        tags = @Tag(name = "Node"),
+        classes = LogController.class
+)
 @Controller("/logs")
-class LogController {
+public class LogController {
 
     private static final Logger log = Logging.confLog;
 

@@ -2,7 +2,7 @@ package bisq.app.daemon;
 
 import bisq.core.node.BisqNode;
 import bisq.core.node.Options;
-import bisq.core.util.Logging;
+import bisq.core.util.logging.Logging;
 
 import joptsimple.OptionParser;
 
@@ -101,7 +101,7 @@ public class BisqDaemon {
         // Run node
         // ------------------------------------------------------------------
 
-        new BisqNode(options).run();
+        BisqNode.withOptions(options).run();
 
         // Keep it running until killed
         try {

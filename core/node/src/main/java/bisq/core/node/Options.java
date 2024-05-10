@@ -1,13 +1,12 @@
 package bisq.core.node;
 
-import bisq.core.util.Logging;
+import bisq.core.util.logging.Logging;
+import org.slf4j.Logger;
+import org.slf4j.event.Level;
 
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
-
-import org.slf4j.Logger;
-import org.slf4j.event.Level;
 
 import java.io.File;
 import java.io.FileInputStream;

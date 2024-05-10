@@ -3,6 +3,8 @@ plugins {
     application
 }
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
 repositories {
     mavenCentral()
 }
@@ -14,6 +16,9 @@ javafx {
 
 dependencies {
     implementation(project(":core:node"))
+    implementation(project(":core:trade"))
+    implementation(project(":core:p2p"))
+    implementation(project(":core:logging"))
 }
 
 application {

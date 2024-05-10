@@ -1,0 +1,57 @@
+package bisq.core.domain.trade.api;
+
+import bisq.core.domain.trade.Offer;
+import bisq.core.domain.trade.OfferRepository;
+import bisq.core.util.logging.Logging;
+
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Post;
+
+import io.micronaut.openapi.annotation.OpenAPIInclude;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+import org.slf4j.Logger;
+
+import java.net.URI;
+import java.util.List;
+import java.util.UUID;
+
+@OpenAPIInclude(
+        tags = @Tag(name = "Trade"),
+        classes = OfferController.class
+)
+@Controller("/trade/offers")
+public class OfferController {
+
+    private static final Logger log = Logging.tradeLog;
+
+    private final OfferRepository offerRepository;
+
+    public OfferController(OfferRepository offerRepository) {
+        this.offerRepository = offerRepository;
+    }
+
+    @Get
+    public List<Offer> show() {
+        return offerRepository.findAll();
+    }
+
+    @Get("/{id}")
+    public HttpResponse<Offer> show(String id) {
+        var offer = offerRepository.findById(id);
+        return offer.isPresent() ?
+                HttpResponse.ok(offer.get()) :
+                HttpResponse.notFound();
+    }
+
+    @Post()
+    public HttpResponse<?> add(Offer offer) {
+        log.debug("Adding {}", offer);
+        var id = UUID.randomUUID().toString();
+        offerRepository.save(new Offer(id, offer.details()));
+        return HttpResponse.created(URI.create("/trade/offers/" + id));
+    }
+}
+

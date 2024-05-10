@@ -13,18 +13,13 @@ micronaut {
 }
 
 dependencies {
-    implementation(project(":core:api"))
-    implementation(project(":core:trade"))
-    implementation(project(":core:p2p"))
     implementation(project(":core:logging"))
 
-    implementation("io.micronaut.openapi:micronaut-openapi-annotations")
-    implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("io.micronaut:micronaut-http")
-
     implementation("jakarta.validation:jakarta.validation-api")
     implementation("net.sf.jopt-simple:jopt-simple:5.0.4")
     implementation("ch.qos.logback:logback-classic:1.5.3")
+
     runtimeOnly("io.micronaut:micronaut-http-server-netty")
 }
 

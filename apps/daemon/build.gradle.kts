@@ -2,13 +2,15 @@ plugins {
     id("application")
 }
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
     implementation(project(":core:node"))
-    implementation(project(":core:util"))
+    implementation(project(":core:logging"))
     implementation("net.sf.jopt-simple:jopt-simple:5.0.4")
 }
 

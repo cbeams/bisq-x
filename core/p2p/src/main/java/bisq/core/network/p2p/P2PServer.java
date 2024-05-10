@@ -1,20 +1,19 @@
-package bisq.core.p2p;
+package bisq.core.network.p2p;
 
-import bisq.core.util.Logging;
-
+import bisq.core.util.logging.Logging;
 import org.slf4j.Logger;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class P2PService extends Thread {
+public class P2PServer extends Thread {
 
     private static final Logger log = Logging.p2pLog;
 
     private final int port;
 
-    public P2PService(int port) {
+    public P2PServer(int port) {
         this.port = port;
     }
 
@@ -55,7 +54,7 @@ public class P2PService extends Thread {
                  PrintWriter writer = new PrintWriter(output, true)) {
 
                 String text;
-                
+
                 // Read client input until "bye" is received
                 while ((text = reader.readLine()) != null) {
                     log.info("Received: {}", text);

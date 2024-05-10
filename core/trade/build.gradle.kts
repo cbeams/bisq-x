@@ -2,6 +2,8 @@ plugins {
     id("io.micronaut.minimal.library") version "4.3.8"
 }
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
 repositories {
     mavenCentral()
 }
@@ -11,7 +13,9 @@ micronaut {
 }
 
 dependencies {
-    implementation(project(":core:util"))
+    implementation(project(":core:p2p"))
+    implementation(project(":core:logging"))
+    implementation("io.micronaut.openapi:micronaut-openapi-annotations")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("jakarta.validation:jakarta.validation-api")
 }

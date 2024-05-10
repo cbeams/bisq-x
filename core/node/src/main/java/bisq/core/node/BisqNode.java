@@ -1,8 +1,10 @@
 package bisq.core.node;
 
-import bisq.core.node.api.RestApiService;
-import bisq.core.p2p.P2PService;
-import bisq.core.util.Logging;
+import bisq.core.domain.trade.OfferRepository;
+import bisq.core.network.http.HttpServer;
+import bisq.core.network.p2p.P2PServer;
+
+import bisq.core.util.logging.Logging;
 import org.slf4j.Logger;
 
 public class BisqNode implements Runnable {
@@ -10,9 +12,17 @@ public class BisqNode implements Runnable {
     private static final Logger log = Logging.nodeLog;
 
     private final Options options;
+    private final OfferRepository offerRepository;
+    private final HttpServer httpServer;
 
-    public BisqNode(Options options) {
+    BisqNode(Options options, OfferRepository offerRepository, HttpServer httpServer) {
         this.options = options;
+        this.offerRepository = offerRepository;
+        this.httpServer = httpServer;
+    }
+
+    public static BisqNode withOptions(Options options) {
+        return BisqNodeFactory.buildWithOptions(options);
     }
 
     @Override
@@ -29,14 +39,18 @@ public class BisqNode implements Runnable {
 
         // Start services
         log.debug("Starting all services");
-        var p2pService = new P2PService(options.p2pPort);
+        var p2pService = new P2PServer(options.p2pPort);
         p2pService.start();
-        new RestApiService(options.apiPort).run();
+        httpServer.run();
 
         // Register shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             log.info("Receiving shutdown signal");
             log.info("Shutting down");
         }));
+    }
+
+    public OfferRepository getOfferRepository() {
+        return offerRepository;
     }
 }
