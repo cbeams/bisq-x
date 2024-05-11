@@ -10,9 +10,9 @@ import io.micronaut.http.annotation.ResponseFilter;
 import io.micronaut.http.annotation.ServerFilter;
 
 @ServerFilter("/**")
-class RestApiCallTraceFilter {
+class HttpCallLoggingFilter {
 
-    private static final Logger log = Logging.apiLog;
+    private static final Logger log = Logging.httpLog;
 
     @RequestFilter
     public void logRequest(HttpRequest<?> request) {
