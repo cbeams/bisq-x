@@ -1,15 +1,12 @@
 package bisq.core.network.p2p;
 
-import bisq.core.util.logging.Logging;
-import org.slf4j.Logger;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class P2PServer extends Thread {
+import static bisq.core.network.p2p.P2PLog.log;
 
-    private static final Logger log = Logging.p2pLog;
+public class P2PServer extends Thread {
 
     private final int port;
 
