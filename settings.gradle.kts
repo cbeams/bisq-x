@@ -8,5 +8,6 @@ include(
     "core:network",
     "core:network:http",
     "core:p2p",
-    "core:logging",
+    "core:util",
+    "core:util:logging",
 )
