@@ -15,7 +15,7 @@ micronaut {
 dependencies {
     implementation(project(":core:trade"))
     implementation(project(":core:network:http"))
-    implementation(project(":core:p2p"))
+    implementation(project(":core:network:p2p"))
     implementation(project(":core:util:logging"))
 
     implementation("io.micronaut.openapi:micronaut-openapi-annotations")

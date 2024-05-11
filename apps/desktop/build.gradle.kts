@@ -17,7 +17,7 @@ javafx {
 dependencies {
     implementation(project(":core:node"))
     implementation(project(":core:trade"))
-    implementation(project(":core:p2p"))
+    implementation(project(":core:network:p2p"))
     implementation(project(":core:util:logging"))
 }
 
