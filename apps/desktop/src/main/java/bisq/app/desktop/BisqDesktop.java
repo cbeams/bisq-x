@@ -4,9 +4,9 @@ import bisq.core.domain.trade.Offer;
 import bisq.core.node.BisqNode;
 import bisq.core.node.BisqNodeApplication;
 import bisq.core.node.Options;
-
 import bisq.core.util.logging.Logging;
-import org.slf4j.event.Level;
+
+import joptsimple.OptionParser;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -18,7 +18,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import joptsimple.OptionParser;
+import org.slf4j.event.Level;
+
+import static bisq.core.node.BisqNodeApplication.*;
 
 public class BisqDesktop extends Application implements BisqNodeApplication {
 
@@ -43,28 +45,23 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
     public static void main(String[] args) {
         int status;
         try {
-            launch(args);
+            execute(args);
             status = EXIT_SUCCESS;
         } catch (Throwable t) {
             log.error("Error: {}", unwrap(t).getMessage());
             status = EXIT_FAILURE;
         }
         log.info("Exiting with status {}", status);
-        Platform.exit();
         System.exit(status);
     }
 
-    private Options options;
+    private static BisqNode bisqNode;
 
-    @Override
-    public void init() throws Exception {
+    private static void execute(String... args) throws Exception {
 
         // ------------------------------------------------------------------
         // Initialize console output
         // ------------------------------------------------------------------
-
-        // Get command line arguments
-        String[] args = getParameters().getRaw().toArray(new String[]{});
 
         // Default to high-level, useful and easily understood console output
         Logging.setLevel(Level.INFO);
@@ -94,7 +91,7 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
         log.info("Configuring node options");
 
         log.debug("Loading default option values");
-        this.options = Options.withDefaultValues();
+        var options = Options.withDefaultValues();
 
         log.debug("Handling command line options");
         log.trace("Configuring command line option parsing");
@@ -114,10 +111,23 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
 
                     """);
             parser.printHelpOn(System.out);
-            return;
+            System.exit(EXIT_SUCCESS);
         }
 
         options.handleParsedCliOptions(cliOptions);
+
+        // ------------------------------------------------------------------
+        // Run node
+        // ------------------------------------------------------------------
+
+        bisqNode = BisqNode.withOptions(options);
+        bisqNode.run();
+
+        // ------------------------------------------------------------------
+        // Launch gui
+        // ------------------------------------------------------------------
+
+        launch(args);
     }
 
     @Override
@@ -133,32 +143,16 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
 
         primaryStage.setTitle("Bisq");
         primaryStage.setScene(scene);
-        primaryStage.setOnCloseRequest(event -> {
-            System.exit(EXIT_SUCCESS);
-        });
 
         primaryStage.show();
-
-        var bisqNode = BisqNode.withOptions(options);
 
         // bind underlying offer repository to our observable list
         // of offers shown in the list view in a completely naive way
         var offerRepository = bisqNode.getOfferRepository();
-        offerRepository.addChangeCallback(() -> {
-            Platform.runLater(() -> {
-                offers.clear();
-                offers.addAll(offerRepository.findAll());
-            });
-        });
-
-        bisqNode.run();
-    }
-
-    // Unwrap excessive exception nesting for better log output
-    private static Throwable unwrap(Throwable t) {
-        while (t.getCause() != null && t.getMessage().contains("Exception")) {
-            t = t.getCause();
-        }
-        return t;
+        offerRepository.addChangeCallback(() ->
+                Platform.runLater(() -> {
+                    offers.clear();
+                    offers.addAll(offerRepository.findAll());
+                }));
     }
 }

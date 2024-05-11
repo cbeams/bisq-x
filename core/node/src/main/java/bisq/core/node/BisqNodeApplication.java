@@ -15,4 +15,14 @@ public interface BisqNodeApplication {
     String APP_LOG_NAME = "app";
 
     Logger log = Logging.getLog(APP_LOG_NAME);
+
+    /**
+     * Unwraps excessive exception nesting for better log output
+     */
+    static Throwable unwrap(Throwable t) {
+        while (t.getCause() != null && t.getMessage().contains("Exception")) {
+            t = t.getCause();
+        }
+        return t;
+    }
 }

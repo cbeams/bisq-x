@@ -9,6 +9,8 @@ import joptsimple.OptionParser;
 
 import org.slf4j.event.Level;
 
+import static bisq.core.node.BisqNodeApplication.*;
+
 public class BisqDaemon implements BisqNodeApplication {
 
     private static final String APP_NAME_AND_VERSION = "Bisq daemon v2.1.0";
@@ -26,7 +28,7 @@ public class BisqDaemon implements BisqNodeApplication {
         System.exit(status);
     }
 
-    static void execute(String... args) throws Exception {
+    private static void execute(String... args) throws Exception {
 
         // ------------------------------------------------------------------
         // Initialize console output
@@ -100,13 +102,5 @@ public class BisqDaemon implements BisqNodeApplication {
         } catch (InterruptedException ex) {
             throw new RuntimeException(ex);
         }
-    }
-
-    // Unwrap excessive exception nesting for better log output
-    private static Throwable unwrap(Throwable t) {
-        while (t.getCause() != null && t.getMessage().contains("Exception:")) {
-            t = t.getCause();
-        }
-        return t;
     }
 }
