@@ -31,21 +31,21 @@ public final class Options {
 
     static final String DEFAULT_CONF_FILENAME = "bisq.conf";
 
-    private static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
-    private static final String DEBUG_OPT = "debug";
-    private static final String[] DEBUG_OPTS = new String[]{DEBUG_OPT, "d"};
+    static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
+    static final String DEBUG_OPT = "debug";
+    static final String[] DEBUG_OPTS = new String[]{DEBUG_OPT, "d"};
     static final String APP_NAME_OPT = "app-name";
     static final String P2P_PORT_OPT = "p2p-port";
     static final String API_PORT_OPT = "api-port";
     static final String DATA_DIR_OPT = "data-dir";
     static final String CONF_FILE_OPT = "conf";
 
-    public Boolean debug;
-    public String appName;
-    public Integer p2pPort;
-    public Integer apiPort;
-    public File userDataDir;
-    public File dataDir;
+    private Boolean debug;
+    private String appName;
+    private Integer p2pPort;
+    private Integer apiPort;
+    private File userDataDir;
+    private File dataDir;
 
     private AbstractOptionSpec<Void> helpOpt;
     private ArgumentAcceptingOptionSpec<Boolean> debugOpt;
@@ -67,7 +67,7 @@ public final class Options {
         options.loadFromClassPath(DEFAULT_CONF_FILENAME);
 
         log.debug("Loading computed option defaults");
-        options.setDataDir(new File(options.userDataDir, options.appName));
+        options.dataDir(new File(options.userDataDir, options.appName));
 
         log.debug("Checking all option defaults");
         options.checkValueAssignments();
@@ -158,7 +158,7 @@ public final class Options {
         return optionRequested(args, DEBUG_OPTS);
     }
 
-    public static boolean optionRequested(String[] args, String... opts) {
+    private static boolean optionRequested(String[] args, String... opts) {
         for (String arg : args) {
             if (arg.startsWith("-")) {
                 arg = arg.replaceFirst("^-?-", "");
@@ -172,7 +172,6 @@ public final class Options {
         }
         return false;
     }
-
 
     public void configureCliOptionParsing(OptionParser parser) {
 
@@ -218,7 +217,7 @@ public final class Options {
         }
 
         if (cliOptions.has(dataDirOpt)) {
-            this.setDataDir(cliOptions.valueOf(dataDirOpt));
+            this.dataDir(cliOptions.valueOf(dataDirOpt));
         }
 
         if (cliOptions.has(confFileOpt)) {
@@ -278,7 +277,11 @@ public final class Options {
         return this.helpOpt;
     }
 
-    public void setDataDir(File dataDir) {
+    public File dataDir() {
+        return this.dataDir;
+    }
+
+    void dataDir(File dataDir) {
         var dataDirExists = dataDir.exists();
         log.info("Using {} data directory {}{}",
                 this.dataDir == null ? "default" : "custom",
@@ -286,4 +289,13 @@ public final class Options {
                 dataDirExists ? "" : " (does not yet exist)");
         this.dataDir = dataDir;
     }
+
+    public int apiPort() {
+        return this.apiPort;
+    }
+
+    public int p2pPort() {
+        return this.p2pPort;
+    }
+
 }

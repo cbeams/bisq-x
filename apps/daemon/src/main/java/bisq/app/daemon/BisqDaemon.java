@@ -11,9 +11,6 @@ import org.slf4j.event.Level;
 
 public class BisqDaemon implements BisqNodeApplication {
 
-    private static final int EXIT_SUCCESS = 0;
-    private static final int EXIT_FAILURE = 1;
-
     private static final String APP_NAME_AND_VERSION = "Bisq X version v2.1.0";
 
     public static void main(String... args) {
@@ -94,7 +91,9 @@ public class BisqDaemon implements BisqNodeApplication {
 
         BisqNode.withOptions(options).run();
 
-        // Keep it running until killed
+        // ------------------------------------------------------------------
+        // Keep running
+        // ------------------------------------------------------------------
         try {
             Thread.currentThread().join();
         } catch (InterruptedException ex) {

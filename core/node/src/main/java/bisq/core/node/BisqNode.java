@@ -32,15 +32,15 @@ public class BisqNode implements Runnable {
         log.info("Starting up");
 
         // Init data dir
-        if (!options.dataDir.exists()) {
-            log.info("Creating data directory {}", options.dataDir);
+        if (!options.dataDir().exists()) {
+            log.info("Creating data directory {}", options.dataDir());
             //noinspection ResultOfMethodCallIgnored
-            options.dataDir.mkdirs();
+            options.dataDir().mkdirs();
         }
 
         // Start services
         log.debug("Starting all services");
-        var p2pService = new P2PServer(options.p2pPort);
+        var p2pService = new P2PServer(options.p2pPort());
         p2pService.start();
         httpServer.run();
 
