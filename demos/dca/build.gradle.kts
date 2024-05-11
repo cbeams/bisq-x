@@ -9,10 +9,11 @@ repositories {
 }
 
 application {
-    mainClass = "bisq.demo.dca.DCABotDemo"
+    mainClass = "bisq.demo.bot.DCABotDemo"
 }
 
 dependencies {
+    implementation(project(":sdks:java"))
 }
 
 tasks.getByName("build").dependsOn("installDist")

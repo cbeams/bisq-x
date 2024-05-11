@@ -9,17 +9,10 @@ import joptsimple.OptionParser;
 
 import org.slf4j.event.Level;
 
-import java.util.Arrays;
-
-import static bisq.core.node.Options.DEBUG_OPT;
-import static bisq.core.node.Options.argsContainOption;
-
 public class BisqDaemon implements BisqNodeApplication {
 
     private static final int EXIT_SUCCESS = 0;
     private static final int EXIT_FAILURE = 1;
-
-    private static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
 
     private static final String APP_NAME_AND_VERSION = "Bisq X version v2.1.0";
 
@@ -36,7 +29,7 @@ public class BisqDaemon implements BisqNodeApplication {
         System.exit(status);
     }
 
-     static void execute(String... args) throws Exception {
+    static void execute(String... args) throws Exception {
 
         // ------------------------------------------------------------------
         // Initialize console output
@@ -46,8 +39,8 @@ public class BisqDaemon implements BisqNodeApplication {
         Logging.setLevel(Level.INFO);
 
         // Preprocess cli args for early access to help and debug opts
-        var helpRequested = argsContainOption(args, HELP_OPTS);
-        var debugRequested = argsContainOption(args, DEBUG_OPT);
+        var helpRequested = Options.helpRequested(args);
+        var debugRequested = Options.debugRequested(args);
 
         // Suppress normal log output if we know help screen is coming
         if (helpRequested && !debugRequested) {
@@ -75,14 +68,13 @@ public class BisqDaemon implements BisqNodeApplication {
         log.debug("Handling command line options");
         log.trace("Configuring command line option parsing");
         var parser = new OptionParser();
-        var helpOpt = parser.acceptsAll(Arrays.asList(HELP_OPTS), "Show this help").forHelp();
         options.configureCliOptionParsing(parser);
 
         log.trace("Parsing command line options");
         var cliOptions = parser.parse(args);
 
         log.trace("Handling parsed command line options");
-        if (cliOptions.has(helpOpt)) {
+        if (cliOptions.has(options.helpOpt())) {
             log.trace("Printing help and exiting");
             System.out.println(APP_NAME_AND_VERSION);
             System.out.print("""

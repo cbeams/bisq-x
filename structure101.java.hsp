@@ -24,6 +24,7 @@
     <classpathentry kind="lib" path="core/network/p2p/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/util/logging/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="demos/dca/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="sdks/java/build/classes/java/main" module="main" displaymodule="main" />
   </classpath>
   <pom-root-files />
   <modules-in-scope />

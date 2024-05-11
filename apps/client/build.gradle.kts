@@ -13,7 +13,7 @@ application {
 }
 
 dependencies {
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
+    implementation(project(":sdks:java"))
 }
 
 tasks.getByName("build").dependsOn("installDist")

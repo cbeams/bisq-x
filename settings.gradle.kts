@@ -14,4 +14,6 @@ include(
     "core:util:logging",
     "demos",
     "demos:dca",
+    "sdks",
+    "sdks:java",
 )

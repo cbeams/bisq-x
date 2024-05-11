@@ -11,18 +11,27 @@ public class Logging {
 
     private static final HashMap<String, Logger> ALL_LOGS = new HashMap<>();
 
+    private static Level EXPLICIT_DEFAULT_LEVEL;
+
     public static Logger getLog(String name) {
         if (ALL_LOGS.containsKey(name))
             return ALL_LOGS.get(name);
 
         var log = LoggerFactory.getLogger(name);
+
+        if (EXPLICIT_DEFAULT_LEVEL != null)
+            ((ch.qos.logback.classic.Logger) log)
+                    .setLevel(ch.qos.logback.classic.Level.convertAnSLF4JLevel(EXPLICIT_DEFAULT_LEVEL));
+
         ALL_LOGS.put(name, log);
         return log;
     }
 
     public static void setLevel(Level level, Logger... logs) {
-        if (logs.length == 0)
+        if (logs.length == 0) {
             logs = ALL_LOGS.values().toArray(new Logger[0]);
+            EXPLICIT_DEFAULT_LEVEL = level;
+        }
 
         for (Logger log : logs)
             ((ch.qos.logback.classic.Logger) log)

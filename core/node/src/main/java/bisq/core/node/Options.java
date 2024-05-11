@@ -1,6 +1,8 @@
 package bisq.core.node;
 
 import bisq.core.util.logging.Logging;
+import joptsimple.AbstractOptionSpec;
+import joptsimple.OptionSpec;
 import org.slf4j.event.Level;
 
 import joptsimple.ArgumentAcceptingOptionSpec;
@@ -18,6 +20,7 @@ import java.lang.reflect.Modifier;
 
 import java.nio.file.Paths;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -28,7 +31,9 @@ public final class Options {
 
     static final String DEFAULT_CONF_FILENAME = "bisq.conf";
 
-    public static final String DEBUG_OPT = "debug";
+    private static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
+    private static final String DEBUG_OPT = "debug";
+    private static final String[] DEBUG_OPTS = new String[]{DEBUG_OPT, "d"};
     static final String APP_NAME_OPT = "app-name";
     static final String P2P_PORT_OPT = "p2p-port";
     static final String API_PORT_OPT = "api-port";
@@ -42,6 +47,7 @@ public final class Options {
     public File userDataDir;
     public File dataDir;
 
+    private AbstractOptionSpec<Void> helpOpt;
     private ArgumentAcceptingOptionSpec<Boolean> debugOpt;
     private ArgumentAcceptingOptionSpec<String> appNameOpt;
     private ArgumentAcceptingOptionSpec<File> dataDirOpt;
@@ -144,7 +150,33 @@ public final class Options {
         }
     }
 
+    public static boolean helpRequested(String[] args) {
+        return optionRequested(args, HELP_OPTS);
+    }
+
+    public static boolean debugRequested(String[] args) {
+        return optionRequested(args, DEBUG_OPTS);
+    }
+
+    public static boolean optionRequested(String[] args, String... opts) {
+        for (String arg : args) {
+            if (arg.startsWith("-")) {
+                arg = arg.replaceFirst("^-?-", "");
+                arg = arg.split("=")[0];
+                for (String opt : opts) {
+                    if (arg.equals(opt)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
     public void configureCliOptionParsing(OptionParser parser) {
+
+        helpOpt = parser.acceptsAll(Arrays.asList(HELP_OPTS), "Show this help").forHelp();
 
         debugOpt = parser.acceptsAll(List.of("d", DEBUG_OPT), "Enable debug logging")
                 .withOptionalArg()
@@ -216,7 +248,7 @@ public final class Options {
                 if (Modifier.isStatic(field.getModifiers())) {
                     continue; // skip static fields; only option value instance fields matter
                 }
-                if (ArgumentAcceptingOptionSpec.class.isAssignableFrom(fieldType)) {
+                if (OptionSpec.class.isAssignableFrom(fieldType)) {
                     continue; // skip command line parsing instance fields
                 }
                 if (fieldType.isPrimitive()) {
@@ -236,24 +268,15 @@ public final class Options {
         }
     }
 
-    public static boolean argsContainOption(String[] args, String... opts) {
-        for (String arg : args) {
-            if (arg.startsWith("-")) {
-                arg = arg.replaceFirst("^-?-", "");
-                arg = arg.split("=")[0];
-                for (String opt : opts) {
-                    if (arg.equals(opt)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     // -----------------------------------------------------------------------
     // option accessors
     // -----------------------------------------------------------------------
+
+    public OptionSpec<Void> helpOpt() {
+        if (this.helpOpt == null)
+            throw new IllegalStateException("cli options must be parsed before calling helpOpt()");
+        return this.helpOpt;
+    }
 
     public void setDataDir(File dataDir) {
         var dataDirExists = dataDir.exists();

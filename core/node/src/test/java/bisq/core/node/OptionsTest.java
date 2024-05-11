@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class OptionsTest {
 
-    private static final Options DEFAULT_CONF = Options.withDefaultValues();
-    private static final int DEFAULT_P2P_PORT = DEFAULT_CONF.p2pPort;
-    private static final int DEFAULT_API_PORT = DEFAULT_CONF.apiPort;
+    private static final Options DEFAULT_OPTIONS = Options.withDefaultValues();
+    private static final int DEFAULT_P2P_PORT = DEFAULT_OPTIONS.p2pPort;
+    private static final int DEFAULT_API_PORT = DEFAULT_OPTIONS.apiPort;
 
     private static final int CUSTOM_API_PORT = 9999;
 
