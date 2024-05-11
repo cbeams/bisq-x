@@ -9,13 +9,7 @@ import java.util.HashMap;
 
 public class Logging {
 
-    private static final String TRADE_LOG_NAME = "trade";
-
-    private static final HashMap<String, Logger> ALL_LOGS = new HashMap<>() {{
-        put(TRADE_LOG_NAME, LoggerFactory.getLogger(TRADE_LOG_NAME));
-    }};
-
-    public static final Logger tradeLog = ALL_LOGS.get(TRADE_LOG_NAME);
+    private static final HashMap<String, Logger> ALL_LOGS = new HashMap<>();
 
     public static Logger getLog(String name) {
         if (ALL_LOGS.containsKey(name))

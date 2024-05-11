@@ -3,6 +3,7 @@ package bisq.core.domain.trade.api;
 import bisq.core.domain.trade.Offer;
 import bisq.core.domain.trade.OfferRepository;
 
+import bisq.core.domain.trade.TradeLog;
 import bisq.core.util.logging.Logging;
 import org.slf4j.Logger;
 
@@ -15,10 +16,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import static bisq.core.domain.trade.TradeLog.log;
+
 @Controller("/trade/offers")
 public class OfferController {
-
-    private static final Logger log = Logging.tradeLog;
 
     private final OfferRepository offerRepository;
 
