@@ -18,6 +18,7 @@ import java.lang.reflect.Modifier;
 
 import java.nio.file.Paths;
 
+import java.util.List;
 import java.util.Properties;
 
 import static java.lang.String.format;
@@ -145,7 +146,7 @@ public final class Options {
 
     public void configureCliOptionParsing(OptionParser parser) {
 
-        debugOpt = parser.accepts(DEBUG_OPT, "Enable debug logging")
+        debugOpt = parser.acceptsAll(List.of("d", DEBUG_OPT), "Enable debug logging")
                 .withOptionalArg()
                 .ofType(Boolean.class)
                 .defaultsTo(this.debug);
