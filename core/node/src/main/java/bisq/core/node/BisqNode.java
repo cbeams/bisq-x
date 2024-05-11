@@ -9,7 +9,8 @@ import org.slf4j.Logger;
 
 public class BisqNode implements Runnable {
 
-    private static final Logger log = Logging.nodeLog;
+    private static final String NODE_LOG_NAME = "node";
+    private static final Logger log = Logging.getLog(NODE_LOG_NAME);
 
     private final Options options;
     private final OfferRepository offerRepository;
