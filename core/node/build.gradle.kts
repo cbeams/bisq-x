@@ -13,8 +13,8 @@ micronaut {
 }
 
 dependencies {
-    implementation(project(":core:api"))
     implementation(project(":core:trade"))
+    implementation(project(":core:network:http"))
     implementation(project(":core:p2p"))
     implementation(project(":core:logging"))
 

@@ -5,7 +5,8 @@ include(
     "apps:daemon",
     "core:node",
     "core:trade",
-    "core:api",
+    "core:network",
+    "core:network:http",
     "core:p2p",
     "core:logging",
 )
