@@ -1,19 +1,20 @@
 package bisq.app.daemon;
 
 import bisq.core.node.BisqNode;
+import bisq.core.node.BisqNodeApplication;
 import bisq.core.node.Options;
 import bisq.core.util.logging.Logging;
 
 import joptsimple.OptionParser;
 
-import org.slf4j.Logger;
 import org.slf4j.event.Level;
 
 import java.util.Arrays;
 
-import static bisq.core.node.Options.*;
+import static bisq.core.node.Options.DEBUG_OPT;
+import static bisq.core.node.Options.argsContainOption;
 
-public class BisqDaemon {
+public class BisqDaemon implements BisqNodeApplication {
 
     private static final int EXIT_SUCCESS = 0;
     private static final int EXIT_FAILURE = 1;
@@ -21,8 +22,6 @@ public class BisqDaemon {
     private static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
 
     private static final String APP_NAME_AND_VERSION = "Bisq X version v2.1.0";
-
-    private static final Logger log = Logging.appLog;
 
     public static void main(String... args) {
         int status;

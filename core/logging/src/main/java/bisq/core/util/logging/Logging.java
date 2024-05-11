@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 public class Logging {
 
-    public static final String APP_LOG_NAME = "app";
     public static final String CONF_LOG_NAME = "conf";
     public static final String HTTP_LOG_NAME = "http";
     public static final String NODE_LOG_NAME = "node";
@@ -17,7 +16,6 @@ public class Logging {
     public static final String TRADE_LOG_NAME = "trade";
 
     private static final HashMap<String, Logger> ALL_LOGS = new HashMap<>() {{
-        put(APP_LOG_NAME, LoggerFactory.getLogger(APP_LOG_NAME));
         put(CONF_LOG_NAME, LoggerFactory.getLogger(CONF_LOG_NAME));
         put(HTTP_LOG_NAME, LoggerFactory.getLogger(HTTP_LOG_NAME));
         put(NODE_LOG_NAME, LoggerFactory.getLogger(NODE_LOG_NAME));
@@ -25,7 +23,6 @@ public class Logging {
         put(TRADE_LOG_NAME, LoggerFactory.getLogger(TRADE_LOG_NAME));
     }};
 
-    public static final Logger appLog = ALL_LOGS.get(APP_LOG_NAME);
     public static final Logger confLog = ALL_LOGS.get(CONF_LOG_NAME);
     public static final Logger httpLog = ALL_LOGS.get(HTTP_LOG_NAME);
     public static final Logger nodeLog = ALL_LOGS.get(NODE_LOG_NAME);
@@ -33,7 +30,12 @@ public class Logging {
     public static final Logger tradeLog = ALL_LOGS.get(TRADE_LOG_NAME);
 
     public static Logger getLog(String name) {
-        return ALL_LOGS.get(name);
+        if (ALL_LOGS.containsKey(name))
+            return ALL_LOGS.get(name);
+
+        var log = LoggerFactory.getLogger(name);
+        ALL_LOGS.put(name, log);
+        return log;
     }
 
     public static void setLevel(Level level, Logger... logs) {

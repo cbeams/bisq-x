@@ -2,6 +2,7 @@ package bisq.app.desktop;
 
 import bisq.core.domain.trade.Offer;
 import bisq.core.node.BisqNode;
+import bisq.core.node.BisqNodeApplication;
 import bisq.core.node.Options;
 
 import javafx.application.Application;
@@ -14,7 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class BisqDesktop extends Application {
+public class BisqDesktop extends Application implements BisqNodeApplication {
 
     @Override
     public void start(Stage primaryStage) {
