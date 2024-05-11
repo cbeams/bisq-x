@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 @Controller("/logs")
 public class LogController {
 
-    private static final Logger log = Logging.confLog;
+    private static final String LOGS_LOG_NAME = "logs";
+    private static final Logger log = Logging.getLog(LOGS_LOG_NAME);
 
     @Get
     public Collection<LogConfig> get() {

@@ -9,19 +9,16 @@ import java.util.HashMap;
 
 public class Logging {
 
-    private static final String CONF_LOG_NAME = "conf";
     private static final String NODE_LOG_NAME = "node";
     private static final String P2P_LOG_NAME = "p2p";
     private static final String TRADE_LOG_NAME = "trade";
 
     private static final HashMap<String, Logger> ALL_LOGS = new HashMap<>() {{
-        put(CONF_LOG_NAME, LoggerFactory.getLogger(CONF_LOG_NAME));
         put(NODE_LOG_NAME, LoggerFactory.getLogger(NODE_LOG_NAME));
         put(P2P_LOG_NAME, LoggerFactory.getLogger(P2P_LOG_NAME));
         put(TRADE_LOG_NAME, LoggerFactory.getLogger(TRADE_LOG_NAME));
     }};
 
-    public static final Logger confLog = ALL_LOGS.get(CONF_LOG_NAME);
     public static final Logger nodeLog = ALL_LOGS.get(NODE_LOG_NAME);
     public static final Logger p2pLog = ALL_LOGS.get(P2P_LOG_NAME);
     public static final Logger tradeLog = ALL_LOGS.get(TRADE_LOG_NAME);

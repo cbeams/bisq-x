@@ -1,7 +1,6 @@
 package bisq.core.node;
 
 import bisq.core.util.logging.Logging;
-import org.slf4j.Logger;
 import org.slf4j.event.Level;
 
 import joptsimple.ArgumentAcceptingOptionSpec;
@@ -22,10 +21,9 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 import static java.lang.String.format;
+import static bisq.core.node.OptionsLog.log;
 
 public final class Options {
-
-    private static final Logger log = Logging.confLog;
 
     static final String DEFAULT_CONF_FILENAME = "bisq.conf";
 
@@ -55,7 +53,7 @@ public final class Options {
     public static Options withDefaultValues() {
         Options options = new Options();
 
-        log.debug("Loading system-specific option defaults");
+        OptionsLog.log.debug("Loading system-specific option defaults");
         options.userDataDir = determineUserDataDir();
 
         log.debug("Loading bundled option defaults");
