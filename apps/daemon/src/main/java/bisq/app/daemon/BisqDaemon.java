@@ -11,7 +11,7 @@ import org.slf4j.event.Level;
 
 public class BisqDaemon implements BisqNodeApplication {
 
-    private static final String APP_NAME_AND_VERSION = "Bisq version v2.1.0";
+    private static final String APP_NAME_AND_VERSION = "Bisq daemon v2.1.0";
 
     public static void main(String... args) {
         int status;
@@ -76,7 +76,7 @@ public class BisqDaemon implements BisqNodeApplication {
             System.out.println(APP_NAME_AND_VERSION);
             System.out.print("""
 
-                    Usage:  bisqd [options]                           Start Bisq Node
+                    Usage:  bisqd [options]                                    Start Bisq
 
                     """);
             parser.printHelpOn(System.out);
