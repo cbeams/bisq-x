@@ -1,7 +1,7 @@
 rootProject.name = "bisq-x"
 include(
     "apps",
-    "apps:cli",
+    "apps:client",
     "apps:desktop",
     "apps:daemon",
     "core:node",

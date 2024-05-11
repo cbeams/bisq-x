@@ -1,4 +1,4 @@
-package bisq.app.cli;
+package bisq.app.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,7 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
 
-public class BisqCli {
+public class BisqClient {
     public static void main(String... args) {
         System.out.println("Bisq X client version v2.1.0");
         fetchVersion();

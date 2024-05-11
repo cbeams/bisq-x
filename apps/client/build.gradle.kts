@@ -9,7 +9,7 @@ repositories {
 }
 
 application {
-    mainClass = "bisq.app.cli.BisqCli"
+    mainClass = "bisq.app.client.BisqClient"
 }
 
 dependencies {
