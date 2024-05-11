@@ -12,4 +12,6 @@ include(
     "core:network:p2p",
     "core:util",
     "core:util:logging",
+    "demos",
+    "demos:dca",
 )
