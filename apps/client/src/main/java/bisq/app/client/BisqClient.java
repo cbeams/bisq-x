@@ -6,7 +6,7 @@ public class BisqClient {
 
     public static void main(String... args) {
 
-        System.out.println("Bisq X client version v2.1.0");
+        System.out.println("Bisq RPC client version v2.1.0");
 
         var remoteVersion = new BisqNodeClient().fetchVersion();
 

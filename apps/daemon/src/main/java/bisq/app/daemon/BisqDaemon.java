@@ -11,7 +11,7 @@ import org.slf4j.event.Level;
 
 public class BisqDaemon implements BisqNodeApplication {
 
-    private static final String APP_NAME_AND_VERSION = "Bisq X version v2.1.0";
+    private static final String APP_NAME_AND_VERSION = "Bisq version v2.1.0";
 
     public static void main(String... args) {
         int status;
@@ -92,8 +92,9 @@ public class BisqDaemon implements BisqNodeApplication {
         BisqNode.withOptions(options).run();
 
         // ------------------------------------------------------------------
-        // Keep running
+        // Keep it running
         // ------------------------------------------------------------------
+
         try {
             Thread.currentThread().join();
         } catch (InterruptedException ex) {
