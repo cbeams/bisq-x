@@ -15,14 +15,15 @@
   <property name="project-excluded" />
   <property name="show-needs-to-compile" value="false" />
   <classpath>
-    <classpathentry kind="lib" path="apps/cli/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="apps/client/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="apps/daemon/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="apps/desktop/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/node/build/classes/java/main" module="main" displaymodule="main" />
-    <classpathentry kind="lib" path="core/trade/build/classes/java/main" module="main" displaymodule="main" />
-    <classpathentry kind="lib" path="core/api/build/classes/java/main" module="main" displaymodule="main" />
-    <classpathentry kind="lib" path="core/p2p/build/classes/java/main" module="main" displaymodule="main" />
-    <classpathentry kind="lib" path="core/logging/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="core/domain/trade/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="core/network/http/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="core/network/p2p/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="core/util/logging/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="demos/dca/build/classes/java/main" module="main" displaymodule="main" />
   </classpath>
   <pom-root-files />
   <modules-in-scope />
