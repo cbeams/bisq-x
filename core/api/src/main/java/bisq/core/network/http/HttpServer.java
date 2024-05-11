@@ -1,15 +1,14 @@
 package bisq.core.network.http;
 
-import bisq.core.util.logging.Logging;
 import io.micronaut.runtime.server.EmbeddedServer;
-import org.slf4j.Logger;
 
 import jakarta.inject.Singleton;
+
+import static bisq.core.network.http.HttpLog.log;
 
 @Singleton
 public class HttpServer implements Runnable {
 
-    private static final Logger log = Logging.httpLog;
     private final EmbeddedServer httpServer;
 
     public HttpServer(EmbeddedServer httpServer) {
