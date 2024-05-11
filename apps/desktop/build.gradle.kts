@@ -22,7 +22,7 @@ dependencies {
 }
 
 application {
-    mainClass = "bisq.app.desktop.BisqDesktop"
+    mainClass = "bisq.app.desktop.BisqDesktop\$Launcher"
 }
 
 // Customize start scripts to ensure JavaFX is loaded from the module

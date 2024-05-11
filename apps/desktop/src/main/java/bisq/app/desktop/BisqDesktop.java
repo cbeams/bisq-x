@@ -17,6 +17,22 @@ import javafx.stage.Stage;
 
 public class BisqDesktop extends Application implements BisqNodeApplication {
 
+    // -----------------------------------------------------------------------
+    // Run this application indirectly via this helper main class to avoid the
+    // "JavaFX runtime components are missing" error described at
+    // https://edencoding.com/runtime-components-error/ and
+    // https://stackoverflow.com/a/67854230
+    // -----------------------------------------------------------------------
+    public static class Launcher {
+        public static void main(String[] args) {
+            BisqDesktop.main(args);
+        }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) {
         ObservableList<Offer> offers = FXCollections.observableArrayList();
@@ -49,21 +65,5 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
         });
 
         bisqNode.run();
-    }
-
-    // See Launcher below
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    // -----------------------------------------------------------------------
-    // Run this main method when launching from within an IDE
-    // See https://edencoding.com/runtime-components-error/
-    // and https://stackoverflow.com/a/67854230 for details
-    // -----------------------------------------------------------------------
-    public static class Launcher {
-        public static void main(String[] args) {
-            BisqDesktop.main(args);
-        }
     }
 }
