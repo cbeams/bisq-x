@@ -1,5 +1,8 @@
 package bisq.core.node.api;
 
+import bisq.core.domain.trade.api.OfferController;
+import bisq.core.util.logging.api.LogController;
+
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -21,10 +24,9 @@ import java.net.URI;
         ),
         servers = @Server(url = "/")
 )
-@OpenAPIInclude(
-        tags = @Tag(name = "Node"),
-        classes = NodeController.class
-)
+@OpenAPIInclude(tags = @Tag(name = "Node"), classes = NodeController.class)
+@OpenAPIInclude(tags = @Tag(name = "Node"), classes = LogController.class)
+@OpenAPIInclude(tags = @Tag(name = "Trade"), classes = OfferController.class)
 @Controller
 public class NodeController {
 

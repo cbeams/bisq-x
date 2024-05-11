@@ -15,7 +15,7 @@ micronaut {
 dependencies {
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("jakarta.validation:jakarta.validation-api")
+    implementation("io.swagger.core.v3:swagger-annotations")
     implementation("io.micronaut:micronaut-http")
-    implementation("io.micronaut.openapi:micronaut-openapi-annotations")
     implementation("ch.qos.logback:logback-classic:1.5.3")
 }

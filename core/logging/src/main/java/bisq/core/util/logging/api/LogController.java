@@ -7,18 +7,12 @@ import org.slf4j.Logger;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Put;
-import io.micronaut.openapi.annotation.OpenAPIInclude;
 
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@OpenAPIInclude(
-        tags = @Tag(name = "Node"),
-        classes = LogController.class
-)
 @Controller("/logs")
 public class LogController {
 
