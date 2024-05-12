@@ -9,29 +9,42 @@
   <property name="include-injected-dependency" value="false" />
   <property name="relative-to" value="const(THIS_FILE)" />
   <property name="action-set-mod" value="1" />
-  <property name="detail-mode" value="true" />
+  <property name="detail-mode" value="false" />
   <property name="hide-deprecated" value="false" />
   <property name="resolve-name-clashes" value="true" />
   <property name="project-excluded" />
   <property name="show-needs-to-compile" value="false" />
   <classpath>
-    <classpathentry kind="lib" path="apps/client/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="apps/cli/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="apps/daemon/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="apps/desktop/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="client/openapi/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="core/openapi/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/node/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/domain/trade/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/network/http/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/network/p2p/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/util/logging/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="demos/dca/build/classes/java/main" module="main" displaymodule="main" />
-    <classpathentry kind="lib" path="sdks/java/build/classes/java/main" module="main" displaymodule="main" />
   </classpath>
   <pom-root-files />
   <modules-in-scope />
   <excludes>
     <exclude expression="*.*&amp;amp;*" active="true" />
     <exclude expression="*.*&amp;*" active="true" />
+    <exclude expression="main.bisq.client.openapi.JSON" active="true" />
+    <exclude expression="main.bisq.client.openapi.StringUtil" active="true" />
+    <exclude expression="main.bisq.client.openapi.ProgressRequestBody" active="true" />
+    <exclude expression="main.bisq.client.openapi.Pair" active="true" />
+    <exclude expression="main.bisq.client.openapi.ApiCallback" active="true" />
+    <exclude expression="main.bisq.client.openapi.ServerVariable" active="true" />
+    <exclude expression="main.bisq.client.openapi.ProgressResponseBody" active="true" />
+    <exclude expression="main.bisq.client.openapi.ServerConfiguration" active="true" />
+    <exclude expression="main.bisq.client.openapi.GzipRequestInterceptor" active="true" />
   </excludes>
+  <excludes-from-xs>
+    <exclude-from-xs expression="main.bisq.core.network.p2p.P2PServer$ClientHandler" active="true" />
+  </excludes-from-xs>
   <restructuring>
     <set version="3" name="Action list 1" hiview="Codemap" active="true" todo="false" list="0" />
   </restructuring>

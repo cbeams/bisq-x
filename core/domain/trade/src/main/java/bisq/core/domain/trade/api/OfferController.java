@@ -3,12 +3,9 @@ package bisq.core.domain.trade.api;
 import bisq.core.domain.trade.Offer;
 import bisq.core.domain.trade.OfferRepository;
 
-import bisq.core.domain.trade.TradeLog;
-import bisq.core.util.logging.Logging;
-import org.slf4j.Logger;
-
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 
@@ -28,7 +25,7 @@ public class OfferController {
     }
 
     @Get
-    public List<Offer> show() {
+    public List<Offer> listAll() {
         return offerRepository.findAll();
     }
 
@@ -46,6 +43,11 @@ public class OfferController {
         var id = UUID.randomUUID().toString();
         offerRepository.save(new Offer(id, offer.details()));
         return HttpResponse.created(URI.create("/trade/offers/" + id));
+    }
+
+    @Delete("/{id}")
+    public HttpResponse<Offer> delete(String id) {
+        throw new UnsupportedOperationException("placeholder");
     }
 }
 

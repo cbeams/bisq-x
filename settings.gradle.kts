@@ -1,9 +1,10 @@
 rootProject.name = "bisq-x"
 include(
-    "apps",
-    "apps:client",
+    "apps:cli",
     "apps:desktop",
     "apps:daemon",
+    "client:openapi",
+    "core:openapi",
     "core:node",
     "core:domain",
     "core:domain:trade",
@@ -12,8 +13,5 @@ include(
     "core:network:p2p",
     "core:util",
     "core:util:logging",
-    "demos",
     "demos:dca",
-    "sdks",
-    "sdks:java",
 )

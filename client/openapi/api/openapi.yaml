@@ -1,0 +1,248 @@
+openapi: 3.0.1
+info:
+  title: bisq-openapi
+  version: 2.1.0
+servers:
+- url: /
+paths:
+  /identities:
+    post:
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: create 200 response
+      tags:
+      - User
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /info:
+    get:
+      operationId: getInfo
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Info'
+          description: getInfo 200 response
+      tags:
+      - Info
+      x-accepts:
+      - application/json
+  /logs:
+    get:
+      operationId: get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LogConfig'
+                type: array
+          description: get 200 response
+      tags:
+      - Logging
+      x-accepts:
+      - application/json
+  /logs/{name}:
+    get:
+      operationId: get_1
+      parameters:
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogConfig'
+          description: get_1 200 response
+      tags:
+      - Logging
+      x-accepts:
+      - application/json
+    put:
+      operationId: put
+      parameters:
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_request'
+        required: true
+      responses:
+        "200":
+          description: put 200 response
+      tags:
+      - Logging
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /trade/offers:
+    get:
+      operationId: listAll
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Offer'
+                type: array
+          description: listAll 200 response
+      tags:
+      - Offer
+      x-accepts:
+      - application/json
+    post:
+      operationId: add
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/add_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: add 200 response
+      tags:
+      - Offer
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /trade/offers/{id}:
+    delete:
+      operationId: delete
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offer'
+          description: delete 200 response
+      tags:
+      - Offer
+      x-accepts:
+      - application/json
+    get:
+      operationId: show
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offer'
+          description: show 200 response
+      tags:
+      - Offer
+      x-accepts:
+      - application/json
+components:
+  schemas:
+    Identity:
+      properties:
+        nym:
+          minLength: 1
+          type: string
+      required:
+      - nym
+      type: object
+    Info:
+      example:
+        version: version
+      properties:
+        version:
+          minLength: 1
+          type: string
+      required:
+      - version
+      type: object
+    LogConfig:
+      example:
+        level: level
+        name: name
+      properties:
+        name:
+          minLength: 1
+          type: string
+        level:
+          minLength: 1
+          type: string
+      required:
+      - level
+      - name
+      type: object
+    Offer:
+      example:
+        details: details
+        id: id
+      properties:
+        id:
+          type: string
+        details:
+          minLength: 1
+          type: string
+      required:
+      - details
+      - id
+      type: object
+    create_request:
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+      type: object
+    put_request:
+      properties:
+        logConfig:
+          $ref: '#/components/schemas/LogConfig'
+      type: object
+    add_request:
+      properties:
+        offer:
+          $ref: '#/components/schemas/Offer'
+      type: object
+

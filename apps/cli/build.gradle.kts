@@ -9,11 +9,12 @@ repositories {
 }
 
 application {
-    mainClass = "bisq.demo.bot.BisqDcaDemo"
+    mainClass = "bisq.app.cli.BisqCLI"
 }
 
 dependencies {
     implementation(project(":client:openapi"))
+    implementation("net.sf.jopt-simple:jopt-simple:5.0.4")
 }
 
 tasks.getByName("build").dependsOn("installDist")
