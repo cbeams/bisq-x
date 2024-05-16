@@ -1,5 +1,7 @@
 package bisq.core.node;
 
+import bisq.core.api.ApiController;
+import bisq.core.api.InfoController;
 import bisq.core.domain.trade.OfferRepository;
 import bisq.core.network.http.HttpServer;
 import io.micronaut.context.ApplicationContext;
@@ -21,7 +23,8 @@ class BisqNodeFactory {
         return new BisqNode(
                 options,
                 ctx.getBean(OfferRepository.class),
-                ctx.getBean(HttpServer.class)
+                ctx.getBean(HttpServer.class),
+                ctx.getBeansOfType(ApiController.class)
         );
     }
 

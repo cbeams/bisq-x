@@ -14,6 +14,7 @@ micronaut {
 
 dependencies {
     implementation(project(":core:domain:trade"))
+    implementation(project(":core:network:http"))
     implementation(project(":core:network:p2p"))
     implementation(project(":core:util:logging"))
 

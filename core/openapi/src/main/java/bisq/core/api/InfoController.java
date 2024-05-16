@@ -29,9 +29,10 @@ import java.net.URI;
 @OpenAPIInclude(tags = @Tag(name = "Offer"), classes = OfferController.class)
 @OpenAPIInclude(tags = @Tag(name = "User"), classes = IdentityController.class)
 @Controller
-public class InfoController {
+public class InfoController implements ApiController {
 
-    final static URI SWAGGER_UI_PATH = UriBuilder.of("/swagger-ui").path("index.html").build();
+    private static final URI SWAGGER_UI_PATH = UriBuilder.of("/swagger-ui").path("index.html").build();
+    private static final String INFO_PATH = "/info";
 
     @Get
     @Hidden
@@ -43,5 +44,21 @@ public class InfoController {
     public Info getInfo() {
         return new Info("v2.1.0");
     }
-}
 
+    /*
+    @Override
+    public String getTestPath() {
+        return INFO_PATH;
+    }
+     */
+
+    @SuppressWarnings("unused")
+    private static void forStructure101() {
+        var includes = new Class[]{
+                InfoController.class,
+                LogController.class,
+                OfferController.class,
+                IdentityController.class,
+        };
+    }
+}

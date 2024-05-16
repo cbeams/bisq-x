@@ -2,6 +2,7 @@ package bisq.core.network.http;
 
 import io.micronaut.runtime.server.EmbeddedServer;
 
+import java.net.URI;
 import jakarta.inject.Singleton;
 
 import static bisq.core.network.http.HttpLog.log;
@@ -9,10 +10,10 @@ import static bisq.core.network.http.HttpLog.log;
 @Singleton
 public class HttpServer implements Runnable {
 
-    private final EmbeddedServer httpServer;
+    private final URI baseURL;
 
     public HttpServer(EmbeddedServer httpServer) {
-        this.httpServer = httpServer;
+        this.baseURL = URI.create("http://localhost:" + httpServer.getPort());
     }
 
     @Override
@@ -23,7 +24,15 @@ public class HttpServer implements Runnable {
         // would be possible to configure Micronaut to avoid calling EmbeddedServer.start()
         // and allow us to do it here, but after some digging into the code it wasn't
         // obvious that this is possible.
-        log.info("Listening for client requests at http://localhost:{}", httpServer.getPort());
-        log.info("Serving interactive api docs at http://localhost:{}/swagger-ui", httpServer.getPort());
+        log.info("Listening for client requests at {}", getBaseURL());
+        log.info("Serving interactive api docs at {}/swagger-ui", getBaseURL());
+    }
+
+    public URI getBaseURL() {
+        return baseURL;
+    }
+
+    public URI resolveURL(String path) {
+        return URI.create(getBaseURL() + path);
     }
 }

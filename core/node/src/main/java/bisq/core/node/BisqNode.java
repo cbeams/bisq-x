@@ -1,11 +1,13 @@
 package bisq.core.node;
 
+import bisq.core.api.ApiController;
 import bisq.core.domain.trade.OfferRepository;
 import bisq.core.network.http.HttpServer;
 import bisq.core.network.p2p.P2PServer;
-
 import bisq.core.util.logging.Logging;
 import org.slf4j.Logger;
+
+import java.util.Collection;
 
 public class BisqNode implements Runnable {
 
@@ -15,11 +17,13 @@ public class BisqNode implements Runnable {
     private final Options options;
     private final OfferRepository offerRepository;
     private final HttpServer httpServer;
+    private final Collection<ApiController> apiControllers;
 
-    BisqNode(Options options, OfferRepository offerRepository, HttpServer httpServer) {
+    BisqNode(Options options, OfferRepository offerRepository, HttpServer httpServer, Collection<ApiController> apiControllers) {
         this.options = options;
         this.offerRepository = offerRepository;
         this.httpServer = httpServer;
+        this.apiControllers = apiControllers;
     }
 
     public static BisqNode withOptions(Options options) {
@@ -43,6 +47,9 @@ public class BisqNode implements Runnable {
         var p2pService = new P2PServer(options.p2pPort());
         p2pService.start();
         httpServer.run();
+
+        log.debug("Running self tests");
+        apiControllers.forEach(apiController -> apiController.report(httpServer));
 
         // Register shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
