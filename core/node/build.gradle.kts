@@ -18,7 +18,7 @@ dependencies {
     implementation(project(":core:domain:trade"))
     implementation(project(":core:network:http"))
     implementation(project(":core:network:p2p"))
-    implementation(project(":core:util:logging"))
+    implementation(project(":core:logging"))
 
     implementation("io.micronaut.openapi:micronaut-openapi-annotations")
     implementation("io.micronaut.serde:micronaut-serde-jackson")

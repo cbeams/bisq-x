@@ -1,6 +1,6 @@
 package bisq.core.node;
 
-import bisq.core.util.logging.Logging;
+import bisq.core.logging.Logging;
 import joptsimple.AbstractOptionSpec;
 import joptsimple.OptionSpec;
 import org.slf4j.event.Level;

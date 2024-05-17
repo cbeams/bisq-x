@@ -1,4 +1,4 @@
-package bisq.core.util.logging;
+package bisq.core.logging;
 
 import bisq.core.api.ApiLog;
 import org.slf4j.Logger;

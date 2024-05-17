@@ -1,6 +1,6 @@
 package bisq.core.network.http;
 
-import bisq.core.util.logging.Logging;
+import bisq.core.logging.Logging;
 
 import org.slf4j.Logger;
 

@@ -13,7 +13,7 @@ micronaut {
 }
 
 dependencies {
-    implementation(project(":core:util:logging"))
+    implementation(project(":core:logging"))
 
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("jakarta.validation:jakarta.validation-api")

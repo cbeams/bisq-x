@@ -14,7 +14,7 @@ micronaut {
 
 dependencies {
     implementation(project(":core:network:p2p"))
-    implementation(project(":core:util:logging"))
+    implementation(project(":core:logging"))
     implementation(project(":core:api"))
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("jakarta.validation:jakarta.validation-api")

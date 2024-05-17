@@ -1,7 +1,7 @@
-package bisq.core.util.logging.api;
+package bisq.core.logging.api;
 
 import bisq.core.api.ApiController;
-import bisq.core.util.logging.Logging;
+import bisq.core.logging.Logging;
 import ch.qos.logback.classic.Level;
 import org.slf4j.Logger;
 

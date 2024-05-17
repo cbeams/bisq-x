@@ -5,7 +5,7 @@ import bisq.core.domain.trade.OfferRepository;
 import bisq.core.network.http.HttpServer;
 import bisq.core.network.p2p.P2PServer;
 import bisq.core.oas.OpenApiSpecification;
-import bisq.core.util.logging.Logging;
+import bisq.core.logging.Logging;
 import org.slf4j.Logger;
 
 import java.util.Collection;

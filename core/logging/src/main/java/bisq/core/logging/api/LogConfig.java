@@ -1,4 +1,4 @@
-package bisq.core.util.logging.api;
+package bisq.core.logging.api;
 
 import io.micronaut.serde.annotation.Serdeable;
 

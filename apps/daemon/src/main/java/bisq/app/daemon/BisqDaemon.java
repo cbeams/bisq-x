@@ -3,7 +3,7 @@ package bisq.app.daemon;
 import bisq.core.node.BisqNode;
 import bisq.core.node.BisqNodeApplication;
 import bisq.core.node.Options;
-import bisq.core.util.logging.Logging;
+import bisq.core.logging.Logging;
 
 import joptsimple.OptionParser;
 
