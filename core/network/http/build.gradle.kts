@@ -21,6 +21,11 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.5.3")
 
     runtimeOnly("io.micronaut:micronaut-http-server-netty")
+
+    // The following are necessary only for the experimental ProxyFilter
+    // implementation. If it goes away, these can go away.
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.projectreactor:reactor-core")
 }
 
 testing {
