@@ -1,10 +1,9 @@
 package bisq.app.cli;
 
-import bisq.client.openapi.ApiClient;
-import bisq.client.openapi.ApiException;
-import bisq.client.openapi.Configuration;
-import bisq.client.openapi.endpoint.InfoEndpoint;
-
+import bisq.client.oas.ApiClient;
+import bisq.client.oas.ApiException;
+import bisq.client.oas.Configuration;
+import bisq.client.oas.endpoint.InfoEndpoint;
 import joptsimple.OptionParser;
 
 import java.io.IOException;

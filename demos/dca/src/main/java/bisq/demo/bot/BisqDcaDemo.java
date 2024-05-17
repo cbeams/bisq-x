@@ -1,7 +1,7 @@
 package bisq.demo.bot;
 
-import bisq.client.openapi.ApiClient;
-import bisq.client.openapi.Configuration;
+import bisq.client.oas.ApiClient;
+import bisq.client.oas.Configuration;
 
 import java.time.Duration;
 
