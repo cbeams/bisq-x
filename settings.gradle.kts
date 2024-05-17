@@ -11,7 +11,7 @@ include(
     "core:network",
     "core:network:http",
     "core:network:p2p",
-    "core:util",
     "core:util:logging",
+    "core:api",
     "demos:dca",
 )

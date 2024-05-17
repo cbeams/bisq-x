@@ -1,24 +1,21 @@
 package bisq.core.api;
 
-import bisq.core.network.http.HttpServer;
-import bisq.core.util.logging.Logging;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
+import io.micronaut.http.annotation.UriMapping;
 import org.slf4j.Logger;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import static io.micronaut.http.annotation.UriMapping.DEFAULT_URI;
-
 public interface ApiController {
 
-    Logger log = Logging.getLog("api");
+    Logger log = ApiLog.log;
 
-    default void report(HttpServer httpServer) {
+    default void report() {
         var basePath = getClass().getAnnotation(Controller.class).value();
         for (Method method : getClass().getMethods()) {
             for (Annotation annotation : method.getDeclaredAnnotations()) {
@@ -36,9 +33,9 @@ public interface ApiController {
                     continue;
 
                 String fqPath;
-                if (DEFAULT_URI.equals(relPath))
+                if (UriMapping.DEFAULT_URI.equals(relPath))
                     fqPath = basePath;
-                else if (DEFAULT_URI.equals(basePath))
+                else if (UriMapping.DEFAULT_URI.equals(basePath))
                     fqPath = relPath;
                 else
                     fqPath = basePath + relPath;

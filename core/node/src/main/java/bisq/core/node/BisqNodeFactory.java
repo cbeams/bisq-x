@@ -1,9 +1,9 @@
 package bisq.core.node;
 
 import bisq.core.api.ApiController;
-import bisq.core.api.InfoController;
 import bisq.core.domain.trade.OfferRepository;
 import bisq.core.network.http.HttpServer;
+import bisq.core.oas.OpenApiSpecification;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.Environment;
 import io.micronaut.runtime.Micronaut;
@@ -24,7 +24,8 @@ class BisqNodeFactory {
                 options,
                 ctx.getBean(OfferRepository.class),
                 ctx.getBean(HttpServer.class),
-                ctx.getBeansOfType(ApiController.class)
+                ctx.getBeansOfType(ApiController.class),
+                ctx.getBean(OpenApiSpecification.class)
         );
     }
 

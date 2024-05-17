@@ -1,5 +1,6 @@
 package bisq.core.domain.trade.api;
 
+import bisq.core.api.ApiController;
 import bisq.core.domain.trade.Offer;
 import bisq.core.domain.trade.OfferRepository;
 
@@ -16,7 +17,7 @@ import java.util.UUID;
 import static bisq.core.domain.trade.TradeLog.log;
 
 @Controller("/trade/offers")
-public class OfferController {
+public class OfferController implements ApiController {
 
     private final OfferRepository offerRepository;
 

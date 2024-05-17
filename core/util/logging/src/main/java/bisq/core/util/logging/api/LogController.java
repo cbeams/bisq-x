@@ -1,5 +1,6 @@
 package bisq.core.util.logging.api;
 
+import bisq.core.api.ApiController;
 import bisq.core.util.logging.Logging;
 import ch.qos.logback.classic.Level;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Controller("/logs")
-public class LogController {
+public class LogController implements ApiController {
 
     private static final String LOGS_LOG_NAME = "logs";
     private static final Logger log = Logging.getLog(LOGS_LOG_NAME);

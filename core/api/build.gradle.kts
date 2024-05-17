@@ -13,16 +13,9 @@ micronaut {
 }
 
 dependencies {
-    implementation(project(":core:domain:trade"))
-    implementation(project(":core:network:http"))
-    implementation(project(":core:network:p2p"))
-    implementation(project(":core:util:logging"))
-    implementation(project(":core:api"))
-
-    implementation("io.micronaut.openapi:micronaut-openapi-annotations")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
-    implementation("io.micronaut:micronaut-http")
-
     implementation("jakarta.validation:jakarta.validation-api")
+    implementation("io.swagger.core.v3:swagger-annotations")
+    implementation("io.micronaut:micronaut-http")
     implementation("ch.qos.logback:logback-classic:1.5.3")
 }

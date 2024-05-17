@@ -1,5 +1,6 @@
 package bisq.core.util.logging;
 
+import bisq.core.api.ApiLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
@@ -12,6 +13,11 @@ public class Logging {
     private static final HashMap<String, Logger> ALL_LOGS = new HashMap<>();
 
     private static Level EXPLICIT_DEFAULT_LEVEL;
+
+    static {
+        // special case creation and assignment of low-level api log
+        ApiLog.log = getLog(ApiLog.API_LOG_NAME);
+    }
 
     public static Logger getLog(String name) {
         if (ALL_LOGS.containsKey(name))
