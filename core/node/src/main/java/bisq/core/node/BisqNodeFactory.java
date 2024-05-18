@@ -4,7 +4,6 @@ import bisq.core.api.ApiController;
 import bisq.core.domain.trade.OfferRepository;
 import bisq.core.network.http.HttpServer;
 import bisq.core.oas.OpenApiSpecification;
-import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.Environment;
 import io.micronaut.runtime.Micronaut;
 
@@ -14,18 +13,20 @@ class BisqNodeFactory {
 
     public static BisqNode buildWithOptions(Options options) {
 
-        var noargs = new String[]{};
-        ApplicationContext ctx = BisqMicronaut.build(noargs)
+        var dataDir = new DataDir(options);
+
+        var context = BisqMicronaut.build(new String[]{})
                 .banner(false)
                 .properties(Map.of("micronaut.server.port", options.httpPort()))
                 .start();
 
         return new BisqNode(
                 options,
-                ctx.getBean(OfferRepository.class),
-                ctx.getBean(HttpServer.class),
-                ctx.getBeansOfType(ApiController.class),
-                ctx.getBean(OpenApiSpecification.class)
+                dataDir,
+                context.getBean(OfferRepository.class),
+                context.getBean(HttpServer.class),
+                context.getBeansOfType(ApiController.class),
+                context.getBean(OpenApiSpecification.class)
         );
     }
 

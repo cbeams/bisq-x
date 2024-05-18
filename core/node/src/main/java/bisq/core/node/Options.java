@@ -61,7 +61,7 @@ public final class Options {
     public static Options withDefaultValues() {
         Options options = new Options();
 
-        OptionsLog.log.debug("Loading system-specific option defaults");
+        log.debug("Loading system-specific option defaults");
         options.userDataDir = determineUserDataDir();
 
         log.debug("Loading bundled option defaults");
