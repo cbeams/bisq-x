@@ -53,6 +53,7 @@ public final class Options {
     private ArgumentAcceptingOptionSpec<File> dataDirOpt;
     private ArgumentAcceptingOptionSpec<String> confFileOpt;
     private ArgumentAcceptingOptionSpec<Integer> apiPortOpt;
+    private ArgumentAcceptingOptionSpec<Integer> p2pPortOpt;
 
     private Options() {
     }
@@ -199,10 +200,15 @@ public final class Options {
                 .ofType(String.class)
                 .defaultsTo(DEFAULT_CONF_FILENAME);
 
-        apiPortOpt = parser.accepts(API_PORT_OPT, "Listen for rest api client requests on <port>")
+        apiPortOpt = parser.accepts(API_PORT_OPT, "Listen for http api client requests on <port>")
                 .withRequiredArg()
                 .ofType(Integer.class)
                 .defaultsTo(this.apiPort);
+
+        p2pPortOpt = parser.accepts(P2P_PORT_OPT, "Listen for peer connections on <port>")
+                .withRequiredArg()
+                .ofType(Integer.class)
+                .defaultsTo(this.p2pPort);
 
     }
 
@@ -230,6 +236,10 @@ public final class Options {
 
         if (cliOptions.has(apiPortOpt)) {
             this.apiPort = cliOptions.valueOf(apiPortOpt);
+        }
+
+        if (cliOptions.has(p2pPortOpt)) {
+            this.p2pPort = cliOptions.valueOf(p2pPortOpt);
         }
 
         var nonOptionArgs = cliOptions.nonOptionArguments();
