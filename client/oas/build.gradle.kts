@@ -49,8 +49,8 @@ openApiGenerate {
 }
 
 tasks.getByName("openApiGenerate") {
-    // openApiGenerate will fail if its `inputSpec` (above) exists, and this file is
-    // created by annotation processing that runs during the :core:oas:compileJava
+    // openApiGenerate will fail if its `inputSpec` (above) does not exist, and this file
+    // is created by annotation processing that runs during the :core:oas:compileJava
     // task. The task dependency below ensures that spec generation happens before this
     // task runs.
     //
@@ -64,15 +64,16 @@ tasks.getByName("openApiGenerate") {
     // critical to ensure that model and controller classes that get renamed or removed in
     // bisq.core.*.api packages have their corresponding endpoint and model classes deleted
     // appropriately here in the generated bisq.client.oas.* packages. Failing to do
-    // this deletion can easily lead to dead and outdated copies of endpoint and model
-    // classes sticking around in the codebase. Remember that the sources being generating
-    // here are not ephemeral: they get generated into the src/ directory as opposed to the
-    // build/ directory and get checked into source control. This means they will not just
-    // "go away" with the next invocation of `gradle clean`. We must instead explicitly
-    // remove them and that's what happens below.
+    // this deletion can easily lead to dead and outdated copies of generated endpoint and
+    // model classes sticking around in the codebase. Remember that the sources being
+    // generating here are not ephemeral: they get generated into the src/ directory as
+    // opposed to the build/ directory and get checked into source control. This means
+    // they will not just "go away" with the next invocation of `gradle clean`. We must
+    // instead explicitly remove them and
+    // that's what happens below.
     doFirst {
         delete(
-            "api",          // generated openapi.yaml spec
+            "api",          // generated openapi.yaml spec (copied from `inputSpec`)
             "src",          // generated client sources
             "docs",         // generated api usage documentation
             "README.md"     // generated api usage documentation
