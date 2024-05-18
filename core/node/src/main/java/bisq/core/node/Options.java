@@ -36,14 +36,14 @@ public final class Options {
     static final String[] DEBUG_OPTS = new String[]{DEBUG_OPT, "d"};
     static final String APP_NAME_OPT = "app-name";
     static final String P2P_PORT_OPT = "p2p-port";
-    static final String API_PORT_OPT = "api-port";
+    static final String HTTP_PORT_OPT = "http-port";
     static final String DATA_DIR_OPT = "data-dir";
     static final String CONF_FILE_OPT = "conf";
 
     private Boolean debug;
     private String appName;
     private Integer p2pPort;
-    private Integer apiPort;
+    private Integer httpPort;
     private File userDataDir;
     private File dataDir;
 
@@ -52,7 +52,7 @@ public final class Options {
     private ArgumentAcceptingOptionSpec<String> appNameOpt;
     private ArgumentAcceptingOptionSpec<File> dataDirOpt;
     private ArgumentAcceptingOptionSpec<String> confFileOpt;
-    private ArgumentAcceptingOptionSpec<Integer> apiPortOpt;
+    private ArgumentAcceptingOptionSpec<Integer> httpPortOpt;
     private ArgumentAcceptingOptionSpec<Integer> p2pPortOpt;
 
     private Options() {
@@ -144,7 +144,7 @@ public final class Options {
             switch ((String) key) {
                 case DEBUG_OPT -> debug = Boolean.valueOf(props.getProperty(DEBUG_OPT));
                 case APP_NAME_OPT -> appName = String.valueOf(props.getProperty(APP_NAME_OPT));
-                case API_PORT_OPT -> apiPort = Integer.valueOf(props.getProperty(API_PORT_OPT));
+                case HTTP_PORT_OPT -> httpPort = Integer.valueOf(props.getProperty(HTTP_PORT_OPT));
                 case P2P_PORT_OPT -> p2pPort = Integer.valueOf(props.getProperty(P2P_PORT_OPT));
                 default -> log.warn("Ignoring unsupported option '{}'", key);
             }
@@ -200,10 +200,10 @@ public final class Options {
                 .ofType(String.class)
                 .defaultsTo(DEFAULT_CONF_FILENAME);
 
-        apiPortOpt = parser.accepts(API_PORT_OPT, "Listen for http api client requests on <port>")
+        httpPortOpt = parser.accepts(HTTP_PORT_OPT, "Listen for http api requests on <port>")
                 .withRequiredArg()
                 .ofType(Integer.class)
-                .defaultsTo(this.apiPort);
+                .defaultsTo(this.httpPort);
 
         p2pPortOpt = parser.accepts(P2P_PORT_OPT, "Listen for peer connections on <port>")
                 .withRequiredArg()
@@ -234,8 +234,8 @@ public final class Options {
             this.loadFromDataDir();
         }
 
-        if (cliOptions.has(apiPortOpt)) {
-            this.apiPort = cliOptions.valueOf(apiPortOpt);
+        if (cliOptions.has(httpPortOpt)) {
+            this.httpPort = cliOptions.valueOf(httpPortOpt);
         }
 
         if (cliOptions.has(p2pPortOpt)) {
@@ -300,8 +300,8 @@ public final class Options {
         this.dataDir = dataDir;
     }
 
-    public int apiPort() {
-        return this.apiPort;
+    public int httpPort() {
+        return this.httpPort;
     }
 
     public int p2pPort() {

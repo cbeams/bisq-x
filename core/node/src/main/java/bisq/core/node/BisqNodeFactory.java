@@ -17,7 +17,7 @@ class BisqNodeFactory {
         var noargs = new String[]{};
         ApplicationContext ctx = BisqMicronaut.build(noargs)
                 .banner(false)
-                .properties(Map.of("micronaut.server.port", options.apiPort()))
+                .properties(Map.of("micronaut.server.port", options.httpPort()))
                 .start();
 
         return new BisqNode(
