@@ -38,7 +38,7 @@ import static io.micronaut.http.HttpHeaders.HOST;
  * would be kept alive by default (especially useful in Tor-land). Such a proxy
  * would handle the CONNECT request, establish the TCP connection via an internal Tor socks
  * proxy, and then route all future requests from the client through tor to the destination
- * node.
+ * node. See also: Tor2Web; WebTunnel.
  */
 @Filter("/**")
 public class ProxyFilter implements HttpFilter {
