@@ -17,7 +17,7 @@ import io.micronaut.context.ApplicationContext;
 import java.util.Collection;
 import java.util.Map;
 
-public class BisqNode implements Runnable {
+public class BisqNode {
 
     private static final String NODE_LOG_NAME = "node";
     private static final Logger log = Logging.getLog(NODE_LOG_NAME);
@@ -66,8 +66,7 @@ public class BisqNode implements Runnable {
         );
     }
 
-    @Override
-    public void run() {
+    public void start() {
         log.info("Starting up");
 
         dataDir = DataDir.init(options);
@@ -85,6 +84,8 @@ public class BisqNode implements Runnable {
             log.info("Shutdown requested");
             this.shutdown();
         }));
+
+        log.info("Startup complete");
     }
 
     public void shutdown() {

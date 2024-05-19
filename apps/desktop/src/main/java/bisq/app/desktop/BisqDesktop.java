@@ -3,10 +3,9 @@ package bisq.app.desktop;
 import bisq.core.domain.trade.Offer;
 import bisq.core.node.BisqNode;
 import bisq.core.node.BisqNodeApplication;
+import bisq.core.node.CommandLine;
 import bisq.core.node.Options;
 import bisq.core.logging.Logging;
-
-import joptsimple.OptionParser;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -45,7 +44,7 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
     public static void main(String[] args) {
         int status;
         try {
-            execute(args);
+            run(args);
             status = EXIT_SUCCESS;
         } catch (Throwable t) {
             log.error("Error: {}", unwrap(t).getMessage());
@@ -57,18 +56,17 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
 
     private static BisqNode bisqNode;
 
-    private static void execute(String... args) {
+    private static void run(String... args) {
 
         // ------------------------------------------------------------------
-        // Initialize console output
+        // Init logging
         // ------------------------------------------------------------------
 
-        // Default to high-level, useful and easily understood console output
         Logging.setLevel(Level.INFO);
 
-        // Preprocess cli args for early access to help and debug opts
-        var helpRequested = Options.helpRequested(args);
-        var debugRequested = Options.debugRequested(args);
+        var cli = new CommandLine(args);
+        var helpRequested = cli.helpRequested();
+        var debugRequested = cli.debugRequested();
 
         // Suppress normal log output if we know help screen is coming
         if (helpRequested && !debugRequested) {
@@ -85,38 +83,30 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
         }
 
         // ------------------------------------------------------------------
-        // Configure node options
+        // Configure node
         // ------------------------------------------------------------------
 
         log.info("Configuring node options");
-
-        log.debug("Loading default option values");
         var options = Options.withDefaultValues();
-
-        log.debug("Handling command line options");
-        var cliOptions = options.parseCommandLine(args);
-
-        log.trace("Handling parsed command line options");
-        if (cliOptions.has(options.helpOpt())) {
-            log.trace("Printing help and exiting");
+        try {
+            cli.parse(options);
+        } catch (CommandLine.HelpRequest request) {
             System.out.println(APP_NAME_AND_VERSION);
             System.out.print("""
 
                     Usage:  bisq-fx [options]                         Start Bisq with GUI
 
                     """);
-            System.out.println(options.renderHelpText());
+            System.out.println(request.getHelpText());
             System.exit(EXIT_SUCCESS);
         }
 
-        options.loadFromCommandLine(cliOptions);
-
         // ------------------------------------------------------------------
-        // Run node
+        // Start node
         // ------------------------------------------------------------------
 
         bisqNode = BisqNode.withOptions(options);
-        bisqNode.run();
+        bisqNode.start();
 
         // ------------------------------------------------------------------
         // Launch gui

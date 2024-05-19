@@ -1,71 +1,49 @@
 package bisq.core.node;
 
 import bisq.core.logging.Logging;
-import joptsimple.AbstractOptionSpec;
-import joptsimple.OptionSpec;
 import org.slf4j.event.Level;
 
-import joptsimple.ArgumentAcceptingOptionSpec;
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.io.UncheckedIOException;
 import java.lang.reflect.Field;
 
 import java.nio.file.Paths;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
-import static java.lang.String.format;
 import static bisq.core.node.OptionsLog.log;
-import static java.lang.reflect.Modifier.isFinal;
-import static java.lang.reflect.Modifier.isStatic;
+import static java.lang.String.format;
+import static java.lang.reflect.Modifier.*;
 
 public final class Options {
 
     static final String DEFAULT_CONF_FILENAME = "bisq.conf";
 
-    static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
+    static final String CONF_FILE_OPT = "conf";
     static final String DEBUG_OPT = "debug";
-    static final String[] DEBUG_OPTS = new String[]{DEBUG_OPT, "d"};
     static final String APP_NAME_OPT = "app-name";
+    static final String DATA_DIR_OPT = "data-dir";
     static final String P2P_PORT_OPT = "p2p-port";
     static final String HTTP_PORT_OPT = "http-port";
-    static final String DATA_DIR_OPT = "data-dir";
-    static final String CONF_FILE_OPT = "conf";
 
     private Boolean debug;
     private String appName;
+    private File dataDir;
+    private File userDataDir;
     private Integer p2pPort;
     private Integer httpPort;
-    private File userDataDir;
-    private File dataDir;
 
-    private final List<String> cliArgs = new ArrayList<>();
-
-    private OptionParser parser;
-    private AbstractOptionSpec<Void> helpOpt;
-    private ArgumentAcceptingOptionSpec<Boolean> debugOpt;
-    private ArgumentAcceptingOptionSpec<String> appNameOpt;
-    private ArgumentAcceptingOptionSpec<File> dataDirOpt;
-    private ArgumentAcceptingOptionSpec<String> confFileOpt;
-    private ArgumentAcceptingOptionSpec<Integer> httpPortOpt;
-    private ArgumentAcceptingOptionSpec<Integer> p2pPortOpt;
+    private String[] cliArgs = new String[0];
 
     private Options() {
     }
 
     public static Options withDefaultValues() {
+        log.debug("Loading default option values");
         Options options = new Options();
 
         log.debug("Loading system-specific option defaults");
@@ -167,10 +145,6 @@ public final class Options {
                 if (isStatic(modifiers) || isFinal(modifiers)) {
                     continue; // skip static and/or final fields; check only mutable option value instance fields
                 }
-                if (OptionSpec.class.isAssignableFrom(fieldType) ||
-                    OptionParser.class.isAssignableFrom(fieldType)) {
-                    continue; // skip fields related to command line parsing
-                }
                 if (fieldType.isPrimitive()) {
                     throw new IllegalStateException(format("Option value fields may not be primitive. " +
                                                            "Please box the field named '%s' appropriately", fieldName));
@@ -188,137 +162,26 @@ public final class Options {
         }
     }
 
-    public static boolean helpRequested(String[] args) {
-        return optionRequested(args, HELP_OPTS);
-    }
-
-    public static boolean debugRequested(String[] args) {
-        return optionRequested(args, DEBUG_OPTS);
-    }
-
-    private static boolean optionRequested(String[] args, String... opts) {
-        for (String arg : args) {
-            if (arg.startsWith("-")) {
-                arg = arg.replaceFirst("^-?-", "");
-                var pair = arg.split("=");
-                arg = pair[0];
-                for (String opt : opts) {
-                    if (arg.equals(opt)) {
-                        if (pair.length > 1) {
-                            var val = pair[1];
-                            return !"0".equals(val) && !"false".equals(val);
-                        }
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public void loadFromCommandLine(OptionSet cliOptions) {
-        if (cliOptions.has(debugOpt)) {
-            debug = cliOptions.valueOf(debugOpt);
-            if (debug)
-                Logging.setLevel(Level.DEBUG);
-        }
-
-        if (cliOptions.has(appNameOpt)) {
-            this.appName = cliOptions.valueOf(appNameOpt);
-        }
-
-        if (cliOptions.has(dataDirOpt)) {
-            this.dataDir(cliOptions.valueOf(dataDirOpt));
-        }
-
-        if (cliOptions.has(confFileOpt)) {
-            String confFilePath = cliOptions.valueOf(confFileOpt);
-            log.info("Using custom config file path {}", confFilePath);
-            this.loadFromPath(confFilePath);
-        } else {
-            this.loadFromDataDir();
-        }
-
-        if (cliOptions.has(httpPortOpt)) {
-            this.httpPort = cliOptions.valueOf(httpPortOpt);
-        }
-
-        if (cliOptions.has(p2pPortOpt)) {
-            this.p2pPort = cliOptions.valueOf(p2pPortOpt);
-        }
-
-        var nonOptionArgs = cliOptions.nonOptionArguments();
-        if (!nonOptionArgs.isEmpty()) {
-            throw new IllegalArgumentException(format(
-                    "Command line contains unsupported argument(s) %s", nonOptionArgs));
-        }
-    }
-
-    public OptionSet parseCommandLine(String[] cliArgs) {
-        if (!this.cliArgs.isEmpty())
-            throw new IllegalStateException("command line args have already been parsed");
-        this.cliArgs.addAll(Arrays.asList(cliArgs));
-
-        log.trace("Configuring command line option parsing");
-        parser = new OptionParser();
-
-        helpOpt = parser.acceptsAll(Arrays.asList(HELP_OPTS), "Show this help").forHelp();
-
-        debugOpt = parser.acceptsAll(List.of("d", DEBUG_OPT), "Enable debug logging")
-                .withOptionalArg()
-                .ofType(Boolean.class)
-                .defaultsTo(this.debug);
-
-        appNameOpt = parser.accepts(APP_NAME_OPT, "Specify application name")
-                .withRequiredArg()
-                .ofType(String.class)
-                .defaultsTo(this.appName);
-
-        dataDirOpt = parser.accepts(DATA_DIR_OPT, "Specify data directory")
-                .withRequiredArg()
-                .ofType(File.class)
-                .defaultsTo(this.dataDir);
-
-        confFileOpt = parser.accepts(CONF_FILE_OPT,
-                        format("Specify path to read-only configuration file. " +
-                               "Relative paths will be prefixed by <%s> location " +
-                               "(only usable from command line, not configuration file)", DATA_DIR_OPT))
-                .withRequiredArg()
-                .ofType(String.class)
-                .defaultsTo(DEFAULT_CONF_FILENAME);
-
-        httpPortOpt = parser.accepts(HTTP_PORT_OPT, "Listen for http api requests on <port>")
-                .withRequiredArg()
-                .ofType(Integer.class)
-                .defaultsTo(this.httpPort);
-
-        p2pPortOpt = parser.accepts(P2P_PORT_OPT, "Listen for peer connections on <port>")
-                .withRequiredArg()
-                .ofType(Integer.class)
-                .defaultsTo(this.p2pPort);
-
-        log.trace("Parsing command line options");
-        return parser.parse(cliArgs);
-    }
-
-    public String renderHelpText() {
-        try {
-            var output = new ByteArrayOutputStream();
-            parser.printHelpOn(output);
-            return output.toString();
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
-    }
-
     // -----------------------------------------------------------------------
     // option accessors
     // -----------------------------------------------------------------------
 
-    public OptionSpec<Void> helpOpt() {
-        if (this.helpOpt == null)
-            throw new IllegalStateException("cli options must be parsed before calling helpOpt()");
-        return this.helpOpt;
+    public boolean debug() {
+        return this.debug;
+    }
+
+    public void debug(boolean debug) {
+        this.debug = debug;
+        if (debug)
+            Logging.setLevel(Level.DEBUG);
+    }
+
+    public String appName() {
+        return this.appName;
+    }
+
+    public void appName(String appName) {
+        this.appName = appName;
     }
 
     public File dataDir() {
@@ -334,15 +197,27 @@ public final class Options {
         this.dataDir = dataDir;
     }
 
-    public int httpPort() {
-        return httpPort;
-    }
-
     public int p2pPort() {
         return p2pPort;
     }
 
+    public void p2pPort(int p2pPort) {
+        this.p2pPort = p2pPort;
+    }
+
+    public int httpPort() {
+        return httpPort;
+    }
+
+    public void httpPort(int httpPort) {
+        this.httpPort = httpPort;
+    }
+
+    public void cliArgs(String[] cliArgs) {
+        this.cliArgs = cliArgs;
+    }
+
     public String[] cliArgs() {
-        return cliArgs.toArray(new String[0]);
+        return cliArgs;
     }
 }
