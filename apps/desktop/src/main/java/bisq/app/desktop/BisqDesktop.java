@@ -57,7 +57,7 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
 
     private static BisqNode bisqNode;
 
-    private static void execute(String... args) throws Exception {
+    private static void execute(String... args) {
 
         // ------------------------------------------------------------------
         // Initialize console output
@@ -94,12 +94,7 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
         var options = Options.withDefaultValues();
 
         log.debug("Handling command line options");
-        log.trace("Configuring command line option parsing");
-        var parser = new OptionParser();
-        options.configureCliOptionParsing(parser);
-
-        log.trace("Parsing command line options");
-        var cliOptions = parser.parse(args);
+        var cliOptions = options.parseCommandLine(args);
 
         log.trace("Handling parsed command line options");
         if (cliOptions.has(options.helpOpt())) {
@@ -110,11 +105,11 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
                     Usage:  bisq-fx [options]                         Start Bisq with GUI
 
                     """);
-            parser.printHelpOn(System.out);
+            System.out.println(options.renderHelpText());
             System.exit(EXIT_SUCCESS);
         }
 
-        options.handleParsedCliOptions(cliOptions);
+        options.loadFromCommandLine(cliOptions);
 
         // ------------------------------------------------------------------
         // Run node

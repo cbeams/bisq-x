@@ -5,8 +5,6 @@ import bisq.core.node.BisqNodeApplication;
 import bisq.core.node.Options;
 import bisq.core.logging.Logging;
 
-import joptsimple.OptionParser;
-
 import org.slf4j.event.Level;
 
 import static bisq.core.node.BisqNodeApplication.*;
@@ -28,7 +26,7 @@ public class BisqDaemon implements BisqNodeApplication {
         System.exit(status);
     }
 
-    private static void execute(String... args) throws Exception {
+    private static void execute(String... args) {
 
         // ------------------------------------------------------------------
         // Initialize console output
@@ -65,14 +63,8 @@ public class BisqDaemon implements BisqNodeApplication {
         var options = Options.withDefaultValues();
 
         log.debug("Handling command line options");
-        log.trace("Configuring command line option parsing");
-        var parser = new OptionParser();
-        options.configureCliOptionParsing(parser);
+        var cliOptions = options.parseCommandLine(args);
 
-        log.trace("Parsing command line options");
-        var cliOptions = parser.parse(args);
-
-        log.trace("Handling parsed command line options");
         if (cliOptions.has(options.helpOpt())) {
             log.trace("Printing help and exiting");
             System.out.println(APP_NAME_AND_VERSION);
@@ -81,11 +73,11 @@ public class BisqDaemon implements BisqNodeApplication {
                     Usage:  bisqd [options]                                    Start Bisq
 
                     """);
-            parser.printHelpOn(System.out);
+            System.out.println(options.renderHelpText());
             return;
         }
 
-        options.handleParsedCliOptions(cliOptions);
+        options.loadFromCommandLine(cliOptions);
 
         // ------------------------------------------------------------------
         // Run node

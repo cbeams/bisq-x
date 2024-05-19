@@ -9,23 +9,27 @@ import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.io.UncheckedIOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 
 import java.nio.file.Paths;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import static java.lang.String.format;
 import static bisq.core.node.OptionsLog.log;
+import static java.lang.reflect.Modifier.isFinal;
+import static java.lang.reflect.Modifier.isStatic;
 
 public final class Options {
 
@@ -47,6 +51,9 @@ public final class Options {
     private File userDataDir;
     private File dataDir;
 
+    private final List<String> cliArgs = new ArrayList<>();
+
+    private OptionParser parser;
     private AbstractOptionSpec<Void> helpOpt;
     private ArgumentAcceptingOptionSpec<Boolean> debugOpt;
     private ArgumentAcceptingOptionSpec<String> appNameOpt;
@@ -151,6 +158,36 @@ public final class Options {
         }
     }
 
+    private void checkValueAssignments() {
+        for (Field field : this.getClass().getDeclaredFields()) {
+            var fieldName = field.getName();
+            var fieldType = field.getType();
+            var modifiers = field.getModifiers();
+            try {
+                if (isStatic(modifiers) || isFinal(modifiers)) {
+                    continue; // skip static and/or final fields; check only mutable option value instance fields
+                }
+                if (OptionSpec.class.isAssignableFrom(fieldType) ||
+                    OptionParser.class.isAssignableFrom(fieldType)) {
+                    continue; // skip fields related to command line parsing
+                }
+                if (fieldType.isPrimitive()) {
+                    throw new IllegalStateException(format("Option value fields may not be primitive. " +
+                                                           "Please box the field named '%s' appropriately", fieldName));
+                }
+                if (field.get(this) == null) {
+                    throw new IllegalStateException(format("Options fields may not be null after initialization time. " +
+                                                           "Please ensure the field named '%s' is assigned a default value. " +
+                                                           "This may be because its value was not assigned in Options.assignValues() " +
+                                                           "or because it is missing an entry in the default %s configuration file.", fieldName,
+                            DEFAULT_CONF_FILENAME));
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public static boolean helpRequested(String[] args) {
         return optionRequested(args, HELP_OPTS);
     }
@@ -163,9 +200,14 @@ public final class Options {
         for (String arg : args) {
             if (arg.startsWith("-")) {
                 arg = arg.replaceFirst("^-?-", "");
-                arg = arg.split("=")[0];
+                var pair = arg.split("=");
+                arg = pair[0];
                 for (String opt : opts) {
                     if (arg.equals(opt)) {
+                        if (pair.length > 1) {
+                            var val = pair[1];
+                            return !"0".equals(val) && !"false".equals(val);
+                        }
                         return true;
                     }
                 }
@@ -174,48 +216,11 @@ public final class Options {
         return false;
     }
 
-    public void configureCliOptionParsing(OptionParser parser) {
-
-        helpOpt = parser.acceptsAll(Arrays.asList(HELP_OPTS), "Show this help").forHelp();
-
-        debugOpt = parser.acceptsAll(List.of("d", DEBUG_OPT), "Enable debug logging")
-                .withOptionalArg()
-                .ofType(Boolean.class)
-                .defaultsTo(this.debug);
-
-        appNameOpt = parser.accepts(APP_NAME_OPT, "Specify application name")
-                .withRequiredArg()
-                .ofType(String.class)
-                .defaultsTo(this.appName);
-
-        dataDirOpt = parser.accepts(DATA_DIR_OPT, "Specify data directory")
-                .withRequiredArg()
-                .ofType(File.class)
-                .defaultsTo(this.dataDir);
-
-        confFileOpt = parser.accepts(CONF_FILE_OPT, format("Specify path to read-only configuration file. " +
-                        "Relative paths will be prefixed by <%s> location " +
-                        "(only usable from command line, not configuration file)", DATA_DIR_OPT))
-                .withRequiredArg()
-                .ofType(String.class)
-                .defaultsTo(DEFAULT_CONF_FILENAME);
-
-        httpPortOpt = parser.accepts(HTTP_PORT_OPT, "Listen for http api requests on <port>")
-                .withRequiredArg()
-                .ofType(Integer.class)
-                .defaultsTo(this.httpPort);
-
-        p2pPortOpt = parser.accepts(P2P_PORT_OPT, "Listen for peer connections on <port>")
-                .withRequiredArg()
-                .ofType(Integer.class)
-                .defaultsTo(this.p2pPort);
-
-    }
-
-    public void handleParsedCliOptions(OptionSet cliOptions) {
+    public void loadFromCommandLine(OptionSet cliOptions) {
         if (cliOptions.has(debugOpt)) {
-            Logging.setLevel(Level.DEBUG);
-            this.debug = cliOptions.valueOf(debugOpt);
+            debug = cliOptions.valueOf(debugOpt);
+            if (debug)
+                Logging.setLevel(Level.DEBUG);
         }
 
         if (cliOptions.has(appNameOpt)) {
@@ -249,31 +254,60 @@ public final class Options {
         }
     }
 
-    private void checkValueAssignments() {
-        for (Field field : this.getClass().getDeclaredFields()) {
-            var fieldName = field.getName();
-            var fieldType = field.getType();
-            try {
-                if (Modifier.isStatic(field.getModifiers())) {
-                    continue; // skip static fields; only option value instance fields matter
-                }
-                if (OptionSpec.class.isAssignableFrom(fieldType)) {
-                    continue; // skip command line parsing instance fields
-                }
-                if (fieldType.isPrimitive()) {
-                    throw new IllegalStateException(format("Option value fields may not be primitive. " +
-                            "Please box the field named '%s' appropriately", fieldName));
-                }
-                if (field.get(this) == null) {
-                    throw new IllegalStateException(format("Options fields may not be null after initialization time. " +
-                                    "Please ensure the field named '%s' is assigned a default value. " +
-                                    "This may be because its value was not assigned in Options.assignValues() " +
-                                    "or because it is missing an entry in the default %s configuration file.", fieldName,
-                            DEFAULT_CONF_FILENAME));
-                }
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
+    public OptionSet parseCommandLine(String[] cliArgs) {
+        if (!this.cliArgs.isEmpty())
+            throw new IllegalStateException("command line args have already been parsed");
+        this.cliArgs.addAll(Arrays.asList(cliArgs));
+
+        log.trace("Configuring command line option parsing");
+        parser = new OptionParser();
+
+        helpOpt = parser.acceptsAll(Arrays.asList(HELP_OPTS), "Show this help").forHelp();
+
+        debugOpt = parser.acceptsAll(List.of("d", DEBUG_OPT), "Enable debug logging")
+                .withOptionalArg()
+                .ofType(Boolean.class)
+                .defaultsTo(this.debug);
+
+        appNameOpt = parser.accepts(APP_NAME_OPT, "Specify application name")
+                .withRequiredArg()
+                .ofType(String.class)
+                .defaultsTo(this.appName);
+
+        dataDirOpt = parser.accepts(DATA_DIR_OPT, "Specify data directory")
+                .withRequiredArg()
+                .ofType(File.class)
+                .defaultsTo(this.dataDir);
+
+        confFileOpt = parser.accepts(CONF_FILE_OPT,
+                        format("Specify path to read-only configuration file. " +
+                               "Relative paths will be prefixed by <%s> location " +
+                               "(only usable from command line, not configuration file)", DATA_DIR_OPT))
+                .withRequiredArg()
+                .ofType(String.class)
+                .defaultsTo(DEFAULT_CONF_FILENAME);
+
+        httpPortOpt = parser.accepts(HTTP_PORT_OPT, "Listen for http api requests on <port>")
+                .withRequiredArg()
+                .ofType(Integer.class)
+                .defaultsTo(this.httpPort);
+
+        p2pPortOpt = parser.accepts(P2P_PORT_OPT, "Listen for peer connections on <port>")
+                .withRequiredArg()
+                .ofType(Integer.class)
+                .defaultsTo(this.p2pPort);
+
+        log.trace("Parsing command line options");
+        return parser.parse(cliArgs);
+    }
+
+    public String renderHelpText() {
+        try {
+            var output = new ByteArrayOutputStream();
+            parser.printHelpOn(output);
+            return output.toString();
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
         }
     }
 
@@ -301,11 +335,14 @@ public final class Options {
     }
 
     public int httpPort() {
-        return this.httpPort;
+        return httpPort;
     }
 
     public int p2pPort() {
-        return this.p2pPort;
+        return p2pPort;
     }
 
+    public String[] cliArgs() {
+        return cliArgs.toArray(new String[0]);
+    }
 }

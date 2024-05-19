@@ -20,6 +20,8 @@ class DataDir implements Closeable {
     public DataDir(Options options) {
         this.dir = options.dataDir();
 
+        var cliArgs = options.cliArgs();
+
         // Create data dir if necessary
         if (!dir.exists()) {
             log.info("Creating data directory {}", dir);
@@ -28,6 +30,7 @@ class DataDir implements Closeable {
         }
 
         // Obtain exclusive lock so only one instance at a time may use this dir
+        log.trace("Locking data directory {}", dir);
         try {
             var lockFile = new File(dir, ".lock");
             if (!lockFile.exists())
@@ -37,22 +40,32 @@ class DataDir implements Closeable {
             lock = new FileOutputStream(lockFile).getChannel().tryLock();
             if (lock == null)
                 throw new IllegalStateException(
-                        format("Cannot obtain a lock on data directory '%s'. Bisq is probably already running.", dir));
+                        format("Could not obtain a lock on data directory '%s'. " +
+                               "Bisq is probably already running.", dir));
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
 
         // Write current process id to pid file
+        this.pidFile = new File(dir, "bisq.pid");
         long pid = ProcessHandle.current().pid();
-        this.pidFile = new File(dir,"bisq.pid");
+        log.debug("Writing current process id ({}) to '{}'", pid, pidFile);
         try {
-            Files.writeString(pidFile.toPath() , String.valueOf(pid));
+            Files.writeString(pidFile.toPath(), String.valueOf(pid) + '\n');
         } catch (IOException ex) {
-            log.error("Error: unable to write process id ({}) to pid file '{}'", pidFile, pid, ex);
+            log.error("Error: unable to write process id ({}) to '{}'", pid, pidFile, ex);
+        }
+
+        // Write command line args to file
+        var argsFile = new File(dir, "bisq.args");
+        log.debug("Writing {} command line arg(s) to '{}'", cliArgs.length, argsFile);
+        try {
+            Files.writeString(argsFile.toPath(), String.join(" ", cliArgs) + '\n');
+        } catch (IOException ex) {
+            log.error("Error: unable to write command line arg(s) to file '{}'", argsFile, ex);
         }
 
         // TODO: create log file
-        // TODO: create args file
     }
 
     @Override
