@@ -9,9 +9,13 @@ import bisq.core.api.ApiController;
 import bisq.core.domain.trade.OfferRepository;
 
 import bisq.core.logging.Logging;
+import io.micronaut.runtime.server.EmbeddedServer;
 import org.slf4j.Logger;
 
+import io.micronaut.context.ApplicationContext;
+
 import java.util.Collection;
+import java.util.Map;
 
 public class BisqNode implements Runnable {
 
@@ -19,49 +23,76 @@ public class BisqNode implements Runnable {
     private static final Logger log = Logging.getLog(NODE_LOG_NAME);
 
     private final Options options;
-    private final OfferRepository offerRepository;
+    private final P2PServer p2pServer;
     private final HttpServer httpServer;
     private final Collection<ApiController> apiControllers;
-    private final DataDir dataDir;
+    private final OfferRepository offerRepository;
 
-    BisqNode(Options options,
-             DataDir dataDir,
-             OfferRepository offerRepository,
-             HttpServer httpServer,
-             Collection<ApiController> apiControllers,
-             // injected to express dependency from core.node => core.oas
-             @SuppressWarnings("unused") OpenApiSpecification openApiSpecification) {
+    private DataDir dataDir;
+
+    public BisqNode(Options options,
+                    P2PServer p2pServer,
+                    HttpServer httpServer,
+                    Collection<ApiController> apiControllers,
+                    OfferRepository offerRepository,
+                    // injected to express dependency from core.node => core.oas
+                    @SuppressWarnings("unused") OpenApiSpecification openApiSpecification) {
         this.options = options;
-        this.dataDir = dataDir;
-        this.offerRepository = offerRepository;
+        this.p2pServer = p2pServer;
         this.httpServer = httpServer;
         this.apiControllers = apiControllers;
+        this.offerRepository = offerRepository;
     }
 
     public static BisqNode withOptions(Options options) {
-        return BisqNodeFactory.buildWithOptions(options);
+
+        var context = ApplicationContext.builder()
+                .properties(Map.of("micronaut.server.port", options.httpPort()))
+                .start();
+
+        var p2pServer = new P2PServer(options.p2pPort());
+        var httpServer = new HttpServer(context.getBean(EmbeddedServer.class));
+        var apiControllers = context.getBeansOfType(ApiController.class);
+        var offerRepository = context.getBean(OfferRepository.class);
+        var openApiSpec = context.getBean(OpenApiSpecification.class);
+
+        return new BisqNode(
+                options,
+                p2pServer,
+                httpServer,
+                apiControllers,
+                offerRepository,
+                openApiSpec
+        );
     }
 
     @Override
     public void run() {
-
         log.info("Starting up");
+
+        dataDir = DataDir.init(options);
 
         // Start services
         log.debug("Starting all services");
-        var p2pService = new P2PServer(options.p2pPort());
-        p2pService.start();
-        httpServer.run();
+        p2pServer.start();
+        httpServer.start();
 
         log.debug("Reporting available api endpoints");
         apiControllers.forEach(ApiController::report);
 
         // Register shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            log.info("Got shutdown signal");
-            log.info("Shutting down");
-            dataDir.close();
+            log.info("Shutdown requested");
+            this.shutdown();
         }));
+    }
+
+    public void shutdown() {
+        log.info("Shutdown in progress ...");
+        p2pServer._stop();
+        httpServer.stop();
+        dataDir.close();
+        log.info("Shutdown complete");
     }
 
     public OfferRepository getOfferRepository() {

@@ -17,10 +17,14 @@ class DataDir implements Closeable {
     private final FileLock lock;
     private final File pidFile;
 
-    public DataDir(Options options) {
-        this.dir = options.dataDir();
+    public static DataDir init(Options options) {
+        return new DataDir(options.dataDir(), options.cliArgs());
+    }
 
-        var cliArgs = options.cliArgs();
+    private DataDir(File dir, String[] cliArgs) {
+        this.dir = dir;
+
+        log.debug("Initializing data directory {}", dir);
 
         // Create data dir if necessary
         if (!dir.exists()) {
@@ -70,6 +74,10 @@ class DataDir implements Closeable {
 
     @Override
     public void close() {
+        log.info("Cleaning up data directory");
+        log.debug("Deleting pid file '{}'", pidFile);
+        if (!pidFile.delete())
+            log.error("Error: unable to delete pid file '{}'", pidFile);
 
         log.debug("Releasing lock on data directory '{}'", dir);
         try {
@@ -77,9 +85,5 @@ class DataDir implements Closeable {
         } catch (Exception ex) {
             log.error("Error: unable to release lock on data directory '{}'", dir, ex);
         }
-
-        log.debug("Deleting pid file '{}'", pidFile);
-        if (!pidFile.delete())
-            log.error("Error: unable to delete pid file '{}'", pidFile);
     }
 }

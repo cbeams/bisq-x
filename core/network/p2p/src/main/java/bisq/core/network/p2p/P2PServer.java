@@ -36,6 +36,11 @@ public class P2PServer extends Thread {
         }
     }
 
+    public void _stop() {
+        log.info("Stopping p2p service");
+        this.interrupt();
+    }
+
     // Thread class to handle each client connection
     private static class ClientHandler extends Thread {
         private final Socket socket;
