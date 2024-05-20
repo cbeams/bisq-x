@@ -150,7 +150,7 @@ public final class Options {
                                                            "Please box the field named '%s' appropriately", fieldName));
                 }
                 if (field.get(this) == null) {
-                    throw new IllegalStateException(format("Options fields may not be null after initialization time. " +
+                    throw new IllegalStateException(format("Option fields may not be null after initialization time. " +
                                                            "Please ensure the field named '%s' is assigned a default value. " +
                                                            "This may be because its value was not assigned in Options.assignValues() " +
                                                            "or because it is missing an entry in the default %s configuration file.", fieldName,
