@@ -71,11 +71,6 @@ class HelpFormatter implements joptsimple.HelpFormatter {
             if (nOptions > ++i)
                 result.append(", ");
         }
-
-        List<?> defaultValues = optionDesc.defaultValues();
-        if (!defaultValues.isEmpty())
-            result.append(String.format(" (default: %s)", formatDefaultValues(defaultValues)));
-
         return result.toString();
     }
 
@@ -102,16 +97,13 @@ class HelpFormatter implements joptsimple.HelpFormatter {
         }
     }
 
-    private Object formatDefaultValues(List<?> defaultValues) {
-        return defaultValues.size() == 1 ?
-                defaultValues.getFirst() :
-                defaultValues.toString();
-    }
-
     private String formatOptionDescription(OptionDescriptor optionDesc) {
         StringBuilder output = new StringBuilder();
 
         String remainder = optionDesc.description().trim();
+        List<?> defaultValues = optionDesc.defaultValues();
+        if (!defaultValues.isEmpty())
+            remainder += String.format(" (default: %s)", formatDefaultValues(defaultValues));
 
         // Wrap description text at 80 characters with 8 spaces of indentation and a
         // maximum of 72 chars of text, wrapping on spaces. Strings longer than 72 chars
@@ -131,6 +123,12 @@ class HelpFormatter implements joptsimple.HelpFormatter {
             output.append(formatLine(remainder));
 
         return output.toString();
+    }
+
+    private Object formatDefaultValues(List<?> defaultValues) {
+        return defaultValues.size() == 1 ?
+                defaultValues.getFirst() :
+                defaultValues.toString();
     }
 
     private String formatLine(String line) {
