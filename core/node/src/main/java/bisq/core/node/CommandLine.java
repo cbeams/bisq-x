@@ -146,20 +146,21 @@ public class CommandLine {
 
     public static class HelpRequest extends Exception {
 
-        private final String helpText;
+        private final OptionParser parser;
 
         public HelpRequest(OptionParser parser) {
+            this.parser = parser;
+        }
+
+        public String getHelpText(String fullName, String scriptName, String version, String description) {
             try {
                 var output = new ByteArrayOutputStream();
+                parser.formatHelpWith(new BisqHelpFormatter(fullName, scriptName, version, description));
                 parser.printHelpOn(output);
-                helpText = output.toString();
+                return output.toString();
             } catch (IOException ex) {
                 throw new UncheckedIOException(ex);
             }
-        }
-
-        public String getHelpText() {
-            return helpText;
         }
     }
 }

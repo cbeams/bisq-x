@@ -12,7 +12,7 @@ import static bisq.core.node.BisqNodeApplication.*;
 
 public class BisqDaemon implements BisqNodeApplication {
 
-    private static final String APP_NAME_AND_VERSION = "Bisq daemon v2.1.0";
+    private static final String APP_NAME_AND_VERSION = "Bisq daemon version 2.1.0";
 
     public static void main(String... args) {
         int status;
@@ -62,13 +62,9 @@ public class BisqDaemon implements BisqNodeApplication {
         try {
             cli.parse(options);
         } catch (CommandLine.HelpRequest request) {
-            System.out.println(APP_NAME_AND_VERSION);
-            System.out.print("""
-
-                    Usage:  bisqd [options]                                    Start Bisq
-
-                    """);
-            System.out.println(request.getHelpText());
+            var helpText = request.getHelpText(
+                    "Bisq daemon", "bisqd", "2.1.0", "Start Bisq");
+            System.out.print(helpText);
             return;
         }
 

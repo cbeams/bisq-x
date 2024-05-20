@@ -23,7 +23,7 @@ import static bisq.core.node.BisqNodeApplication.*;
 
 public class BisqDesktop extends Application implements BisqNodeApplication {
 
-    private static final String APP_NAME_AND_VERSION = "Bisq FX v2.1.0";
+    private static final String APP_NAME_AND_VERSION = "Bisq FX version 2.1.0";
 
     /**
      * Run the application via this helper main class. Doing so avoids the
@@ -91,13 +91,9 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
         try {
             cli.parse(options);
         } catch (CommandLine.HelpRequest request) {
-            System.out.println(APP_NAME_AND_VERSION);
-            System.out.print("""
-
-                    Usage:  bisq-fx [options]                         Start Bisq with GUI
-
-                    """);
-            System.out.println(request.getHelpText());
+            var helpText = request.getHelpText(
+                    "Bisq FX", "bisq-fx", "2.1.0", "Start Bisq with GUI");
+            System.out.print(helpText);
             System.exit(EXIT_SUCCESS);
         }
 

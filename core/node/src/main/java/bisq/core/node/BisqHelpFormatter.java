@@ -1,20 +1,3 @@
-/*
- * This file is part of Bisq.
- *
- * Bisq is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at
- * your option) any later version.
- *
- * Bisq is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
- */
-
 package bisq.core.node;
 
 import joptsimple.HelpFormatter;
@@ -30,18 +13,20 @@ public class BisqHelpFormatter implements HelpFormatter {
     private final String fullName;
     private final String scriptName;
     private final String version;
+    private final String description;
 
-    public BisqHelpFormatter(String fullName, String scriptName, String version) {
+    public BisqHelpFormatter(String fullName, String scriptName, String version, String description) {
         this.fullName = fullName;
         this.scriptName = scriptName;
         this.version = version;
+        this.description = description;
     }
 
     public String format(Map<String, ? extends OptionDescriptor> descriptors) {
 
         StringBuilder output = new StringBuilder();
         output.append(String.format("%s version %s\n\n", fullName, version));
-        output.append(String.format("Usage: %s [options]\n\n", scriptName));
+        output.append(formatUsage(scriptName, description));
         output.append("Options:\n\n");
 
         for (Map.Entry<String, ? extends OptionDescriptor> entry : descriptors.entrySet()) {
@@ -58,6 +43,13 @@ public class BisqHelpFormatter implements HelpFormatter {
         return output.toString();
     }
 
+    private static String formatUsage(String scriptName, String description) {
+        var usageLeft = String.format("Usage:  %s [options]", scriptName);
+        int padLen = Math.max((65 - usageLeft.length() - description.length()), 2);
+        var format = "%s%" + padLen + "s%s\n\n";
+        return String.format(format, usageLeft, "", description);
+    }
+
     private String formatOptionSyntax(String optionName, OptionDescriptor optionDesc) {
         StringBuilder result = new StringBuilder(String.format("  --%s", optionName));
 
@@ -65,7 +57,7 @@ public class BisqHelpFormatter implements HelpFormatter {
             result.append(String.format("=<%s>", formatArgDescription(optionDesc)));
 
         List<?> defaultValues = optionDesc.defaultValues();
-        if (defaultValues.size() > 0)
+        if (!defaultValues.isEmpty())
             result.append(String.format(" (default: %s)", formatDefaultValues(defaultValues)));
 
         return result.toString();
@@ -74,7 +66,7 @@ public class BisqHelpFormatter implements HelpFormatter {
     private String formatArgDescription(OptionDescriptor optionDesc) {
         String argDescription = optionDesc.argumentDescription();
 
-        if (argDescription.length() > 0)
+        if (!argDescription.isEmpty())
             return argDescription;
 
         String typeIndicator = optionDesc.argumentTypeIndicator();
@@ -96,7 +88,7 @@ public class BisqHelpFormatter implements HelpFormatter {
 
     private Object formatDefaultValues(List<?> defaultValues) {
         return defaultValues.size() == 1 ?
-                defaultValues.get(0) :
+                defaultValues.getFirst() :
                 defaultValues.toString();
     }
 
@@ -119,7 +111,7 @@ public class BisqHelpFormatter implements HelpFormatter {
             remainder = remainder.substring(chunk.length() - (chunk.length() - idxBreak)).trim();
         }
 
-        if (remainder.length() > 0)
+        if (!remainder.isEmpty())
             output.append(formatLine(remainder));
 
         return output.toString();
