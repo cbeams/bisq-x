@@ -1,8 +1,5 @@
 package bisq.core.node;
 
-import bisq.core.logging.Logging;
-import org.slf4j.event.Level;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,12 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.lang.reflect.Field;
-
 import java.util.Properties;
 
 import static bisq.core.node.ConfLog.log;
 import static java.lang.String.format;
-import static java.lang.reflect.Modifier.*;
+import static java.lang.reflect.Modifier.isFinal;
+import static java.lang.reflect.Modifier.isStatic;
 
 public final class Options {
 
@@ -164,8 +161,6 @@ public final class Options {
 
     public void debug(boolean debug) {
         this.debug = debug;
-        if (debug)
-            Logging.setLevel(Level.DEBUG);
     }
 
     public String appName() {

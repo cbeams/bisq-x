@@ -33,13 +33,12 @@ public class CommandLine {
         preParser.allowsUnrecognizedOptions();
 
         var helpOpt = helpOpt(preParser);
-        var debugOpt = debugOpt(preParser, false);
+        var debugOpt = debugOpt(preParser, true);
 
         var preOpts = preParser.parse(args);
 
         this.helpRequested = preOpts.has(helpOpt);
-        this.debugRequested = preOpts.has(debugOpt);
-
+        this.debugRequested = preOpts.has(debugOpt) ? preOpts.valueOf(debugOpt) : false;
         this.args = args;
     }
 
@@ -105,7 +104,7 @@ public class CommandLine {
             throw new HelpRequest(parser);
 
         if (cliOpts.has(debugOpt))
-            options.debug(cliOpts.valueOf(debugOpt));
+            options.debug(cliOpts.hasArgument(debugOpt) ? cliOpts.valueOf(debugOpt) : true);
 
         if (cliOpts.has(appNameOpt))
             options.appName(cliOpts.valueOf(appNameOpt));

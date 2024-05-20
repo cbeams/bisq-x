@@ -1,18 +1,19 @@
 package bisq.core.logging;
 
 import bisq.core.api.ApiLog;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
+import ch.qos.logback.classic.LoggerContext;
 
 import java.util.Collection;
 import java.util.HashMap;
 
 public class Logging {
 
-    private static final HashMap<String, Logger> ALL_LOGS = new HashMap<>();
-
-    private static Level EXPLICIT_DEFAULT_LEVEL;
+    private static final HashMap<String, Logger> allLogs = new HashMap<>();
+    private static Level defaultLevel = getRootLevel();
 
     static {
         // special case creation and assignment of low-level api log
@@ -20,23 +21,23 @@ public class Logging {
     }
 
     public static Logger getLog(String name) {
-        if (ALL_LOGS.containsKey(name))
-            return ALL_LOGS.get(name);
+        if (allLogs.containsKey(name))
+            return allLogs.get(name);
 
         var log = LoggerFactory.getLogger(name);
 
-        if (EXPLICIT_DEFAULT_LEVEL != null)
-            ((ch.qos.logback.classic.Logger) log)
-                    .setLevel(ch.qos.logback.classic.Level.convertAnSLF4JLevel(EXPLICIT_DEFAULT_LEVEL));
+        ((ch.qos.logback.classic.Logger) log)
+                .setLevel(ch.qos.logback.classic.Level.convertAnSLF4JLevel(defaultLevel));
 
-        ALL_LOGS.put(name, log);
+        allLogs.put(name, log);
+
         return log;
     }
 
     public static void setLevel(Level level, Logger... logs) {
         if (logs.length == 0) {
-            logs = ALL_LOGS.values().toArray(new Logger[0]);
-            EXPLICIT_DEFAULT_LEVEL = level;
+            logs = allLogs.values().toArray(new Logger[0]);
+            defaultLevel = level;
         }
 
         for (Logger log : logs)
@@ -45,6 +46,17 @@ public class Logging {
     }
 
     public static Collection<Logger> getLogs() {
-        return ALL_LOGS.values();
+        return allLogs.values();
+    }
+
+    public static void enableLevel(Level level) {
+        if (defaultLevel.compareTo(level) < 0)
+            setLevel(level);
+    }
+
+    private static Level getRootLevel() {
+        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        ch.qos.logback.classic.Level rootLevel = loggerContext.getLogger(Logger.ROOT_LOGGER_NAME).getLevel();
+        return Level.valueOf(rootLevel.toString());
     }
 }

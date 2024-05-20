@@ -1,18 +1,19 @@
 package bisq.core.node;
 
+import bisq.core.api.ApiController;
+import bisq.core.oas.OpenApiSpecification;
+
 import bisq.core.network.http.HttpServer;
 import bisq.core.network.p2p.P2PServer;
-
-import bisq.core.oas.OpenApiSpecification;
-import bisq.core.api.ApiController;
 
 import bisq.core.domain.trade.OfferRepository;
 
 import bisq.core.logging.Logging;
-import io.micronaut.runtime.server.EmbeddedServer;
 import org.slf4j.Logger;
+import org.slf4j.event.Level;
 
 import io.micronaut.context.ApplicationContext;
+import io.micronaut.runtime.server.EmbeddedServer;
 
 import java.util.Collection;
 import java.util.Map;
@@ -69,6 +70,11 @@ public class BisqNode {
     public void start() {
         log.info("Starting up");
 
+        // Enable debug logging
+        if (options.debug())
+            Logging.enableLevel(Level.DEBUG);
+
+        // Init data directory
         dataDir = DataDir.init(options);
 
         // Start services

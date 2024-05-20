@@ -17,9 +17,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import org.slf4j.event.Level;
-
 import static bisq.core.node.app.BisqNodeApp.*;
+import static org.slf4j.event.Level.*;
 
 public class BisqDesktop extends Application implements BisqNodeApp {
 
@@ -62,25 +61,22 @@ public class BisqDesktop extends Application implements BisqNodeApp {
         // Init logging
         // ------------------------------------------------------------------
 
-        Logging.setLevel(Level.INFO);
+        Logging.enableLevel(INFO);
 
         var cli = new CommandLine(args);
         var helpRequested = cli.helpRequested();
         var debugRequested = cli.debugRequested();
 
         // Suppress normal log output if we know help screen is coming
-        if (helpRequested && !debugRequested) {
-            Logging.setLevel(Level.WARN);
-        }
+        if (helpRequested && !debugRequested)
+            Logging.setLevel(WARN);
 
         // Identify what is running
         log.info(APP_NAME_AND_VERSION);
 
         // Enable debug logging as early as possible if requested
-        if (debugRequested) {
-            Logging.setLevel(Level.DEBUG);
-            log.debug("Enabling debug logging");
-        }
+        if (debugRequested)
+            Logging.enableLevel(DEBUG);
 
         // ------------------------------------------------------------------
         // Configure node
