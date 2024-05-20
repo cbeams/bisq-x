@@ -17,7 +17,6 @@ dependencies {
 
     implementation("io.micronaut:micronaut-http")
     implementation("jakarta.validation:jakarta.validation-api")
-    implementation("net.sf.jopt-simple:jopt-simple:5.0.4")
     implementation("ch.qos.logback:logback-classic:1.5.3")
 
     runtimeOnly("io.micronaut:micronaut-http-server-netty")
