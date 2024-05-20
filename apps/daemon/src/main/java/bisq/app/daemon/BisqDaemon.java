@@ -1,16 +1,16 @@
 package bisq.app.daemon;
 
 import bisq.core.node.BisqNode;
-import bisq.core.node.BisqNodeApplication;
-import bisq.core.node.CommandLine;
 import bisq.core.node.Options;
+import bisq.core.node.app.BisqNodeApp;
+import bisq.core.node.app.CommandLine;
 import bisq.core.logging.Logging;
 
 import org.slf4j.event.Level;
 
-import static bisq.core.node.BisqNodeApplication.*;
+import static bisq.core.node.app.BisqNodeApp.*;
 
-public class BisqDaemon implements BisqNodeApplication {
+public class BisqDaemon implements BisqNodeApp {
 
     private static final String APP_NAME_AND_VERSION = "Bisq daemon version 2.1.0";
 

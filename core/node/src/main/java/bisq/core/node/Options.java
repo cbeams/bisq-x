@@ -19,14 +19,13 @@ import static java.lang.reflect.Modifier.*;
 
 public final class Options {
 
-    static final String DEFAULT_CONF_FILENAME = "bisq.conf";
+    public static final String DEFAULT_CONF_FILENAME = "bisq.conf";
 
-    static final String CONF_FILE_OPT = "conf";
-    static final String DEBUG_OPT = "debug";
-    static final String APP_NAME_OPT = "app-name";
-    static final String DATA_DIR_OPT = "data-dir";
-    static final String P2P_PORT_OPT = "p2p-port";
-    static final String HTTP_PORT_OPT = "http-port";
+    public static final String DEBUG_OPT = "debug";
+    public static final String APP_NAME_OPT = "app-name";
+    public static final String DATA_DIR_OPT = "data-dir";
+    public static final String P2P_PORT_OPT = "p2p-port";
+    public static final String HTTP_PORT_OPT = "http-port";
 
     private Boolean debug;
     private String appName;

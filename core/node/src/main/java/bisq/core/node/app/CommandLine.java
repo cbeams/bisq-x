@@ -1,5 +1,6 @@
-package bisq.core.node;
+package bisq.core.node.app;
 
+import bisq.core.node.Options;
 import joptsimple.AbstractOptionSpec;
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
@@ -16,8 +17,10 @@ import static java.lang.String.format;
 
 public class CommandLine {
 
-    static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
-    static final String[] DEBUG_OPTS = new String[]{DEBUG_OPT, "d"};
+    private static final String CONF_FILE_OPT = "conf";
+
+    private static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
+    private static final String[] DEBUG_OPTS = new String[]{DEBUG_OPT, "d"};
 
     private final boolean helpRequested;
     private final boolean debugRequested;
@@ -155,7 +158,7 @@ public class CommandLine {
         public String getHelpText(String fullName, String scriptName, String version, String description) {
             try {
                 var output = new ByteArrayOutputStream();
-                parser.formatHelpWith(new BisqHelpFormatter(fullName, scriptName, version, description));
+                parser.formatHelpWith(new HelpFormatter(fullName, scriptName, version, description));
                 parser.printHelpOn(output);
                 return output.toString();
             } catch (IOException ex) {

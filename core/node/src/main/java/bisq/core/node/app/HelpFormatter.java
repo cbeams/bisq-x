@@ -1,6 +1,5 @@
-package bisq.core.node;
+package bisq.core.node.app;
 
-import joptsimple.HelpFormatter;
 import joptsimple.OptionDescriptor;
 
 import java.util.Arrays;
@@ -8,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class BisqHelpFormatter implements HelpFormatter {
+class HelpFormatter implements joptsimple.HelpFormatter {
 
     private final String fullName;
     private final String scriptName;
     private final String version;
     private final String description;
 
-    public BisqHelpFormatter(String fullName, String scriptName, String version, String description) {
+    public HelpFormatter(String fullName, String scriptName, String version, String description) {
         this.fullName = fullName;
         this.scriptName = scriptName;
         this.version = version;

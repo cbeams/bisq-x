@@ -1,10 +1,10 @@
 package bisq.app.desktop;
 
-import bisq.core.domain.trade.Offer;
 import bisq.core.node.BisqNode;
-import bisq.core.node.BisqNodeApplication;
-import bisq.core.node.CommandLine;
 import bisq.core.node.Options;
+import bisq.core.node.app.BisqNodeApp;
+import bisq.core.node.app.CommandLine;
+import bisq.core.domain.trade.Offer;
 import bisq.core.logging.Logging;
 
 import javafx.application.Application;
@@ -19,9 +19,9 @@ import javafx.stage.Stage;
 
 import org.slf4j.event.Level;
 
-import static bisq.core.node.BisqNodeApplication.*;
+import static bisq.core.node.app.BisqNodeApp.*;
 
-public class BisqDesktop extends Application implements BisqNodeApplication {
+public class BisqDesktop extends Application implements BisqNodeApp {
 
     private static final String APP_NAME_AND_VERSION = "Bisq FX version 2.1.0";
 
