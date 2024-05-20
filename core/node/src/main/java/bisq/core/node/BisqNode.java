@@ -77,7 +77,7 @@ public class BisqNode {
         httpServer.start();
 
         log.debug("Reporting available api endpoints");
-        apiControllers.forEach(ApiController::report);
+        apiControllers.forEach(ApiController::reportEndpoints);
 
         // Register shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {

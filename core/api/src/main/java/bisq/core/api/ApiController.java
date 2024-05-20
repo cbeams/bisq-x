@@ -15,7 +15,10 @@ public interface ApiController {
 
     Logger log = ApiLog.log;
 
-    default void report() {
+    default void reportEndpoints() {
+        if (!log.isDebugEnabled())
+            return;
+
         var basePath = getClass().getAnnotation(Controller.class).value();
         for (Method method : getClass().getMethods()) {
             for (Annotation annotation : method.getDeclaredAnnotations()) {
