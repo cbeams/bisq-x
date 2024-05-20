@@ -24,7 +24,7 @@ class HelpFormatter implements joptsimple.HelpFormatter {
 
     public String format(Map<String, ? extends OptionDescriptor> descriptors) {
 
-        StringBuilder output = new StringBuilder();
+        var output = new StringBuilder();
         output.append(String.format("%s version %s\n\n", fullName, version));
         output.append(formatUsage(scriptName, description));
         output.append("Options:\n\n");
@@ -55,18 +55,25 @@ class HelpFormatter implements joptsimple.HelpFormatter {
         int nOptions = options.size();
         for (int i = 0; i < nOptions; ) {
             var optionName = options.get(i);
+            var argDesc = formatArgDescription(optionDesc);
             if (optionName.length() == 1) {
+                // format short option
                 result.append(String.format("-%s", optionName));
-                if (optionDesc.acceptsArguments())
-                    if (optionDesc.requiresArgument())
-                        result.append(String.format(" <%s>", formatArgDescription(optionDesc)));
+                if (optionDesc.acceptsArguments()) {
+                    if (optionDesc.requiresArgument()) {
+                        result.append(String.format(" <%s>", argDesc));
+                    }
+                }
             } else {
+                // format long option
                 result.append(String.format("--%s", optionName));
-                if (optionDesc.acceptsArguments())
-                    if (optionDesc.requiresArgument())
-                        result.append(String.format("=<%s>", formatArgDescription(optionDesc)));
-                    else
-                        result.append(String.format("[=<%s>]", formatArgDescription(optionDesc)));
+                if (optionDesc.acceptsArguments()) {
+                    if (optionDesc.requiresArgument()) {
+                        result.append(String.format("=<%s>", argDesc));
+                    } else {
+                        result.append(String.format("[=<%s>]", argDesc));
+                    }
+                }
             }
             if (nOptions > ++i)
                 result.append(", ");
@@ -75,18 +82,18 @@ class HelpFormatter implements joptsimple.HelpFormatter {
     }
 
     private String formatArgDescription(OptionDescriptor optionDesc) {
-        String argDescription = optionDesc.argumentDescription();
+        var argDescription = optionDesc.argumentDescription();
 
         if (!argDescription.isEmpty())
             return argDescription;
 
-        String typeIndicator = optionDesc.argumentTypeIndicator();
+        var typeIndicator = optionDesc.argumentTypeIndicator();
 
         if (typeIndicator == null)
             return "value";
 
         try {
-            Class<?> type = Class.forName(typeIndicator);
+            var type = Class.forName(typeIndicator);
             return type.isEnum() ?
                     Arrays.stream(type.getEnumConstants()).map(Object::toString).collect(Collectors.joining("|")) :
                     typeIndicator.substring(typeIndicator.lastIndexOf('.') + 1).toLowerCase();
@@ -98,9 +105,9 @@ class HelpFormatter implements joptsimple.HelpFormatter {
     }
 
     private String formatOptionDescription(OptionDescriptor optionDesc) {
-        StringBuilder output = new StringBuilder();
+        var output = new StringBuilder();
 
-        String remainder = optionDesc.description().trim();
+        var remainder = optionDesc.description().trim();
 
         // Wrap description text at 80 characters with 8 spaces of indentation and a
         // maximum of 72 chars of text, wrapping on spaces. Strings longer than 72 chars
@@ -108,10 +115,10 @@ class HelpFormatter implements joptsimple.HelpFormatter {
         while (remainder.length() > 72) {
             int idxFirstSpace = remainder.indexOf(' ');
             int chunkLen = idxFirstSpace == -1 ? remainder.length() : Math.max(idxFirstSpace, 73);
-            String chunk = remainder.substring(0, chunkLen);
+            var chunk = remainder.substring(0, chunkLen);
             int idxLastSpace = chunk.lastIndexOf(' ');
             int idxBreak = idxLastSpace > 0 ? idxLastSpace : chunk.length();
-            String line = remainder.substring(0, idxBreak);
+            var line = remainder.substring(0, idxBreak);
             output.append(formatLine(line));
             remainder = remainder.substring(chunk.length() - (chunk.length() - idxBreak)).trim();
         }
@@ -119,7 +126,7 @@ class HelpFormatter implements joptsimple.HelpFormatter {
         if (!remainder.isEmpty())
             output.append(formatLine(remainder));
 
-        List<?> defaultValues = optionDesc.defaultValues();
+        var defaultValues = optionDesc.defaultValues();
         if (!defaultValues.isEmpty())
             output.append(formatLine(String.format(" (default: %s)", formatDefaultValues(defaultValues))));
 
