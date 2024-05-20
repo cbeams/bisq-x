@@ -53,16 +53,20 @@ class HelpFormatter implements joptsimple.HelpFormatter {
         var result = new StringBuilder("  ");
         var options = optionDesc.options();
         int nOptions = options.size();
-        for (int i = 0; i < nOptions;) {
+        for (int i = 0; i < nOptions; ) {
             var optionName = options.get(i);
             if (optionName.length() == 1) {
                 result.append(String.format("-%s", optionName));
                 if (optionDesc.acceptsArguments())
-                    result.append(String.format(" <%s>", formatArgDescription(optionDesc)));
+                    if (optionDesc.requiresArgument())
+                        result.append(String.format(" <%s>", formatArgDescription(optionDesc)));
             } else {
                 result.append(String.format("--%s", optionName));
                 if (optionDesc.acceptsArguments())
-                    result.append(String.format("=<%s>", formatArgDescription(optionDesc)));
+                    if (optionDesc.requiresArgument())
+                        result.append(String.format("=<%s>", formatArgDescription(optionDesc)));
+                    else
+                        result.append(String.format("[=<%s>]", formatArgDescription(optionDesc)));
             }
             if (nOptions > ++i)
                 result.append(", ");
@@ -90,7 +94,7 @@ class HelpFormatter implements joptsimple.HelpFormatter {
             Class<?> type = Class.forName(typeIndicator);
             return type.isEnum() ?
                     Arrays.stream(type.getEnumConstants()).map(Object::toString).collect(Collectors.joining("|")) :
-                    typeIndicator.substring(typeIndicator.lastIndexOf('.') + 1);
+                    typeIndicator.substring(typeIndicator.lastIndexOf('.') + 1).toLowerCase();
         } catch (ClassNotFoundException ex) {
             // typeIndicator is something other than a class name, which can occur
             // in certain cases e.g. where OptionParser.withValuesConvertedBy is used.

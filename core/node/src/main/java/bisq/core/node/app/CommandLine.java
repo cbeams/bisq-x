@@ -65,11 +65,13 @@ public class CommandLine {
         var appNameOpt = parser.accepts(APP_NAME_OPT, "Specify application name")
                 .withRequiredArg()
                 .ofType(String.class)
+                .describedAs("name")
                 .defaultsTo(options.appName());
 
         var dataDirOpt = parser.accepts(DATA_DIR_OPT, "Specify data directory")
                 .withRequiredArg()
                 .ofType(File.class)
+                .describedAs("dir")
                 .defaultsTo(options.dataDir());
 
         var confFileOpt = parser.accepts(CONF_FILE_OPT,
@@ -78,16 +80,19 @@ public class CommandLine {
                                "(only usable from command line, not configuration file)", DATA_DIR_OPT))
                 .withRequiredArg()
                 .ofType(String.class)
+                .describedAs("file")
                 .defaultsTo(DEFAULT_CONF_FILENAME);
 
         var httpPortOpt = parser.accepts(HTTP_PORT_OPT, "Listen for http api requests on <port>")
                 .withRequiredArg()
                 .ofType(Integer.class)
+                .describedAs("port")
                 .defaultsTo(options.httpPort());
 
         var p2pPortOpt = parser.accepts(P2P_PORT_OPT, "Listen for peer connections on <port>")
                 .withRequiredArg()
                 .ofType(Integer.class)
+                .describedAs("port")
                 .defaultsTo(options.p2pPort());
 
         // ------------------------------------------------------------------
@@ -142,6 +147,7 @@ public class CommandLine {
         return parser.acceptsAll(Arrays.asList(DEBUG_OPTS), "Enable debug logging")
                 .withOptionalArg()
                 .ofType(Boolean.class)
+                .describedAs("bool")
                 .defaultsTo(defaultValue);
     }
 
