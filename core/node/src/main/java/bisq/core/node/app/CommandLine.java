@@ -135,7 +135,7 @@ public class CommandLine {
     }
 
     private AbstractOptionSpec<Void> helpOpt(OptionParser parser) {
-        return parser.acceptsAll(Arrays.asList(HELP_OPTS), "Show this help").forHelp();
+        return parser.acceptsAll(Arrays.asList(HELP_OPTS), "Print this help message and exit").forHelp();
     }
 
     private ArgumentAcceptingOptionSpec<Boolean> debugOpt(OptionParser parser, boolean defaultValue) {

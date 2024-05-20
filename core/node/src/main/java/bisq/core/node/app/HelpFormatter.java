@@ -50,11 +50,23 @@ class HelpFormatter implements joptsimple.HelpFormatter {
     }
 
     private String formatOptionSyntax(OptionDescriptor optionDesc) {
-        var optionName = optionDesc.options().getFirst();
-        StringBuilder result = new StringBuilder(String.format("  --%s", optionName));
-
-        if (optionDesc.acceptsArguments())
-            result.append(String.format("=<%s>", formatArgDescription(optionDesc)));
+        var result = new StringBuilder("  ");
+        var options = optionDesc.options();
+        int nOptions = options.size();
+        for (int i = 0; i < nOptions;) {
+            var optionName = options.get(i);
+            if (optionName.length() == 1) {
+                result.append(String.format("-%s", optionName));
+                if (optionDesc.acceptsArguments())
+                    result.append(String.format(" <%s>", formatArgDescription(optionDesc)));
+            } else {
+                result.append(String.format("--%s", optionName));
+                if (optionDesc.acceptsArguments())
+                    result.append(String.format("=<%s>", formatArgDescription(optionDesc)));
+            }
+            if (nOptions > ++i)
+                result.append(", ");
+        }
 
         List<?> defaultValues = optionDesc.defaultValues();
         if (!defaultValues.isEmpty())
