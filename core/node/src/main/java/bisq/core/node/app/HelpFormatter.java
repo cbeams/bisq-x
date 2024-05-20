@@ -3,6 +3,7 @@ package bisq.core.node.app;
 import joptsimple.OptionDescriptor;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,14 +29,13 @@ class HelpFormatter implements joptsimple.HelpFormatter {
         output.append(formatUsage(scriptName, description));
         output.append("Options:\n\n");
 
-        for (Map.Entry<String, ? extends OptionDescriptor> entry : descriptors.entrySet()) {
-            String optionName = entry.getKey();
-            OptionDescriptor optionDesc = entry.getValue();
+        var uniqueDescriptors = new LinkedHashSet<OptionDescriptor>(descriptors.values());
 
+        for (OptionDescriptor optionDesc : uniqueDescriptors) {
             if (optionDesc.representsNonOptions())
                 continue;
 
-            output.append(String.format("%s\n", formatOptionSyntax(optionName, optionDesc)));
+            output.append(String.format("%s\n", formatOptionSyntax(optionDesc)));
             output.append(String.format("%s\n", formatOptionDescription(optionDesc)));
         }
 
@@ -49,7 +49,8 @@ class HelpFormatter implements joptsimple.HelpFormatter {
         return String.format(format, usageLeft, "", description);
     }
 
-    private String formatOptionSyntax(String optionName, OptionDescriptor optionDesc) {
+    private String formatOptionSyntax(OptionDescriptor optionDesc) {
+        var optionName = optionDesc.options().getFirst();
         StringBuilder result = new StringBuilder(String.format("  --%s", optionName));
 
         if (optionDesc.acceptsArguments())
