@@ -50,7 +50,7 @@ public class CommandLine {
         return debugRequested;
     }
 
-    public void parse(Options options) throws HelpRequest {
+    public void parse(Options nodeOpts) throws HelpRequest {
         log.debug("Parsing command line arguments");
         var parser = new OptionParser();
 
@@ -60,19 +60,19 @@ public class CommandLine {
 
         var helpOpt = helpOpt(parser);
 
-        var debugOpt = debugOpt(parser, options.debug());
+        var debugOpt = debugOpt(parser, nodeOpts.debug());
 
         var appNameOpt = parser.accepts(APP_NAME_OPT, "Specify application name")
                 .withRequiredArg()
                 .ofType(String.class)
                 .describedAs("name")
-                .defaultsTo(options.appName());
+                .defaultsTo(nodeOpts.appName());
 
         var dataDirOpt = parser.accepts(DATA_DIR_OPT, "Specify data directory")
                 .withRequiredArg()
                 .ofType(File.class)
                 .describedAs("dir")
-                .defaultsTo(options.dataDir());
+                .defaultsTo(nodeOpts.dataDir());
 
         var confFileOpt = parser.accepts(CONF_FILE_OPT,
                         format("Specify path to read-only configuration file. " +
@@ -87,13 +87,13 @@ public class CommandLine {
                 .withRequiredArg()
                 .ofType(Integer.class)
                 .describedAs("port")
-                .defaultsTo(options.httpPort());
+                .defaultsTo(nodeOpts.httpPort());
 
         var p2pPortOpt = parser.accepts(P2P_PORT_OPT, "Listen for peer connections on <port>")
                 .withRequiredArg()
                 .ofType(Integer.class)
                 .describedAs("port")
-                .defaultsTo(options.p2pPort());
+                .defaultsTo(nodeOpts.p2pPort());
 
         // ------------------------------------------------------------------
         // Do parsing
@@ -109,29 +109,29 @@ public class CommandLine {
             throw new HelpRequest(parser);
 
         if (cliOpts.has(debugOpt))
-            options.debug(cliOpts.hasArgument(debugOpt) ? cliOpts.valueOf(debugOpt) : true);
+            nodeOpts.debug(cliOpts.hasArgument(debugOpt) ? cliOpts.valueOf(debugOpt) : true);
 
         if (cliOpts.has(appNameOpt))
-            options.appName(cliOpts.valueOf(appNameOpt));
+            nodeOpts.appName(cliOpts.valueOf(appNameOpt));
 
         if (cliOpts.has(dataDirOpt))
-            options.dataDir(cliOpts.valueOf(dataDirOpt));
+            nodeOpts.dataDir(cliOpts.valueOf(dataDirOpt));
 
         if (cliOpts.has(confFileOpt)) {
             String confFilePath = cliOpts.valueOf(confFileOpt);
             log.info("Using custom config file path {}", confFilePath);
-            options.loadFromPath(confFilePath);
+            nodeOpts.loadFromPath(confFilePath);
         } else {
-            options.loadFromDataDir();
+            nodeOpts.loadFromDataDir();
         }
 
         if (cliOpts.has(httpPortOpt))
-            options.httpPort(cliOpts.valueOf(httpPortOpt));
+            nodeOpts.httpPort(cliOpts.valueOf(httpPortOpt));
 
         if (cliOpts.has(p2pPortOpt))
-            options.p2pPort(cliOpts.valueOf(p2pPortOpt));
+            nodeOpts.p2pPort(cliOpts.valueOf(p2pPortOpt));
 
-        options.cliArgs(args);
+        nodeOpts.cliArgs(args);
 
         var nonOptionArgs = cliOpts.nonOptionArguments();
         if (!nonOptionArgs.isEmpty())
