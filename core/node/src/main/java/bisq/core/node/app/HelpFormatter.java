@@ -101,9 +101,6 @@ class HelpFormatter implements joptsimple.HelpFormatter {
         StringBuilder output = new StringBuilder();
 
         String remainder = optionDesc.description().trim();
-        List<?> defaultValues = optionDesc.defaultValues();
-        if (!defaultValues.isEmpty())
-            remainder += String.format(" (default: %s)", formatDefaultValues(defaultValues));
 
         // Wrap description text at 80 characters with 8 spaces of indentation and a
         // maximum of 72 chars of text, wrapping on spaces. Strings longer than 72 chars
@@ -121,6 +118,10 @@ class HelpFormatter implements joptsimple.HelpFormatter {
 
         if (!remainder.isEmpty())
             output.append(formatLine(remainder));
+
+        List<?> defaultValues = optionDesc.defaultValues();
+        if (!defaultValues.isEmpty())
+            output.append(formatLine(String.format(" (default: %s)", formatDefaultValues(defaultValues))));
 
         return output.toString();
     }
