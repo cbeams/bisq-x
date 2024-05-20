@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
 
 import java.util.Properties;
 
-import static bisq.core.node.OptionsLog.log;
+import static bisq.core.node.ConfLog.log;
 import static java.lang.String.format;
 import static java.lang.reflect.Modifier.*;
 
@@ -45,13 +45,13 @@ public final class Options {
         Options options = new Options();
 
         log.debug("Loading system-specific option defaults");
-        options.userDataDir = OperatingSystem.getUserDataDir();
+        options.userDataDir(OperatingSystem.getUserDataDir());
 
         log.debug("Loading bundled option defaults");
         options.loadFromClassPath(DEFAULT_CONF_FILENAME);
 
         log.debug("Loading computed option defaults");
-        options.dataDir(new File(options.userDataDir, options.appName));
+        options.dataDir(new File(options.userDataDir(), options.appName()));
 
         log.debug("Checking all option defaults");
         options.checkValueAssignments();
@@ -181,7 +181,20 @@ public final class Options {
         return this.dataDir;
     }
 
-    void dataDir(File dataDir) {
+    public File userDataDir() {
+        return userDataDir;
+    }
+
+    public void userDataDir(File userDataDir) {
+        var userDataDirExists = userDataDir.exists();
+        log.debug("Using {} user data directory {}{}",
+                this.userDataDir == null ? "default" : "custom",
+                userDataDir,
+                userDataDirExists ? "" : " (does not yet exist)");
+        this.userDataDir = userDataDir;
+    }
+
+    public void dataDir(File dataDir) {
         var dataDirExists = dataDir.exists();
         log.info("Using {} data directory {}{}",
                 this.dataDir == null ? "default" : "custom",

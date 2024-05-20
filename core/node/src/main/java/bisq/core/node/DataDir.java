@@ -8,7 +8,7 @@ import java.io.UncheckedIOException;
 import java.nio.channels.FileLock;
 import java.nio.file.Files;
 
-import static bisq.core.node.OptionsLog.log;
+import static bisq.core.node.ConfLog.log;
 import static java.lang.String.format;
 
 class DataDir implements Closeable {

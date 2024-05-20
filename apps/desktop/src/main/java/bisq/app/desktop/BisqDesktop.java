@@ -86,7 +86,7 @@ public class BisqDesktop extends Application implements BisqNodeApplication {
         // Configure node
         // ------------------------------------------------------------------
 
-        log.info("Configuring node options");
+        log.debug("Configuring node options");
         var options = Options.withDefaultValues();
         try {
             cli.parse(options);

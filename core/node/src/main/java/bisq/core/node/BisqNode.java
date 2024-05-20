@@ -76,7 +76,7 @@ public class BisqNode {
         p2pServer.start();
         httpServer.start();
 
-        log.debug("Reporting available api endpoints");
+        // Report available API endpoints
         apiControllers.forEach(ApiController::reportEndpoints);
 
         // Register shutdown hook

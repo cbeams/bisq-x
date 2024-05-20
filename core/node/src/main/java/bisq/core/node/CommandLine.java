@@ -11,7 +11,7 @@ import java.io.UncheckedIOException;
 import java.util.Arrays;
 
 import static bisq.core.node.Options.*;
-import static bisq.core.node.OptionsLog.log;
+import static bisq.core.node.ConfLog.log;
 import static java.lang.String.format;
 
 public class CommandLine {
