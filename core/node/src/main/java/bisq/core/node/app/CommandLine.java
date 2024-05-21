@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.Arrays;
+import java.util.List;
 
 import static bisq.core.node.Options.*;
 import static bisq.core.node.ConfLog.log;
@@ -19,10 +19,10 @@ public class CommandLine {
 
     private static final String CONF_FILE_OPT = "conf";
 
-    private static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
-    private static final String[] DEBUG_OPTS = new String[]{DEBUG_OPT, "d"};
-    private static final String[] BASE_DATA_DIR_OPTS = new String[]{BASE_DATA_DIR_OPT, "base-dir"};
-    private static final String[] APP_DATA_DIR_OPTS = new String[]{APP_DATA_DIR_OPT, "data-dir", "dir"};
+    private static final List<String> HELP_OPTS = List.of("help", "h", "?");
+    private static final List<String> DEBUG_OPTS = List.of(DEBUG_OPT, "d");
+    private static final List<String> BASE_DATA_DIR_OPTS = List.of(BASE_DATA_DIR_OPT, "base-dir");
+    private static final List<String> APP_DATA_DIR_OPTS = List.of(APP_DATA_DIR_OPT, "data-dir", "dir");
 
     private final boolean helpRequested;
     private final boolean debugRequested;
@@ -64,7 +64,7 @@ public class CommandLine {
 
         var debugOpt = debugOpt(parser, nodeOpts.debug());
 
-        var baseDataDirOpt = parser.acceptsAll(Arrays.asList(BASE_DATA_DIR_OPTS), "Specify base data directory")
+        var baseDataDirOpt = parser.acceptsAll(BASE_DATA_DIR_OPTS, "Specify base data directory")
                 .withRequiredArg()
                 .ofType(File.class)
                 .describedAs("dir")
@@ -76,7 +76,7 @@ public class CommandLine {
                 .describedAs("name")
                 .defaultsTo(nodeOpts.appName());
 
-        var appDataDirOpt = parser.acceptsAll(Arrays.asList(APP_DATA_DIR_OPTS), "Specify application data directory")
+        var appDataDirOpt = parser.acceptsAll(APP_DATA_DIR_OPTS, "Specify application data directory")
                 .withRequiredArg()
                 .ofType(File.class)
                 .describedAs("dir")
@@ -151,11 +151,11 @@ public class CommandLine {
     }
 
     private AbstractOptionSpec<Void> helpOpt(OptionParser parser) {
-        return parser.acceptsAll(Arrays.asList(HELP_OPTS), "Print this help message and exit").forHelp();
+        return parser.acceptsAll(HELP_OPTS, "Print this help message and exit").forHelp();
     }
 
     private ArgumentAcceptingOptionSpec<Boolean> debugOpt(OptionParser parser, boolean defaultValue) {
-        return parser.acceptsAll(Arrays.asList(DEBUG_OPTS), "Enable/disable debug logging")
+        return parser.acceptsAll(DEBUG_OPTS, "Enable/disable debug logging")
                 .withOptionalArg()
                 .ofType(Boolean.class)
                 .describedAs("true|false")
