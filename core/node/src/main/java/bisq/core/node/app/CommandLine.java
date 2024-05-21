@@ -99,17 +99,17 @@ public class CommandLine {
                 .describedAs("file")
                 .defaultsTo(DEFAULT_CONF_FILENAME);
 
-        var httpPortOpt = parser.accepts(HTTP_PORT_OPT, "Listen for http api requests on <port>")
-                .withRequiredArg()
-                .ofType(Integer.class)
-                .describedAs("port")
-                .defaultsTo(nodeOpts.httpPort());
-
         var p2pPortOpt = parser.accepts(P2P_PORT_OPT, "Listen for peer connections on <port>")
                 .withRequiredArg()
                 .ofType(Integer.class)
                 .describedAs("port")
                 .defaultsTo(nodeOpts.p2pPort());
+
+        var httpPortOpt = parser.accepts(HTTP_PORT_OPT, "Listen for http api requests on <port>")
+                .withRequiredArg()
+                .ofType(Integer.class)
+                .describedAs("port")
+                .defaultsTo(nodeOpts.httpPort());
 
         // ------------------------------------------------------------------
         // Do parsing
