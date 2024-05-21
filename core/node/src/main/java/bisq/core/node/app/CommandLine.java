@@ -127,6 +127,8 @@ public class CommandLine {
 
         if (cliOpts.has(appDataDirOpt))
             nodeOpts.appDataDir(cliOpts.valueOf(appDataDirOpt));
+        else
+            nodeOpts.appDataDir(new File(nodeOpts.baseDataDir(), nodeOpts.appName()));
 
         if (cliOpts.has(confFileOpt)) {
             String confFilePath = cliOpts.valueOf(confFileOpt);
