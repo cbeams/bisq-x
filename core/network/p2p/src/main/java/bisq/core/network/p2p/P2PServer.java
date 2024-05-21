@@ -15,7 +15,6 @@ public class P2PServer extends Thread {
     }
 
     public void run() {
-        log.debug("Binding to port {}", port);
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             log.info("Listening for peer connections at bisq://localhost:{}", port);
 
