@@ -20,14 +20,15 @@ public final class Options {
 
     public static final String DEBUG_OPT = "debug";
     public static final String APP_NAME_OPT = "app-name";
+    public static final String BASE_DATA_DIR_OPT = "base-data-dir";
     public static final String DATA_DIR_OPT = "data-dir";
     public static final String P2P_PORT_OPT = "p2p-port";
     public static final String HTTP_PORT_OPT = "http-port";
 
     private Boolean debug;
     private String appName;
+    private File baseDataDir;
     private File dataDir;
-    private File userDataDir;
     private Integer p2pPort;
     private Integer httpPort;
 
@@ -41,13 +42,13 @@ public final class Options {
         Options options = new Options();
 
         log.debug("Loading system-specific option defaults");
-        options.userDataDir(OperatingSystem.getUserDataDir());
+        options.baseDataDir(OperatingSystem.getUserDataDir());
 
         log.debug("Loading bundled option defaults");
         options.loadFromClassPath(DEFAULT_CONF_FILENAME);
 
         log.debug("Loading computed option defaults");
-        options.dataDir(new File(options.userDataDir(), options.appName()));
+        options.dataDir(new File(options.baseDataDir(), options.appName()));
 
         log.debug("Checking all option defaults");
         options.checkValueAssignments();
@@ -175,17 +176,15 @@ public final class Options {
         return this.dataDir;
     }
 
-    public File userDataDir() {
-        return userDataDir;
+    public File baseDataDir() {
+        return baseDataDir;
     }
 
-    public void userDataDir(File userDataDir) {
-        var userDataDirExists = userDataDir.exists();
-        log.debug("Using {} user data directory {}{}",
-                this.userDataDir == null ? "default" : "custom",
-                userDataDir,
-                userDataDirExists ? "" : " (does not yet exist)");
-        this.userDataDir = userDataDir;
+    public void baseDataDir(File baseDataDir) {
+        log.debug("Using {} base data directory {}",
+                this.baseDataDir == null ? "default" : "custom",
+                baseDataDir);
+        this.baseDataDir = baseDataDir;
     }
 
     public void dataDir(File dataDir) {
