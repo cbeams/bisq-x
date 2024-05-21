@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
 import ch.qos.logback.classic.LoggerContext;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -14,6 +15,7 @@ public class Logging {
 
     private static final HashMap<String, Logger> allLogs = new HashMap<>();
     private static Level defaultLevel = getRootLevel();
+    private static final Logger log = getLog("log");
 
     static {
         // special case creation and assignment of low-level api log
@@ -43,6 +45,11 @@ public class Logging {
         for (Logger log : logs)
             ((ch.qos.logback.classic.Logger) log)
                     .setLevel(ch.qos.logback.classic.Level.valueOf(level.name()));
+
+        log.debug("Setting {}log level to {}",
+                logs.length == allLogs.size() ? "" : Arrays.stream(logs).map(Logger::getName).toList() + " ",
+                level.toString().toLowerCase()
+        );
     }
 
     public static Collection<Logger> getLogs() {
