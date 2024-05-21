@@ -153,10 +153,10 @@ public class CommandLine {
     }
 
     private ArgumentAcceptingOptionSpec<Boolean> debugOpt(OptionParser parser, boolean defaultValue) {
-        return parser.acceptsAll(Arrays.asList(DEBUG_OPTS), "Enable debug logging")
+        return parser.acceptsAll(Arrays.asList(DEBUG_OPTS), "Enable/disable debug logging")
                 .withOptionalArg()
                 .ofType(Boolean.class)
-                .describedAs("bool")
+                .describedAs("true|false")
                 .defaultsTo(defaultValue);
     }
 
