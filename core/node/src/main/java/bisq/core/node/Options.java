@@ -121,7 +121,7 @@ public final class Options {
                 case APP_NAME_OPT -> appName = String.valueOf(props.getProperty(APP_NAME_OPT));
                 case HTTP_PORT_OPT -> httpPort = Integer.valueOf(props.getProperty(HTTP_PORT_OPT));
                 case P2P_PORT_OPT -> p2pPort = Integer.valueOf(props.getProperty(P2P_PORT_OPT));
-                default -> log.warn("Ignoring unsupported option '{}'", key);
+                default -> log.warn("WARNING: Ignoring unsupported option '{}'", key);
             }
         }
     }
