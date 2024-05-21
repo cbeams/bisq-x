@@ -20,8 +20,7 @@ import java.util.Map;
 
 public class BisqNode {
 
-    private static final String NODE_LOG_NAME = "node";
-    private static final Logger log = Logging.getLog(NODE_LOG_NAME);
+    private static final Logger log = NodeLog.log;
 
     private final Options options;
     private final P2PServer p2pServer;
