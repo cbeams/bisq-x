@@ -21,6 +21,7 @@ public class CommandLine {
 
     private static final String[] HELP_OPTS = new String[]{"help", "h", "?"};
     private static final String[] DEBUG_OPTS = new String[]{DEBUG_OPT, "d"};
+    private static final String[] BASE_DATA_DIR_OPTS = new String[]{BASE_DATA_DIR_OPT, "base-dir"};
     private static final String[] APP_DATA_DIR_OPTS = new String[]{APP_DATA_DIR_OPT, "data-dir", "dir"};
 
     private final boolean helpRequested;
@@ -63,7 +64,7 @@ public class CommandLine {
 
         var debugOpt = debugOpt(parser, nodeOpts.debug());
 
-        var baseDataDirOpt = parser.accepts(BASE_DATA_DIR_OPT, "Specify base data directory")
+        var baseDataDirOpt = parser.acceptsAll(Arrays.asList(BASE_DATA_DIR_OPTS), "Specify base data directory")
                 .withRequiredArg()
                 .ofType(File.class)
                 .describedAs("dir")
