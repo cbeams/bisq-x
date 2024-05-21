@@ -22,6 +22,7 @@ public class CommandLine {
     private static final List<String> HELP_OPTS = List.of("help", "h", "?");
     private static final List<String> DEBUG_OPTS = List.of(DEBUG_OPT, "d");
     private static final List<String> BASE_DATA_DIR_OPTS = List.of(BASE_DATA_DIR_OPT, "base-dir");
+    private static final List<String> APP_NAME_OPTS = List.of(APP_NAME_OPT, "name");
     private static final List<String> APP_DATA_DIR_OPTS = List.of(APP_DATA_DIR_OPT, "app-dir", "dir");
 
     private final boolean helpRequested;
@@ -70,7 +71,7 @@ public class CommandLine {
                 .describedAs("dir")
                 .defaultsTo(nodeOpts.baseDataDir());
 
-        var appNameOpt = parser.accepts(APP_NAME_OPT, "Specify application name")
+        var appNameOpt = parser.acceptsAll(APP_NAME_OPTS, "Specify application name")
                 .withRequiredArg()
                 .ofType(String.class)
                 .describedAs("name")
