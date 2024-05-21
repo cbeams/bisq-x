@@ -1,8 +1,6 @@
 package bisq.core.node.app;
 
 import bisq.core.node.Options;
-import joptsimple.AbstractOptionSpec;
-import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 
 import java.io.ByteArrayOutputStream;
@@ -35,8 +33,11 @@ public class CommandLine {
 
         preParser.allowsUnrecognizedOptions();
 
-        var helpOpt = helpOpt(preParser);
-        var debugOpt = debugOpt(preParser, true);
+        var helpOpt = preParser.acceptsAll(HELP_OPTS).forHelp();
+        var debugOpt = preParser.acceptsAll(DEBUG_OPTS)
+                .withOptionalArg()
+                .ofType(Boolean.class)
+                .defaultsTo(true);
 
         var preOpts = preParser.parse(args);
 
@@ -61,9 +62,13 @@ public class CommandLine {
         // Configure parser using provided options for default values
         // ------------------------------------------------------------------
 
-        var helpOpt = helpOpt(parser);
+        var helpOpt = parser.acceptsAll(HELP_OPTS, "Print this help message and exit").forHelp();
 
-        var debugOpt = debugOpt(parser, nodeOpts.debug());
+        var debugOpt = parser.acceptsAll(DEBUG_OPTS, "Enable/disable debug logging")
+                .withOptionalArg()
+                .ofType(Boolean.class)
+                .describedAs("true|false")
+                .defaultsTo(nodeOpts.debug());
 
         var baseDataDirOpt = parser.acceptsAll(BASE_DATA_DIR_OPTS, "Specify base data directory")
                 .withRequiredArg()
@@ -164,18 +169,6 @@ public class CommandLine {
         if (!nonOptionArgs.isEmpty())
             throw new IllegalArgumentException(
                     format("Command line contains unsupported argument(s) %s", nonOptionArgs));
-    }
-
-    private AbstractOptionSpec<Void> helpOpt(OptionParser parser) {
-        return parser.acceptsAll(HELP_OPTS, "Print this help message and exit").forHelp();
-    }
-
-    private ArgumentAcceptingOptionSpec<Boolean> debugOpt(OptionParser parser, boolean defaultValue) {
-        return parser.acceptsAll(DEBUG_OPTS, "Enable/disable debug logging")
-                .withOptionalArg()
-                .ofType(Boolean.class)
-                .describedAs("true|false")
-                .defaultsTo(defaultValue);
     }
 
 
