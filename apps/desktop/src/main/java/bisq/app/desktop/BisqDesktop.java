@@ -85,7 +85,7 @@ public class BisqDesktop extends Application implements BisqNodeApp {
         log.debug("Configuring node options");
         var options = Options.withDefaultValues();
         try {
-            cli.parse(options);
+            cli.parseAndLoad(options);
         } catch (CommandLine.HelpRequest request) {
             var helpText = request.getHelpText(
                     "Bisq FX", "bisq-fx", "2.1.0", "Start Bisq with GUI");

@@ -56,7 +56,7 @@ public class BisqDaemon implements BisqNodeApp {
         log.debug("Configuring node options");
         var options = Options.withDefaultValues();
         try {
-            cli.parse(options);
+            cli.parseAndLoad(options);
         } catch (CommandLine.HelpRequest request) {
             var helpText = request.getHelpText(
                     "Bisq daemon", "bisqd", "2.1.0", "Start Bisq");

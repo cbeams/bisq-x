@@ -38,26 +38,16 @@ public final class Options {
     }
 
     public static Options withDefaultValues() {
-        log.debug("Loading default option values");
-        Options options = new Options();
-
-        log.debug("Loading system-specific option defaults");
+        var options = new Options();
         options.baseDataDir(OperatingSystem.getUserDataDir());
-
-        log.debug("Loading bundled option defaults");
         options.loadFromClassPath(DEFAULT_CONF_FILENAME);
-
-        log.debug("Loading computed option defaults");
         options.appDataDir(new File(options.baseDataDir(), options.appName()));
-
-        log.debug("Checking all option defaults");
         options.checkValueAssignments();
-
         return options;
     }
 
     public void loadFromClassPath(String resource) {
-        log.debug("Loading options from config file at classpath:{}", resource);
+        log.debug("Loading options from bundled defaults at classpath:{}", resource);
         var propStream = Options.class.getClassLoader().getResourceAsStream(resource);
         if (propStream == null)
             throw new RuntimeException(format("Could not find config file '%s' as a classpath resource", resource));
@@ -67,16 +57,13 @@ public final class Options {
     public void loadFromDataDir() {
         var confFile = new File(appDataDir, DEFAULT_CONF_FILENAME);
         var confFileExists = confFile.exists();
-        log.info("Using default config file {}{}",
-                confFile,
-                confFileExists ? "" : " (skipping, not found)");
-        if (confFileExists) {
+        log.info("Default config file {}{}", confFile, confFileExists ? "" : " (skipping, not found)");
+        if (confFileExists)
             loadFromFile(confFile);
-        }
     }
 
     public void loadFromPath(String confFilePath) {
-        log.debug("Evaluating specified config file path: {}", confFilePath);
+        log.debug("Resolving specified config file path {}", confFilePath);
         var confFile = new File(confFilePath);
         if (confFile.isAbsolute()) {
             log.debug("Proceeding to load config file because its path is absolute");
@@ -91,12 +78,12 @@ public final class Options {
     }
 
     public void loadFromFile(File confFile) {
-        log.debug("Loading options from config file: {}", confFile);
+        log.info("Using config file {}", confFile);
 
-        if (!confFile.exists()) {
+        if (!confFile.exists())
             throw new RuntimeException(format("Config file does not exist: %s", confFile));
-        }
 
+        log.debug("Loading options from config file {}", confFile);
         try {
             loadFromStream(new FileInputStream(confFile));
         } catch (FileNotFoundException e) {
@@ -181,19 +168,24 @@ public final class Options {
     }
 
     public void baseDataDir(File baseDataDir) {
-        log.debug("Using {} base data directory {}",
-                this.baseDataDir == null ? "default" : "custom",
-                baseDataDir);
+
+        if (this.baseDataDir == null)
+            log.debug("Default base data dir {}", baseDataDir);
+        else
+            log.debug("Using base data dir {}", baseDataDir);
+
         this.baseDataDir = baseDataDir;
     }
 
-    public void appDataDir(File dataDir) {
-        var dataDirExists = dataDir.exists();
-        log.info("Using {} data directory {}{}",
-                this.appDataDir == null ? "default" : "custom",
-                dataDir,
-                dataDirExists ? "" : " (does not yet exist)");
-        this.appDataDir = dataDir;
+    public void appDataDir(File appDataDir) {
+        var note = appDataDir.exists() ? "" : " (does not yet exist)";
+
+        if (this.appDataDir == null)
+            log.info("Default data directory {}{}", appDataDir, note);
+        else
+            log.info("Using data directory {}{}", appDataDir, note);
+
+        this.appDataDir = appDataDir;
     }
 
     public int p2pPort() {

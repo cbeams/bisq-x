@@ -53,8 +53,8 @@ public class CommandLine {
         return debugRequested;
     }
 
-    public void parse(Options nodeOpts) throws HelpRequest {
-        log.debug("Parsing command line arguments");
+    public void parseAndLoad(Options nodeOpts) throws HelpRequest {
+        log.debug("Loading options from command line arguments (count: {})", args.length);
         var parser = new OptionParser();
 
         // ------------------------------------------------------------------
@@ -118,6 +118,11 @@ public class CommandLine {
         if (cliOpts.has(helpOpt))
             throw new HelpRequest(parser);
 
+       if (cliOpts.has(confFileOpt))
+            nodeOpts.loadFromPath(cliOpts.valueOf(confFileOpt));
+        else
+            nodeOpts.loadFromDataDir();
+
         if (cliOpts.has(debugOpt))
             nodeOpts.debug(cliOpts.hasArgument(debugOpt) ? cliOpts.valueOf(debugOpt) : true);
 
@@ -129,16 +134,10 @@ public class CommandLine {
 
         if (cliOpts.has(appDataDirOpt))
             nodeOpts.appDataDir(cliOpts.valueOf(appDataDirOpt));
-        else
+        else if (cliOpts.has(baseDataDirOpt))
             nodeOpts.appDataDir(new File(nodeOpts.baseDataDir(), nodeOpts.appName()));
-
-        if (cliOpts.has(confFileOpt)) {
-            String confFilePath = cliOpts.valueOf(confFileOpt);
-            log.info("Using custom config file path {}", confFilePath);
-            nodeOpts.loadFromPath(confFilePath);
-        } else {
-            nodeOpts.loadFromDataDir();
-        }
+        else
+            nodeOpts.appDataDir(nodeOpts.appDataDir()); // make using default dir explicit
 
         if (cliOpts.has(httpPortOpt))
             nodeOpts.httpPort(cliOpts.valueOf(httpPortOpt));
