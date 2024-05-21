@@ -92,6 +92,7 @@ public class BisqDesktop extends Application implements BisqNodeApp {
             System.out.print(helpText);
             System.exit(EXIT_SUCCESS);
         }
+        log.debug("Finished configuring node options");
 
         // ------------------------------------------------------------------
         // Start node

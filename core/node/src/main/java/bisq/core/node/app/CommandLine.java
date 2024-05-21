@@ -54,6 +54,7 @@ public class CommandLine {
     }
 
     public void parseAndLoad(Options nodeOpts) throws HelpRequest {
+        log.debug("Parsing command line arguments (count: {})", args.length);
         var parser = new OptionParser();
 
         // ------------------------------------------------------------------

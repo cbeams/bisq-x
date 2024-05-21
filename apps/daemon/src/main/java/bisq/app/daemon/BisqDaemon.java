@@ -63,6 +63,7 @@ public class BisqDaemon implements BisqNodeApp {
             System.out.print(helpText);
             return;
         }
+        log.debug("Finished configuring node options");
 
         // ------------------------------------------------------------------
         // Start node

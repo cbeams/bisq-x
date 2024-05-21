@@ -62,7 +62,7 @@ class DataDir implements Closeable {
 
         // Write command line args to file
         var argsFile = new File(dir, "bisq.args");
-        log.debug("Writing {} command line arg(s) to '{}'", cliArgs.length, argsFile);
+        log.debug("Writing command line args (count: {}) to '{}'", cliArgs.length, argsFile);
         try {
             Files.writeString(argsFile.toPath(), String.join(" ", cliArgs));
         } catch (IOException ex) {

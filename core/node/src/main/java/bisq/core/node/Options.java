@@ -38,11 +38,13 @@ public final class Options {
     }
 
     public static Options withDefaultValues() {
+        log.debug("Loading default option values");
         var options = new Options();
         options.baseDataDir(OperatingSystem.getUserDataDir());
         options.loadFromClassPath(DEFAULT_CONF_FILENAME);
         options.appDataDir(new File(options.baseDataDir(), options.appName()));
-        options.checkValueAssignments();
+        options.checkAssignments();
+        log.debug("Finished loading default option values");
         return options;
     }
 
@@ -52,6 +54,7 @@ public final class Options {
         if (propStream == null)
             throw new RuntimeException(format("Could not find config file '%s' as a classpath resource", resource));
         loadFromStream(propStream);
+        log.debug("Finished loading bundled options from classpath:{}", resource);
     }
 
     public void loadFromDataDir() {
@@ -83,9 +86,10 @@ public final class Options {
         if (!confFile.exists())
             throw new RuntimeException(format("Config file does not exist: %s", confFile));
 
-        log.debug("Loading options from config file {}", confFile);
         try {
+            log.debug("Loading options from config file {}", confFile);
             loadFromStream(new FileInputStream(confFile));
+            log.debug("Finished loading options from {}", confFile);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -104,16 +108,16 @@ public final class Options {
     private void assignValues(Properties props) {
         for (Object key : props.keySet()) {
             switch ((String) key) {
-                case DEBUG_OPT -> debug = Boolean.valueOf(props.getProperty(DEBUG_OPT));
-                case APP_NAME_OPT -> appName = String.valueOf(props.getProperty(APP_NAME_OPT));
-                case HTTP_PORT_OPT -> httpPort = Integer.valueOf(props.getProperty(HTTP_PORT_OPT));
-                case P2P_PORT_OPT -> p2pPort = Integer.valueOf(props.getProperty(P2P_PORT_OPT));
+                case DEBUG_OPT -> debug(Boolean.parseBoolean(props.getProperty(DEBUG_OPT)));
+                case APP_NAME_OPT -> appName(props.getProperty(APP_NAME_OPT));
+                case HTTP_PORT_OPT -> httpPort(Integer.parseInt(props.getProperty(HTTP_PORT_OPT)));
+                case P2P_PORT_OPT -> p2pPort(Integer.parseInt(props.getProperty(P2P_PORT_OPT)));
                 default -> log.warn("WARNING: Ignoring unsupported option '{}'", key);
             }
         }
     }
 
-    private void checkValueAssignments() {
+    private void checkAssignments() {
         for (Field field : this.getClass().getDeclaredFields()) {
             var fieldName = field.getName();
             var fieldType = field.getType();
@@ -139,6 +143,13 @@ public final class Options {
         }
     }
 
+    private void logAssignment(String optName, Object oldVal, Object newVal) {
+        if (oldVal == null)
+            log.debug("- Setting '{}' default to '{}'", optName, newVal);
+        else if (!oldVal.equals(newVal))
+            log.debug("- Setting '{}' value to '{}' (was: '{}')", optName, newVal, oldVal);
+    }
+
     // -----------------------------------------------------------------------
     // option accessors
     // -----------------------------------------------------------------------
@@ -148,6 +159,7 @@ public final class Options {
     }
 
     public void debug(boolean debug) {
+        logAssignment(DEBUG_OPT, this.debug, debug);
         this.debug = debug;
     }
 
@@ -156,6 +168,7 @@ public final class Options {
     }
 
     public void appName(String appName) {
+        logAssignment(APP_NAME_OPT, this.appName, appName);
         this.appName = appName;
     }
 
@@ -163,21 +176,9 @@ public final class Options {
         return this.appDataDir;
     }
 
-    public File baseDataDir() {
-        return baseDataDir;
-    }
-
-    public void baseDataDir(File baseDataDir) {
-
-        if (this.baseDataDir == null)
-            log.debug("Default base data dir {}", baseDataDir);
-        else
-            log.debug("Using base data dir {}", baseDataDir);
-
-        this.baseDataDir = baseDataDir;
-    }
-
     public void appDataDir(File appDataDir) {
+        logAssignment(APP_DATA_DIR_OPT, this.appDataDir, appDataDir);
+
         var note = appDataDir.exists() ? "" : " (does not yet exist)";
 
         if (this.appDataDir == null)
@@ -188,11 +189,27 @@ public final class Options {
         this.appDataDir = appDataDir;
     }
 
+    public File baseDataDir() {
+        return baseDataDir;
+    }
+
+    public void baseDataDir(File baseDataDir) {
+        logAssignment(BASE_DATA_DIR_OPT, this.baseDataDir, baseDataDir);
+
+        if (this.baseDataDir == null)
+            log.debug("Default base data dir {}", baseDataDir);
+        else
+            log.debug("Using base data dir {}", baseDataDir);
+
+        this.baseDataDir = baseDataDir;
+    }
+
     public int p2pPort() {
         return p2pPort;
     }
 
     public void p2pPort(int p2pPort) {
+        logAssignment(P2P_PORT_OPT, this.p2pPort, p2pPort);
         this.p2pPort = p2pPort;
     }
 
@@ -201,14 +218,18 @@ public final class Options {
     }
 
     public void httpPort(int httpPort) {
+        logAssignment(HTTP_PORT_OPT, this.httpPort, httpPort);
         this.httpPort = httpPort;
-    }
-
-    public void cliArgs(String[] cliArgs) {
-        this.cliArgs = cliArgs;
     }
 
     public String[] cliArgs() {
         return cliArgs;
+    }
+
+    public void cliArgs(String[] cliArgs) {
+        // no logging for this as it's not really an 'option'
+        // we just carry this information along for the purposes
+        // of writing bisq.args file at node startup / data dir init time
+        this.cliArgs = cliArgs;
     }
 }
