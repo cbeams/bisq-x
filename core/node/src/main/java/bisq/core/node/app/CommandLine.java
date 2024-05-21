@@ -78,6 +78,7 @@ public class CommandLine {
                 .defaultsTo(nodeOpts.appName());
 
         var appDataDirOpt = parser.acceptsAll(APP_DATA_DIR_OPTS, "Specify application data directory")
+                .availableUnless(baseDataDirOpt)
                 .withRequiredArg()
                 .ofType(File.class)
                 .describedAs("dir")
