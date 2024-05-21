@@ -54,7 +54,6 @@ public class CommandLine {
     }
 
     public void parseAndLoad(Options nodeOpts) throws HelpRequest {
-        log.debug("Loading options from command line arguments (count: {})", args.length);
         var parser = new OptionParser();
 
         // ------------------------------------------------------------------
@@ -88,6 +87,7 @@ public class CommandLine {
                         format("Specify path to read-only configuration file. " +
                                "Relative paths will be prefixed by <%s> location " +
                                "(only usable from command line, not configuration file)", APP_DATA_DIR_OPT))
+                .availableUnless(appNameOpt) // to avoid handling a complex edge case
                 .withRequiredArg()
                 .ofType(String.class)
                 .describedAs("file")
@@ -115,17 +115,14 @@ public class CommandLine {
         // Override provided options with values parsed from command line
         // ------------------------------------------------------------------
 
+        log.debug("Loading options from command line arguments");
+
+        // Print help and exit if requested
         if (cliOpts.has(helpOpt))
             throw new HelpRequest(parser);
 
-       if (cliOpts.has(confFileOpt))
-            nodeOpts.loadFromPath(cliOpts.valueOf(confFileOpt));
-        else
-            nodeOpts.loadFromDataDir();
-
-        if (cliOpts.has(debugOpt))
-            nodeOpts.debug(cliOpts.hasArgument(debugOpt) ? cliOpts.valueOf(debugOpt) : true);
-
+        // -----------------------------------------------------------------------
+        // Determine app data dir
         if (cliOpts.has(baseDataDirOpt))
             nodeOpts.baseDataDir(cliOpts.valueOf(baseDataDirOpt));
 
@@ -138,12 +135,27 @@ public class CommandLine {
             nodeOpts.appDataDir(new File(nodeOpts.baseDataDir(), nodeOpts.appName()));
         else
             nodeOpts.appDataDir(nodeOpts.appDataDir()); // make using default dir explicit
+        // -----------------------------------------------------------------------
+
+        // Load options from specified conf file, only *after* determining app data dir
+        if (cliOpts.has(confFileOpt))
+            nodeOpts.loadFromPath(cliOpts.valueOf(confFileOpt));
+        else
+            nodeOpts.loadFromDataDir();
+
+        // -----------------------------------------------------------------------
+        // Resume loading options from cli, possibly overriding conf file values
+        if (cliOpts.has(debugOpt))
+            nodeOpts.debug(cliOpts.hasArgument(debugOpt) ? cliOpts.valueOf(debugOpt) : true);
 
         if (cliOpts.has(httpPortOpt))
             nodeOpts.httpPort(cliOpts.valueOf(httpPortOpt));
 
         if (cliOpts.has(p2pPortOpt))
             nodeOpts.p2pPort(cliOpts.valueOf(p2pPortOpt));
+
+        log.debug("Finished loading options from command line arguments");
+        // -----------------------------------------------------------------------
 
         nodeOpts.cliArgs(args);
 
