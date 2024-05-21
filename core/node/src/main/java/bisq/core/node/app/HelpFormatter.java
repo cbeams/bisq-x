@@ -109,10 +109,10 @@ class HelpFormatter implements joptsimple.HelpFormatter {
 
         var remainder = optionDesc.description().trim();
 
-        // Wrap description text at 80 characters with 8 spaces of indentation and a
-        // maximum of 72 chars of text, wrapping on spaces. Strings longer than 72 chars
+        // Wrap description text at 80 characters with 7 spaces of indentation and a
+        // maximum of 73 chars of text, wrapping on spaces. Strings longer than 73 chars
         // without any spaces (e.g. a URL) are allowed to overflow the 80-char margin.
-        while (remainder.length() > 72) {
+        while (remainder.length() > 73) {
             int idxFirstSpace = remainder.indexOf(' ');
             int chunkLen = idxFirstSpace == -1 ? remainder.length() : Math.max(idxFirstSpace, 73);
             var chunk = remainder.substring(0, chunkLen);
@@ -140,6 +140,6 @@ class HelpFormatter implements joptsimple.HelpFormatter {
     }
 
     private String formatLine(String line) {
-        return String.format("        %s\n", line.trim());
+        return String.format("       %s\n", line.trim());
     }
 }
