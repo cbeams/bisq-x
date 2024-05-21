@@ -19,8 +19,6 @@ public interface ApiController {
         if (!log.isDebugEnabled())
             return;
 
-        log.debug("Reporting available api endpoints");
-
         var basePath = getClass().getAnnotation(Controller.class).value();
         for (Method method : getClass().getMethods()) {
             for (Annotation annotation : method.getDeclaredAnnotations()) {
