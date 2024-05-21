@@ -118,7 +118,7 @@ public class BisqDesktop extends Application implements BisqNodeApp {
 
         Scene scene = new Scene(root, 300, 250);
 
-        primaryStage.setTitle("Bisq");
+        primaryStage.setTitle(bisqNode.getName());
         primaryStage.setScene(scene);
 
         primaryStage.show();

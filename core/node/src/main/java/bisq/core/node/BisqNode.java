@@ -102,6 +102,10 @@ public class BisqNode {
         log.info("Shutdown complete");
     }
 
+    public String getName() {
+        return options.appName();
+    }
+
     public OfferRepository getOfferRepository() {
         return offerRepository;
     }
