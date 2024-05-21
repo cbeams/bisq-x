@@ -62,17 +62,17 @@ public class CommandLine {
 
         var debugOpt = debugOpt(parser, nodeOpts.debug());
 
-        var appNameOpt = parser.accepts(APP_NAME_OPT, "Specify application name")
-                .withRequiredArg()
-                .ofType(String.class)
-                .describedAs("name")
-                .defaultsTo(nodeOpts.appName());
-
         var baseDataDirOpt = parser.accepts(BASE_DATA_DIR_OPT, "Specify base data directory")
                 .withRequiredArg()
                 .ofType(File.class)
                 .describedAs("dir")
                 .defaultsTo(nodeOpts.baseDataDir());
+
+        var appNameOpt = parser.accepts(APP_NAME_OPT, "Specify application name")
+                .withRequiredArg()
+                .ofType(String.class)
+                .describedAs("name")
+                .defaultsTo(nodeOpts.appName());
 
         var dataDirOpt = parser.accepts(DATA_DIR_OPT, "Specify data directory")
                 .withRequiredArg()
@@ -117,11 +117,11 @@ public class CommandLine {
         if (cliOpts.has(debugOpt))
             nodeOpts.debug(cliOpts.hasArgument(debugOpt) ? cliOpts.valueOf(debugOpt) : true);
 
-        if (cliOpts.has(appNameOpt))
-            nodeOpts.appName(cliOpts.valueOf(appNameOpt));
-
         if (cliOpts.has(baseDataDirOpt))
             nodeOpts.baseDataDir(cliOpts.valueOf(baseDataDirOpt));
+
+        if (cliOpts.has(appNameOpt))
+            nodeOpts.appName(cliOpts.valueOf(appNameOpt));
 
         if (cliOpts.has(dataDirOpt))
             nodeOpts.dataDir(cliOpts.valueOf(dataDirOpt));
