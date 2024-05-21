@@ -32,14 +32,14 @@ public class OptionsTest {
     }
 
     @Test
-    public void loadFromDataDir_containingConfFile_withOverride() throws IOException {
+    public void loadFromAppDataDir_containingConfFile_withOverride() throws IOException {
         var tmpDataDir = Files.createTempDirectory("bisq");
         var confFile = Files.createFile(tmpDataDir.resolve(DEFAULT_CONF_FILENAME));
 
         Files.writeString(confFile, format("%s=%d", HTTP_PORT_OPT, CUSTOM_HTTP_PORT));
 
         var options = Options.withDefaultValues();
-        options.dataDir(tmpDataDir.toFile());
+        options.appDataDir(tmpDataDir.toFile());
         options.loadFromDataDir();
 
         assertEquals(DEFAULT_P2P_PORT, options.p2pPort());
@@ -47,11 +47,11 @@ public class OptionsTest {
     }
 
     @Test
-    public void loadFromDataDir_containingNoConfFile() throws IOException {
+    public void loadFromAppDataDir_containingNoConfFile() throws IOException {
         var tmpDataDir = Files.createTempDirectory("bisq");
 
         var options = Options.withDefaultValues();
-        options.dataDir(tmpDataDir.toFile());
+        options.appDataDir(tmpDataDir.toFile());
         options.loadFromDataDir();
 
         assertEquals(DEFAULT_P2P_PORT, options.p2pPort());
@@ -59,16 +59,16 @@ public class OptionsTest {
     }
 
     @Test
-    public void loadFromDataDir_thatDoesNotExist() throws IOException {
+    public void loadFromAppDataDir_thatDoesNotExist() throws IOException {
         var dataDir = Files.createTempDirectory("bisq").toFile();
 
         //noinspection ResultOfMethodCallIgnored
         dataDir.delete();
 
         var options = Options.withDefaultValues();
-        options.dataDir(dataDir);
+        options.appDataDir(dataDir);
         options.loadFromDataDir();
 
-        assertEquals(dataDir, options.dataDir());
+        assertEquals(dataDir, options.appDataDir());
     }
 }

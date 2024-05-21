@@ -74,16 +74,16 @@ public class CommandLine {
                 .describedAs("name")
                 .defaultsTo(nodeOpts.appName());
 
-        var dataDirOpt = parser.accepts(DATA_DIR_OPT, "Specify data directory")
+        var appDataDirOpt = parser.accepts(APP_DATA_DIR_OPT, "Specify application data directory")
                 .withRequiredArg()
                 .ofType(File.class)
                 .describedAs("dir")
-                .defaultsTo(nodeOpts.dataDir());
+                .defaultsTo(nodeOpts.appDataDir());
 
         var confFileOpt = parser.accepts(CONF_FILE_OPT,
                         format("Specify path to read-only configuration file. " +
                                "Relative paths will be prefixed by <%s> location " +
-                               "(only usable from command line, not configuration file)", DATA_DIR_OPT))
+                               "(only usable from command line, not configuration file)", APP_DATA_DIR_OPT))
                 .withRequiredArg()
                 .ofType(String.class)
                 .describedAs("file")
@@ -123,8 +123,8 @@ public class CommandLine {
         if (cliOpts.has(appNameOpt))
             nodeOpts.appName(cliOpts.valueOf(appNameOpt));
 
-        if (cliOpts.has(dataDirOpt))
-            nodeOpts.dataDir(cliOpts.valueOf(dataDirOpt));
+        if (cliOpts.has(appDataDirOpt))
+            nodeOpts.appDataDir(cliOpts.valueOf(appDataDirOpt));
 
         if (cliOpts.has(confFileOpt)) {
             String confFilePath = cliOpts.valueOf(confFileOpt);

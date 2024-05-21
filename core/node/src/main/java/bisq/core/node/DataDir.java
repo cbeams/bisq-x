@@ -18,7 +18,7 @@ class DataDir implements Closeable {
     private final File pidFile;
 
     public static DataDir init(Options options) {
-        return new DataDir(options.dataDir(), options.cliArgs());
+        return new DataDir(options.appDataDir(), options.cliArgs());
     }
 
     private DataDir(File dir, String[] cliArgs) {

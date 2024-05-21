@@ -21,14 +21,14 @@ public final class Options {
     public static final String DEBUG_OPT = "debug";
     public static final String BASE_DATA_DIR_OPT = "base-data-dir";
     public static final String APP_NAME_OPT = "app-name";
-    public static final String DATA_DIR_OPT = "data-dir";
+    public static final String APP_DATA_DIR_OPT = "app-data-dir";
     public static final String P2P_PORT_OPT = "p2p-port";
     public static final String HTTP_PORT_OPT = "http-port";
 
     private Boolean debug;
     private File baseDataDir;
     private String appName;
-    private File dataDir;
+    private File appDataDir;
     private Integer p2pPort;
     private Integer httpPort;
 
@@ -48,7 +48,7 @@ public final class Options {
         options.loadFromClassPath(DEFAULT_CONF_FILENAME);
 
         log.debug("Loading computed option defaults");
-        options.dataDir(new File(options.baseDataDir(), options.appName()));
+        options.appDataDir(new File(options.baseDataDir(), options.appName()));
 
         log.debug("Checking all option defaults");
         options.checkValueAssignments();
@@ -65,7 +65,7 @@ public final class Options {
     }
 
     public void loadFromDataDir() {
-        var confFile = new File(dataDir, DEFAULT_CONF_FILENAME);
+        var confFile = new File(appDataDir, DEFAULT_CONF_FILENAME);
         var confFileExists = confFile.exists();
         log.info("Using default config file {}{}",
                 confFile,
@@ -86,7 +86,7 @@ public final class Options {
             loadFromFile(confFile);
         } else {
             log.debug("Prefixing relative config file path with data directory because it does not otherwise exist");
-            loadFromFile(new File(dataDir, confFilePath));
+            loadFromFile(new File(appDataDir, confFilePath));
         }
     }
 
@@ -172,8 +172,8 @@ public final class Options {
         this.appName = appName;
     }
 
-    public File dataDir() {
-        return this.dataDir;
+    public File appDataDir() {
+        return this.appDataDir;
     }
 
     public File baseDataDir() {
@@ -187,13 +187,13 @@ public final class Options {
         this.baseDataDir = baseDataDir;
     }
 
-    public void dataDir(File dataDir) {
+    public void appDataDir(File dataDir) {
         var dataDirExists = dataDir.exists();
         log.info("Using {} data directory {}{}",
-                this.dataDir == null ? "default" : "custom",
+                this.appDataDir == null ? "default" : "custom",
                 dataDir,
                 dataDirExists ? "" : " (does not yet exist)");
-        this.dataDir = dataDir;
+        this.appDataDir = dataDir;
     }
 
     public int p2pPort() {
