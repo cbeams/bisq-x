@@ -18,8 +18,8 @@ import java.util.HashMap;
 public class Logging {
 
     private static final HashMap<String, Logger> allLogs = new HashMap<>();
-    private static Level defaultLevel;
     private static final Logger log;
+    private static Level defaultLevel;
 
     static {
         // Get the LoggerContext
@@ -42,20 +42,31 @@ public class Logging {
 
         // Configure the root logger
         ch.qos.logback.classic.Logger rootLogger = context.getLogger(Logger.ROOT_LOGGER_NAME);
-        rootLogger.setLevel(ch.qos.logback.classic.Level.INFO);
+        ch.qos.logback.classic.Level rootLevel = ch.qos.logback.classic.Level.INFO;
+        rootLogger.setLevel(rootLevel);
+
+        // Set the default level used for all Bisq logs to the same level.
+        defaultLevel = Level.valueOf(rootLevel.toString());
+
+        // Add the ConsoleAppender
         rootLogger.addAppender(consoleAppender);
 
-        // Configure a specific logger (io.micronaut)
+        // Suppress all non-Bisq loggers to ERROR by default
+        // Micronaut is the only one requiring this so far
         ch.qos.logback.classic.Logger micronautLogger = context.getLogger("io.micronaut");
         micronautLogger.setLevel(ch.qos.logback.classic.Level.ERROR);
 
-        defaultLevel = getRootLevel();
 
-        // yes: 'log' is the log used to log about logging
+        // Yes: 'log' is the log used to log about logging
         log = getLog("log");
 
-        // special case creation and assignment of low-level api log
+        // Create and assign a log for the api module which is too low-level
+        // to have its own compile-time time dependency on the logging module
         ApiLog.log = getLog(ApiLog.API_LOG_NAME);
+    }
+
+    public static Collection<Logger> getLogs() {
+        return allLogs.values();
     }
 
     public static Logger getLog(String name) {
@@ -88,18 +99,8 @@ public class Logging {
         );
     }
 
-    public static Collection<Logger> getLogs() {
-        return allLogs.values();
-    }
-
     public static void enableLevel(Level level) {
         if (defaultLevel.compareTo(level) < 0)
             setLevel(level);
-    }
-
-    private static Level getRootLevel() {
-        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
-        ch.qos.logback.classic.Level rootLevel = loggerContext.getLogger(Logger.ROOT_LOGGER_NAME).getLevel();
-        return Level.valueOf(rootLevel.toString());
     }
 }
