@@ -61,13 +61,14 @@ public class CommandLine {
         // ------------------------------------------------------------------
         // Configure parser using provided options for default values
         // ------------------------------------------------------------------
+        var cliOnlyCaveat = "This option is command line-only and ignored if found in <" + CONF_FILE_OPT + ">.";
 
         var helpOpt = parser.acceptsAll(HELP_OPTS, "Print this help message and exit").forHelp();
 
         var debugOpt = parser.acceptsAll(DEBUG_OPTS,
                         "Enable or disable debug logging. When specified in the <" + CONF_FILE_OPT + "> file, debug " +
                         "logging is not enabled until node startup time. When specified at the command line, debug " +
-                        "logging is enabled immediately, useful when debugging the configuration process.")
+                        "logging is enabled immediately, useful when debugging the node configuration process itself.")
                 .withOptionalArg()
                 .ofType(Boolean.class)
                 .describedAs("true|false")
@@ -75,10 +76,9 @@ public class CommandLine {
 
         var baseDataDirOpt = parser.acceptsAll(BASE_DATA_DIR_OPTS,
                         "Specify the base directory to use when constructing the path to <" + APP_DATA_DIR_OPT + ">. " +
-                        "Defaults to the OS-specific 'user data directory', e.g. ~/.local/share/ on *nix systems. " +
-                        "Useful when running many short-lived dev and test instances whose data directories do not " +
-                        "need to be kept around. Example: `bisqd --dir=/tmp`; Caveats: Use is supported only at the " +
-                        "command line.")
+                        "Defaults to the OS-specific 'user data directory'. Useful when running multiple short-lived " +
+                        "e.g. dev and test instances whose data directories do not need to be kept around. " +
+                        "Example: `bisqd --dir=/tmp`. " + cliOnlyCaveat)
                 .withRequiredArg()
                 .ofType(File.class)
                 .describedAs("dir")
@@ -87,11 +87,16 @@ public class CommandLine {
         var appNameOpt = parser.acceptsAll(APP_NAME_OPTS,
                         "Specify the name of this node. If specified at the command line and <" + APP_DATA_DIR_OPT + "> " +
                         "is not also specified, this value is used to construct the path to <" + APP_DATA_DIR_OPT + ">. " +
-                        "If specified in <" + CONF_FILE_OPT + ">, this value is available only at runtime and does not " +
-                        "affect the path to <" + APP_DATA_DIR_OPT + ">. Useful when working with more than one local " +
-                        "node, e.g. Alice, Bob and Charlie instances whose data directories are long-lived. For " +
+                        "If specified in <" + CONF_FILE_OPT + ">, this value is available only at node runtime and does " +
+                        "not affect the path to <" + APP_DATA_DIR_OPT + ">. Useful when working with more than one " +
+                        "local node, e.g. Alice, Bob and Charlie instances whose data directories are long-lived. For " +
                         "example, running `bisqd --" + APP_NAME_OPT + "=Bisq-Alice` will use " +
-                        "<" + BASE_DATA_DIR_OPT + ">/Bisq-Alice/ as its <" + APP_DATA_DIR_OPT + ">.")
+                        "<" + BASE_DATA_DIR_OPT + ">/Bisq-Alice/ as its <" + APP_DATA_DIR_OPT + ">. Caveat: The value " +
+                        "of an --" + APP_NAME_OPT + " option passed at the command line once will not persist across " +
+                        "subsequent instances of that node, even if it was used to construct the path to the node's " +
+                        "<" + APP_DATA_DIR_OPT + ">; The --" + APP_NAME_OPT + " option must continue being passed on " +
+                        "each invocation, or an <" + APP_NAME_OPT + "> " + "entry must be added to the node's " +
+                        "<" + CONF_FILE_OPT + "> file, otherwise <" + APP_NAME_OPT + "> will revert to the default value.")
                 .withRequiredArg()
                 .ofType(String.class)
                 .describedAs("name")
@@ -99,9 +104,9 @@ public class CommandLine {
 
         var appDataDirOpt = parser.acceptsAll(APP_DATA_DIR_OPTS,
                         "Specify the application data directory for this node. Defaults to " +
-                        "<" + BASE_DATA_DIR_OPT + ">/<" + APP_NAME_OPT + ">/. Useful any time an instance other than " +
-                        "one's own primary Bisq node is being run, e.g. in development and testing scenarios. " +
-                        "Caveat: Use is supported only at the command line. ")
+                        "<" + BASE_DATA_DIR_OPT + ">/<" + APP_NAME_OPT + ">. Useful any time an instance other than " +
+                        "one's own primary/default Bisq node is being run, e.g. in development and testing scenarios. " +
+                        cliOnlyCaveat)
                 .availableUnless(baseDataDirOpt)
                 .withRequiredArg()
                 .ofType(File.class)
@@ -110,9 +115,11 @@ public class CommandLine {
 
         var confFileOpt = parser.accepts(CONF_FILE_OPT,
                         "Specify path to configuration file. Absolute paths are expected to exist and are " +
-                        "loaded directly, relative paths are loaded if they exist relative to the current working " +
-                        "directory and are otherwise expected to exist relative to <" + APP_DATA_DIR_OPT + ">. " +
-                        "Caveat: Use is supported only at the command line.")
+                        "loaded directly; relative paths are loaded if they exist relative to the current working " +
+                        "directory, and are otherwise expected to exist relative to <" + APP_DATA_DIR_OPT + ">. " +
+                        "Entries take the form of `<option-name> = <value>` pairs, one per line, " +
+                        "e.g. `" + DEBUG_OPT + " = true`. Options specified at the command line take precedence over " +
+                        "those in <" + CONF_FILE_OPT + ">. " + cliOnlyCaveat)
                 .withRequiredArg()
                 .ofType(String.class)
                 .describedAs("file")
