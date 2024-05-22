@@ -59,7 +59,7 @@ public class CommandLine {
         var parser = new OptionParser();
 
         // ------------------------------------------------------------------
-        // Configure parser using provided options for default values
+        // Configure cli parser using provided node options for defaults
         // ------------------------------------------------------------------
         var cliOnlyCaveat = "This option is command line-only and ignored if found in <" + CONF_FILE_OPT + ">.";
 
@@ -148,7 +148,7 @@ public class CommandLine {
         var cliOpts = parser.parse(args);
 
         // ------------------------------------------------------------------
-        // Override provided options with values parsed from command line
+        // Override default node options with values parsed from command line
         // ------------------------------------------------------------------
 
         log.debug("Loading options from command line arguments");
@@ -157,7 +157,7 @@ public class CommandLine {
         if (cliOpts.has(helpOpt))
             throw new HelpRequest(parser);
 
-        // -----------------------------------------------------------------------
+
         // Determine app data dir
         if (cliOpts.has(baseDataDirOpt))
             nodeOpts.baseDataDir(cliOpts.valueOf(baseDataDirOpt));
@@ -171,7 +171,7 @@ public class CommandLine {
             nodeOpts.appDataDir(new File(nodeOpts.baseDataDir(), nodeOpts.appName()));
         else
             nodeOpts.appDataDir(nodeOpts.appDataDir()); // make using default dir explicit
-        // -----------------------------------------------------------------------
+
 
         // Load options from specified conf file, only *after* determining app data dir
         if (cliOpts.has(confFileOpt))
@@ -179,8 +179,8 @@ public class CommandLine {
         else
             nodeOpts.loadFromDataDir();
 
-        // -----------------------------------------------------------------------
-        // Resume loading options from cli, possibly overriding conf file values
+
+        // Resume loading options from cli, overriding any overlapping conf file values
         if (cliOpts.has(debugOpt))
             nodeOpts.debug(cliOpts.hasArgument(debugOpt) ? cliOpts.valueOf(debugOpt) : true);
 
@@ -193,20 +193,21 @@ public class CommandLine {
         if (cliOpts.has(p2pPortOpt))
             nodeOpts.p2pPort(cliOpts.valueOf(p2pPortOpt));
 
-        log.debug("Finished loading options from command line arguments");
-        // -----------------------------------------------------------------------
 
+        // Pass along the original set of command line args
         nodeOpts.cliArgs(args);
 
+        // Ensure no additional
         var nonOptionArgs = cliOpts.nonOptionArguments();
         if (!nonOptionArgs.isEmpty())
             throw new IllegalArgumentException(
-                    format("Command line contains unsupported argument(s) %s", nonOptionArgs));
+                    format("Command line contains unsupported non-option argument(s) %s", nonOptionArgs));
+
+        log.debug("Finished loading options from command line arguments");
     }
 
 
     public static class HelpRequest extends Exception {
-
         private final OptionParser parser;
 
         public HelpRequest(OptionParser parser) {
