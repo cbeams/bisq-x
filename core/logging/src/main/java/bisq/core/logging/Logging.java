@@ -2,10 +2,14 @@ package bisq.core.logging;
 
 import bisq.core.api.ApiLog;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.ConsoleAppender;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
-import ch.qos.logback.classic.LoggerContext;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,10 +18,42 @@ import java.util.HashMap;
 public class Logging {
 
     private static final HashMap<String, Logger> allLogs = new HashMap<>();
-    private static Level defaultLevel = getRootLevel();
-    private static final Logger log = getLog("log");
+    private static Level defaultLevel;
+    private static final Logger log;
 
     static {
+        // Get the LoggerContext
+        var context = (LoggerContext) LoggerFactory.getILoggerFactory();
+
+        // Reset the context to clear any existing configuration
+        context.reset();
+
+        // Configure the encoder
+        var encoder = new PatternLayoutEncoder();
+        encoder.setContext(context);
+        encoder.setPattern("%d{yyyy-MM-dd'T'HH:mm:ss,UTC}Z [%4.-4logger] %msg%n");
+        encoder.start();
+
+        // Configure the ConsoleAppender
+        var consoleAppender = new ConsoleAppender<ILoggingEvent>();
+        consoleAppender.setContext(context);
+        consoleAppender.setEncoder(encoder);
+        consoleAppender.start();
+
+        // Configure the root logger
+        ch.qos.logback.classic.Logger rootLogger = context.getLogger(Logger.ROOT_LOGGER_NAME);
+        rootLogger.setLevel(ch.qos.logback.classic.Level.INFO);
+        rootLogger.addAppender(consoleAppender);
+
+        // Configure a specific logger (io.micronaut)
+        ch.qos.logback.classic.Logger micronautLogger = context.getLogger("io.micronaut");
+        micronautLogger.setLevel(ch.qos.logback.classic.Level.ERROR);
+
+        defaultLevel = getRootLevel();
+
+        // yes: 'log' is the log used to log about logging
+        log = getLog("log");
+
         // special case creation and assignment of low-level api log
         ApiLog.log = getLog(ApiLog.API_LOG_NAME);
     }
