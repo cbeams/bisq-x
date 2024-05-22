@@ -77,8 +77,8 @@ public class CommandLine {
                         "Specify the base directory to use when constructing the path to <" + APP_DATA_DIR_OPT + ">. " +
                         "Defaults to the OS-specific 'user data directory', e.g. ~/.local/share/ on *nix systems. " +
                         "Useful when running many short-lived dev and test instances whose data directories do not " +
-                        "need to be kept around. Example: `bisqd --dir=/tmp`; Caveats: Mutually exclusive with " +
-                        "<" + APP_NAME_OPT + ">; use is supported only at the command line.")
+                        "need to be kept around. Example: `bisqd --dir=/tmp`; Caveats: Use is supported only at the " +
+                        "command line.")
                 .withRequiredArg()
                 .ofType(File.class)
                 .describedAs("dir")
@@ -91,8 +91,7 @@ public class CommandLine {
                         "affect the path to <" + APP_DATA_DIR_OPT + ">. Useful when working with more than one local " +
                         "node, e.g. Alice, Bob and Charlie instances whose data directories are long-lived. For " +
                         "example, running `bisqd --" + APP_NAME_OPT + "=Bisq-Alice` will use " +
-                        "<" + BASE_DATA_DIR_OPT + ">/Bisq-Alice/ as its <" + APP_DATA_DIR_OPT + ">. " +
-                        "Caveats: Mutually exclusive with --" + BASE_DATA_DIR_OPT + ".")
+                        "<" + BASE_DATA_DIR_OPT + ">/Bisq-Alice/ as its <" + APP_DATA_DIR_OPT + ">.")
                 .withRequiredArg()
                 .ofType(String.class)
                 .describedAs("name")
@@ -114,7 +113,6 @@ public class CommandLine {
                         "loaded directly, relative paths are loaded if they exist relative to the current working " +
                         "directory and are otherwise expected to exist relative to <" + APP_DATA_DIR_OPT + ">. " +
                         "Caveat: Use is supported only at the command line.")
-                .availableUnless(appNameOpt) // to avoid handling a complex edge case
                 .withRequiredArg()
                 .ofType(String.class)
                 .describedAs("file")
@@ -157,7 +155,7 @@ public class CommandLine {
         if (cliOpts.has(baseDataDirOpt))
             nodeOpts.baseDataDir(cliOpts.valueOf(baseDataDirOpt));
 
-        if (cliOpts.has(appNameOpt))
+        if (cliOpts.has(appNameOpt)) // 1st pass, for constructing path to app data dir
             nodeOpts.appName(cliOpts.valueOf(appNameOpt));
 
         if (cliOpts.has(appDataDirOpt))
@@ -178,6 +176,9 @@ public class CommandLine {
         // Resume loading options from cli, possibly overriding conf file values
         if (cliOpts.has(debugOpt))
             nodeOpts.debug(cliOpts.hasArgument(debugOpt) ? cliOpts.valueOf(debugOpt) : true);
+
+        if (cliOpts.has(appNameOpt)) // 2nd pass, so cli value overrides any conf value
+            nodeOpts.appName(cliOpts.valueOf(appNameOpt));
 
         if (cliOpts.has(httpPortOpt))
             nodeOpts.httpPort(cliOpts.valueOf(httpPortOpt));
