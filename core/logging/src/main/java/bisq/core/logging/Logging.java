@@ -7,29 +7,30 @@ import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.ConsoleAppender;
 
+import ch.qos.logback.core.FileAppender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 
 public class Logging {
 
+    private static final LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+    private static final PatternLayoutEncoder encoder = new PatternLayoutEncoder();
     private static final HashMap<String, Logger> allLogs = new HashMap<>();
     private static final Logger log;
+    private static final ch.qos.logback.classic.Logger rootLogger;
     private static Level defaultLevel;
 
     static {
-        // Get the LoggerContext
-        var context = (LoggerContext) LoggerFactory.getILoggerFactory();
-
         // Reset the context to clear any existing configuration
         context.reset();
 
         // Configure the encoder
-        var encoder = new PatternLayoutEncoder();
         encoder.setContext(context);
         encoder.setPattern("%d{yyyy-MM-dd'T'HH:mm:ss,UTC}Z [%4.-4logger] %msg%n");
         encoder.start();
@@ -41,7 +42,7 @@ public class Logging {
         consoleAppender.start();
 
         // Configure the root logger
-        ch.qos.logback.classic.Logger rootLogger = context.getLogger(Logger.ROOT_LOGGER_NAME);
+        rootLogger = context.getLogger(Logger.ROOT_LOGGER_NAME);
         ch.qos.logback.classic.Level rootLevel = ch.qos.logback.classic.Level.INFO;
         rootLogger.setLevel(rootLevel);
 
@@ -63,6 +64,16 @@ public class Logging {
         // Create and assign a log for the api module which is too low-level
         // to have its own compile-time time dependency on the logging module
         ApiLog.log = getLog(ApiLog.API_LOG_NAME);
+    }
+
+    public static void addAppender(File file) {
+        var fileAppender = new FileAppender<ILoggingEvent>();
+        fileAppender.setContext(context);
+        fileAppender.setFile(file.getAbsolutePath());
+        fileAppender.setEncoder(encoder);
+        fileAppender.start();
+
+        rootLogger.addAppender(fileAppender);
     }
 
     public static Collection<Logger> getLogs() {
