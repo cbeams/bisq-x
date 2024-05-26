@@ -40,25 +40,41 @@ paths:
       - Info
       x-accepts:
       - application/json
-  /logs:
+  /logging/categories:
     get:
-      operationId: get
+      operationId: getCategories
       responses:
         "200":
           content:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/LogConfig'
+                  $ref: '#/components/schemas/CategorySpec'
                 type: array
-          description: get 200 response
+          description: getCategories 200 response
       tags:
       - Logging
       x-accepts:
       - application/json
-  /logs/{name}:
+    put:
+      operationId: updateCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateCategory_request'
+        required: true
+      responses:
+        "200":
+          description: updateCategory 200 response
+      tags:
+      - Logging
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /logging/categories/{name}:
     get:
-      operationId: get_1
+      operationId: getCategory
       parameters:
       - explode: false
         in: path
@@ -72,34 +88,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LogConfig'
-          description: get_1 200 response
+                $ref: '#/components/schemas/CategorySpec'
+          description: getCategory 200 response
       tags:
       - Logging
-      x-accepts:
-      - application/json
-    put:
-      operationId: put
-      parameters:
-      - explode: false
-        in: path
-        name: name
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/put_request'
-        required: true
-      responses:
-        "200":
-          description: put 200 response
-      tags:
-      - Logging
-      x-content-type: application/json
       x-accepts:
       - application/json
   /trade/offers:
@@ -183,6 +175,21 @@ paths:
       - application/json
 components:
   schemas:
+    CategorySpec:
+      example:
+        level: level
+        name: name
+      properties:
+        name:
+          minLength: 1
+          type: string
+        level:
+          minLength: 1
+          type: string
+      required:
+      - level
+      - name
+      type: object
     Identity:
       properties:
         nym:
@@ -200,21 +207,6 @@ components:
           type: string
       required:
       - version
-      type: object
-    LogConfig:
-      example:
-        level: level
-        name: name
-      properties:
-        name:
-          minLength: 1
-          type: string
-        level:
-          minLength: 1
-          type: string
-      required:
-      - level
-      - name
       type: object
     Offer:
       example:
@@ -235,10 +227,10 @@ components:
         identity:
           $ref: '#/components/schemas/Identity'
       type: object
-    put_request:
+    updateCategory_request:
       properties:
-        logConfig:
-          $ref: '#/components/schemas/LogConfig'
+        categorySpec:
+          $ref: '#/components/schemas/CategorySpec'
       type: object
     add_request:
       properties:

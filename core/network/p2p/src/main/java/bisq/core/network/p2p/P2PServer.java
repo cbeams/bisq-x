@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static bisq.core.network.p2p.P2PLog.log;
+import static bisq.core.network.p2p.P2PCategory.log;
 
 public class P2PServer extends Thread {
 

@@ -7,7 +7,7 @@ import bisq.core.node.app.CommandLine;
 import bisq.core.logging.Logging;
 
 import static bisq.core.node.app.BisqNodeApp.*;
-import static org.slf4j.event.Level.*;
+import static ch.qos.logback.classic.Level.*;
 
 public class BisqDaemon implements BisqNodeApp {
 
@@ -32,7 +32,7 @@ public class BisqDaemon implements BisqNodeApp {
         // Init logging
         // ------------------------------------------------------------------
 
-        Logging.enableLevel(INFO);
+        Logging.setLevel(INFO);
 
         var cli = new CommandLine(args);
         var helpRequested = cli.helpRequested();
@@ -47,7 +47,7 @@ public class BisqDaemon implements BisqNodeApp {
 
         // Enable debug logging as early as possible if requested
         if (debugRequested)
-            Logging.enableLevel(DEBUG);
+            Logging.setLevel(DEBUG);
 
         // ------------------------------------------------------------------
         // Configure node

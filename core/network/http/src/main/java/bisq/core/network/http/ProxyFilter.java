@@ -8,11 +8,11 @@ import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.filter.FilterChain;
 import io.micronaut.http.filter.HttpFilter;
 import org.reactivestreams.Publisher;
-import org.slf4j.Logger;
 import reactor.core.publisher.Mono;
 
 import jakarta.inject.Inject;
 
+import static bisq.core.network.http.HttpCategory.log;
 import static io.micronaut.http.HttpHeaders.FORWARDED;
 import static io.micronaut.http.HttpHeaders.HOST;
 
@@ -44,8 +44,6 @@ import static io.micronaut.http.HttpHeaders.HOST;
 public class ProxyFilter implements HttpFilter {
 
     public static final String X_FORWARD_TO = "X-Forward-To";
-
-    private static final Logger log = HttpLog.log;
 
     @Inject
     @Client("/")

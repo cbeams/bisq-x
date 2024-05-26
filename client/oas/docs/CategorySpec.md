@@ -1,13 +1,14 @@
 
 
-# PutRequest
+# CategorySpec
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**logConfig** | [**LogConfig**](LogConfig.md) |  |  [optional] |
+|**name** | **String** |  |  |
+|**level** | **String** |  |  |
 
 
 

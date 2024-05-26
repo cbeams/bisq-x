@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-import static bisq.core.domain.trade.TradeLog.log;
+import static bisq.core.domain.trade.OfferCategory.log;
 
 @Controller("/trade/offers")
 public class OfferController implements ApiController {

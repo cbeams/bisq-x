@@ -19,6 +19,7 @@ dependencies {
     implementation(project(":core:domain:trade"))
     implementation(project(":core:network:p2p"))
     implementation(project(":core:logging"))
+    implementation("ch.qos.logback:logback-classic:1.5.3")
 }
 
 application {

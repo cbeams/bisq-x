@@ -27,8 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import bisq.client.oas.model.LogConfig;
-import bisq.client.oas.model.PutRequest;
+import bisq.client.oas.model.CategorySpec;
+import bisq.client.oas.model.UpdateCategoryRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -74,17 +74,17 @@ public class LoggingEndpoint {
     }
 
     /**
-     * Build call for get
+     * Build call for getCategories
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> get 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getCategories 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCall(final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getCategoriesCall(final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -101,7 +101,7 @@ public class LoggingEndpoint {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/logs";
+        String localVarPath = "/logging/categories";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -129,41 +129,41 @@ public class LoggingEndpoint {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return getCall(_callback);
+    private okhttp3.Call getCategoriesValidateBeforeCall(final ApiCallback _callback) throws ApiException {
+        return getCategoriesCall(_callback);
 
     }
 
     /**
      * 
      * 
-     * @return List&lt;LogConfig&gt;
+     * @return List&lt;CategorySpec&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> get 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getCategories 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public List<LogConfig> get() throws ApiException {
-        ApiResponse<List<LogConfig>> localVarResp = getWithHttpInfo();
+    public List<CategorySpec> getCategories() throws ApiException {
+        ApiResponse<List<CategorySpec>> localVarResp = getCategoriesWithHttpInfo();
         return localVarResp.getData();
     }
 
     /**
      * 
      * 
-     * @return ApiResponse&lt;List&lt;LogConfig&gt;&gt;
+     * @return ApiResponse&lt;List&lt;CategorySpec&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> get 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getCategories 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<LogConfig>> getWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = getValidateBeforeCall(null);
-        Type localVarReturnType = new TypeToken<List<LogConfig>>(){}.getType();
+    public ApiResponse<List<CategorySpec>> getCategoriesWithHttpInfo() throws ApiException {
+        okhttp3.Call localVarCall = getCategoriesValidateBeforeCall(null);
+        Type localVarReturnType = new TypeToken<List<CategorySpec>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -176,18 +176,18 @@ public class LoggingEndpoint {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> get 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getCategories 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAsync(final ApiCallback<List<LogConfig>> _callback) throws ApiException {
+    public okhttp3.Call getCategoriesAsync(final ApiCallback<List<CategorySpec>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<List<LogConfig>>(){}.getType();
+        okhttp3.Call localVarCall = getCategoriesValidateBeforeCall(_callback);
+        Type localVarReturnType = new TypeToken<List<CategorySpec>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for get1
+     * Build call for getCategory
      * @param name  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -195,10 +195,10 @@ public class LoggingEndpoint {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> get_1 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call get1Call(String name, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getCategoryCall(String name, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -215,7 +215,7 @@ public class LoggingEndpoint {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/logs/{name}"
+        String localVarPath = "/logging/categories/{name}"
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -244,13 +244,13 @@ public class LoggingEndpoint {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call get1ValidateBeforeCall(String name, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getCategoryValidateBeforeCall(String name, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'name' is set
         if (name == null) {
-            throw new ApiException("Missing the required parameter 'name' when calling get1(Async)");
+            throw new ApiException("Missing the required parameter 'name' when calling getCategory(Async)");
         }
 
-        return get1Call(name, _callback);
+        return getCategoryCall(name, _callback);
 
     }
 
@@ -258,16 +258,16 @@ public class LoggingEndpoint {
      * 
      * 
      * @param name  (required)
-     * @return LogConfig
+     * @return CategorySpec
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> get_1 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public LogConfig get1(String name) throws ApiException {
-        ApiResponse<LogConfig> localVarResp = get1WithHttpInfo(name);
+    public CategorySpec getCategory(String name) throws ApiException {
+        ApiResponse<CategorySpec> localVarResp = getCategoryWithHttpInfo(name);
         return localVarResp.getData();
     }
 
@@ -275,17 +275,17 @@ public class LoggingEndpoint {
      * 
      * 
      * @param name  (required)
-     * @return ApiResponse&lt;LogConfig&gt;
+     * @return ApiResponse&lt;CategorySpec&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> get_1 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<LogConfig> get1WithHttpInfo(String name) throws ApiException {
-        okhttp3.Call localVarCall = get1ValidateBeforeCall(name, null);
-        Type localVarReturnType = new TypeToken<LogConfig>(){}.getType();
+    public ApiResponse<CategorySpec> getCategoryWithHttpInfo(String name) throws ApiException {
+        okhttp3.Call localVarCall = getCategoryValidateBeforeCall(name, null);
+        Type localVarReturnType = new TypeToken<CategorySpec>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -299,30 +299,29 @@ public class LoggingEndpoint {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> get_1 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call get1Async(String name, final ApiCallback<LogConfig> _callback) throws ApiException {
+    public okhttp3.Call getCategoryAsync(String name, final ApiCallback<CategorySpec> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = get1ValidateBeforeCall(name, _callback);
-        Type localVarReturnType = new TypeToken<LogConfig>(){}.getType();
+        okhttp3.Call localVarCall = getCategoryValidateBeforeCall(name, _callback);
+        Type localVarReturnType = new TypeToken<CategorySpec>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for put
-     * @param name  (required)
-     * @param putRequest  (required)
+     * Build call for updateCategory
+     * @param updateCategoryRequest  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> put 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> updateCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call putCall(String name, PutRequest putRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateCategoryCall(UpdateCategoryRequest updateCategoryRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -336,11 +335,10 @@ public class LoggingEndpoint {
             basePath = null;
         }
 
-        Object localVarPostBody = putRequest;
+        Object localVarPostBody = updateCategoryRequest;
 
         // create path and map variables
-        String localVarPath = "/logs/{name}"
-            .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
+        String localVarPath = "/logging/categories";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -368,72 +366,64 @@ public class LoggingEndpoint {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call putValidateBeforeCall(String name, PutRequest putRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'name' is set
-        if (name == null) {
-            throw new ApiException("Missing the required parameter 'name' when calling put(Async)");
+    private okhttp3.Call updateCategoryValidateBeforeCall(UpdateCategoryRequest updateCategoryRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'updateCategoryRequest' is set
+        if (updateCategoryRequest == null) {
+            throw new ApiException("Missing the required parameter 'updateCategoryRequest' when calling updateCategory(Async)");
         }
 
-        // verify the required parameter 'putRequest' is set
-        if (putRequest == null) {
-            throw new ApiException("Missing the required parameter 'putRequest' when calling put(Async)");
-        }
-
-        return putCall(name, putRequest, _callback);
+        return updateCategoryCall(updateCategoryRequest, _callback);
 
     }
 
     /**
      * 
      * 
-     * @param name  (required)
-     * @param putRequest  (required)
+     * @param updateCategoryRequest  (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> put 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> updateCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public void put(String name, PutRequest putRequest) throws ApiException {
-        putWithHttpInfo(name, putRequest);
+    public void updateCategory(UpdateCategoryRequest updateCategoryRequest) throws ApiException {
+        updateCategoryWithHttpInfo(updateCategoryRequest);
     }
 
     /**
      * 
      * 
-     * @param name  (required)
-     * @param putRequest  (required)
+     * @param updateCategoryRequest  (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> put 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> updateCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> putWithHttpInfo(String name, PutRequest putRequest) throws ApiException {
-        okhttp3.Call localVarCall = putValidateBeforeCall(name, putRequest, null);
+    public ApiResponse<Void> updateCategoryWithHttpInfo(UpdateCategoryRequest updateCategoryRequest) throws ApiException {
+        okhttp3.Call localVarCall = updateCategoryValidateBeforeCall(updateCategoryRequest, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * 
-     * @param name  (required)
-     * @param putRequest  (required)
+     * @param updateCategoryRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> put 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> updateCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call putAsync(String name, PutRequest putRequest, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call updateCategoryAsync(UpdateCategoryRequest updateCategoryRequest, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = putValidateBeforeCall(name, putRequest, _callback);
+        okhttp3.Call localVarCall = updateCategoryValidateBeforeCall(updateCategoryRequest, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

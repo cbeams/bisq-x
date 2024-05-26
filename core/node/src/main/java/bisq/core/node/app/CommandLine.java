@@ -10,7 +10,7 @@ import java.io.UncheckedIOException;
 import java.util.List;
 
 import static bisq.core.node.Options.*;
-import static bisq.core.node.ConfLog.log;
+import static bisq.core.node.ConfCategory.log;
 import static java.lang.String.format;
 
 public class CommandLine {

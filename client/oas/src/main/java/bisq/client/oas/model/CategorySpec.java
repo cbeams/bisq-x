@@ -14,7 +14,6 @@
 package bisq.client.oas.model;
 
 import java.util.Objects;
-import bisq.client.oas.model.LogConfig;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -48,33 +47,56 @@ import java.util.Set;
 import bisq.client.oas.JSON;
 
 /**
- * PutRequest
+ * CategorySpec
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.5.0")
-public class PutRequest {
-  public static final String SERIALIZED_NAME_LOG_CONFIG = "logConfig";
-  @SerializedName(SERIALIZED_NAME_LOG_CONFIG)
-  private LogConfig logConfig;
+public class CategorySpec {
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
+  private String name;
 
-  public PutRequest() {
+  public static final String SERIALIZED_NAME_LEVEL = "level";
+  @SerializedName(SERIALIZED_NAME_LEVEL)
+  private String level;
+
+  public CategorySpec() {
   }
 
-  public PutRequest logConfig(LogConfig logConfig) {
-    this.logConfig = logConfig;
+  public CategorySpec name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Get logConfig
-   * @return logConfig
+   * Get name
+   * @return name
   **/
-  @javax.annotation.Nullable
-  public LogConfig getLogConfig() {
-    return logConfig;
+  @javax.annotation.Nonnull
+  public String getName() {
+    return name;
   }
 
-  public void setLogConfig(LogConfig logConfig) {
-    this.logConfig = logConfig;
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  public CategorySpec level(String level) {
+    this.level = level;
+    return this;
+  }
+
+   /**
+   * Get level
+   * @return level
+  **/
+  @javax.annotation.Nonnull
+  public String getLevel() {
+    return level;
+  }
+
+  public void setLevel(String level) {
+    this.level = level;
   }
 
 
@@ -87,20 +109,22 @@ public class PutRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PutRequest putRequest = (PutRequest) o;
-    return Objects.equals(this.logConfig, putRequest.logConfig);
+    CategorySpec categorySpec = (CategorySpec) o;
+    return Objects.equals(this.name, categorySpec.name) &&
+        Objects.equals(this.level, categorySpec.level);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(logConfig);
+    return Objects.hash(name, level);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PutRequest {\n");
-    sb.append("    logConfig: ").append(toIndentedString(logConfig)).append("\n");
+    sb.append("class CategorySpec {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -123,36 +147,48 @@ public class PutRequest {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("logConfig");
+    openapiFields.add("name");
+    openapiFields.add("level");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("name");
+    openapiRequiredFields.add("level");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to PutRequest
+  * @throws IOException if the JSON Element is invalid with respect to CategorySpec
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!PutRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in PutRequest is not found in the empty JSON string", PutRequest.openapiRequiredFields.toString()));
+        if (!CategorySpec.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in CategorySpec is not found in the empty JSON string", CategorySpec.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!PutRequest.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PutRequest` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!CategorySpec.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `CategorySpec` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : CategorySpec.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      // validate the optional field `logConfig`
-      if (jsonObj.get("logConfig") != null && !jsonObj.get("logConfig").isJsonNull()) {
-        LogConfig.validateJsonElement(jsonObj.get("logConfig"));
+      if (!jsonObj.get("name").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      }
+      if (!jsonObj.get("level").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `level` to be a primitive type in the JSON string but got `%s`", jsonObj.get("level").toString()));
       }
   }
 
@@ -160,22 +196,22 @@ public class PutRequest {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!PutRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'PutRequest' and its subtypes
+       if (!CategorySpec.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'CategorySpec' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<PutRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(PutRequest.class));
+       final TypeAdapter<CategorySpec> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(CategorySpec.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<PutRequest>() {
+       return (TypeAdapter<T>) new TypeAdapter<CategorySpec>() {
            @Override
-           public void write(JsonWriter out, PutRequest value) throws IOException {
+           public void write(JsonWriter out, CategorySpec value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public PutRequest read(JsonReader in) throws IOException {
+           public CategorySpec read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -186,18 +222,18 @@ public class PutRequest {
   }
 
  /**
-  * Create an instance of PutRequest given an JSON string
+  * Create an instance of CategorySpec given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of PutRequest
-  * @throws IOException if the JSON string is invalid with respect to PutRequest
+  * @return An instance of CategorySpec
+  * @throws IOException if the JSON string is invalid with respect to CategorySpec
   */
-  public static PutRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, PutRequest.class);
+  public static CategorySpec fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, CategorySpec.class);
   }
 
  /**
-  * Convert an instance of PutRequest to an JSON string
+  * Convert an instance of CategorySpec to an JSON string
   *
   * @return JSON string
   */

@@ -18,4 +18,5 @@ dependencies {
     implementation(project(":core:api"))
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("jakarta.validation:jakarta.validation-api")
+    implementation("ch.qos.logback:logback-classic:1.5.3")
 }

@@ -14,6 +14,7 @@
 package bisq.client.oas.model;
 
 import java.util.Objects;
+import bisq.client.oas.model.CategorySpec;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -47,56 +48,33 @@ import java.util.Set;
 import bisq.client.oas.JSON;
 
 /**
- * LogConfig
+ * UpdateCategoryRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.5.0")
-public class LogConfig {
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
-  private String name;
+public class UpdateCategoryRequest {
+  public static final String SERIALIZED_NAME_CATEGORY_SPEC = "categorySpec";
+  @SerializedName(SERIALIZED_NAME_CATEGORY_SPEC)
+  private CategorySpec categorySpec;
 
-  public static final String SERIALIZED_NAME_LEVEL = "level";
-  @SerializedName(SERIALIZED_NAME_LEVEL)
-  private String level;
-
-  public LogConfig() {
+  public UpdateCategoryRequest() {
   }
 
-  public LogConfig name(String name) {
-    this.name = name;
+  public UpdateCategoryRequest categorySpec(CategorySpec categorySpec) {
+    this.categorySpec = categorySpec;
     return this;
   }
 
    /**
-   * Get name
-   * @return name
+   * Get categorySpec
+   * @return categorySpec
   **/
-  @javax.annotation.Nonnull
-  public String getName() {
-    return name;
+  @javax.annotation.Nullable
+  public CategorySpec getCategorySpec() {
+    return categorySpec;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public LogConfig level(String level) {
-    this.level = level;
-    return this;
-  }
-
-   /**
-   * Get level
-   * @return level
-  **/
-  @javax.annotation.Nonnull
-  public String getLevel() {
-    return level;
-  }
-
-  public void setLevel(String level) {
-    this.level = level;
+  public void setCategorySpec(CategorySpec categorySpec) {
+    this.categorySpec = categorySpec;
   }
 
 
@@ -109,22 +87,20 @@ public class LogConfig {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    LogConfig logConfig = (LogConfig) o;
-    return Objects.equals(this.name, logConfig.name) &&
-        Objects.equals(this.level, logConfig.level);
+    UpdateCategoryRequest updateCategoryRequest = (UpdateCategoryRequest) o;
+    return Objects.equals(this.categorySpec, updateCategoryRequest.categorySpec);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, level);
+    return Objects.hash(categorySpec);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class LogConfig {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    level: ").append(toIndentedString(level)).append("\n");
+    sb.append("class UpdateCategoryRequest {\n");
+    sb.append("    categorySpec: ").append(toIndentedString(categorySpec)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -147,48 +123,36 @@ public class LogConfig {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("name");
-    openapiFields.add("level");
+    openapiFields.add("categorySpec");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("name");
-    openapiRequiredFields.add("level");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to LogConfig
+  * @throws IOException if the JSON Element is invalid with respect to UpdateCategoryRequest
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!LogConfig.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in LogConfig is not found in the empty JSON string", LogConfig.openapiRequiredFields.toString()));
+        if (!UpdateCategoryRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in UpdateCategoryRequest is not found in the empty JSON string", UpdateCategoryRequest.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!LogConfig.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `LogConfig` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
-        }
-      }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : LogConfig.openapiRequiredFields) {
-        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        if (!UpdateCategoryRequest.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `UpdateCategoryRequest` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
-      }
-      if (!jsonObj.get("level").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `level` to be a primitive type in the JSON string but got `%s`", jsonObj.get("level").toString()));
+      // validate the optional field `categorySpec`
+      if (jsonObj.get("categorySpec") != null && !jsonObj.get("categorySpec").isJsonNull()) {
+        CategorySpec.validateJsonElement(jsonObj.get("categorySpec"));
       }
   }
 
@@ -196,22 +160,22 @@ public class LogConfig {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!LogConfig.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'LogConfig' and its subtypes
+       if (!UpdateCategoryRequest.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'UpdateCategoryRequest' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<LogConfig> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(LogConfig.class));
+       final TypeAdapter<UpdateCategoryRequest> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(UpdateCategoryRequest.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<LogConfig>() {
+       return (TypeAdapter<T>) new TypeAdapter<UpdateCategoryRequest>() {
            @Override
-           public void write(JsonWriter out, LogConfig value) throws IOException {
+           public void write(JsonWriter out, UpdateCategoryRequest value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public LogConfig read(JsonReader in) throws IOException {
+           public UpdateCategoryRequest read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -222,18 +186,18 @@ public class LogConfig {
   }
 
  /**
-  * Create an instance of LogConfig given an JSON string
+  * Create an instance of UpdateCategoryRequest given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of LogConfig
-  * @throws IOException if the JSON string is invalid with respect to LogConfig
+  * @return An instance of UpdateCategoryRequest
+  * @throws IOException if the JSON string is invalid with respect to UpdateCategoryRequest
   */
-  public static LogConfig fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, LogConfig.class);
+  public static UpdateCategoryRequest fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, UpdateCategoryRequest.class);
   }
 
  /**
-  * Convert an instance of LogConfig to an JSON string
+  * Convert an instance of UpdateCategoryRequest to an JSON string
   *
   * @return JSON string
   */

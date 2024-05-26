@@ -14,6 +14,7 @@ micronaut {
 
 dependencies {
     implementation(project(":core:logging"))
+    implementation("ch.qos.logback:logback-classic:1.5.3")
 
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("jakarta.validation:jakarta.validation-api")

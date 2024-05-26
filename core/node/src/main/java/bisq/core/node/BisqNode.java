@@ -1,6 +1,7 @@
 package bisq.core.node;
 
 import bisq.core.api.ApiController;
+import bisq.core.logging.ApiCategory;
 import bisq.core.oas.OpenApiSpecification;
 
 import bisq.core.network.http.HttpServer;
@@ -9,8 +10,8 @@ import bisq.core.network.p2p.P2PServer;
 import bisq.core.domain.trade.OfferRepository;
 
 import bisq.core.logging.Logging;
+import ch.qos.logback.classic.Level;
 import org.slf4j.Logger;
-import org.slf4j.event.Level;
 
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.runtime.server.EmbeddedServer;
@@ -20,7 +21,7 @@ import java.util.Map;
 
 public class BisqNode {
 
-    private static final Logger log = NodeLog.log;
+    private static final Logger log = NodeCategory.log;
 
     private final Options options;
     private final P2PServer p2pServer;
@@ -71,7 +72,7 @@ public class BisqNode {
 
         // Enable debug logging
         if (options.debug())
-            Logging.enableLevel(Level.DEBUG);
+            Logging.setLevel(Level.DEBUG);
 
         // Init data directory
         dataDir = DataDir.init(options);
@@ -82,8 +83,8 @@ public class BisqNode {
         httpServer.start();
 
         // Report available API endpoints
-        log.debug("Reporting available api endpoints");
-        apiControllers.forEach(ApiController::reportEndpoints);
+        ApiCategory.log.debug("Reporting available api endpoints");
+        apiControllers.forEach(controller -> controller.logEndpoints(ApiCategory.log));
 
         // Register shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {

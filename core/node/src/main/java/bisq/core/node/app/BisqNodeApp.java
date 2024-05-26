@@ -1,8 +1,7 @@
 package bisq.core.node.app;
 
-import bisq.core.logging.Logging;
 import bisq.core.node.BisqNode;
-import org.slf4j.Logger;
+import ch.qos.logback.classic.Logger;
 
 /**
  * Indicates that an implementing class configures and runs a {@link BisqNode}, typically
@@ -13,7 +12,7 @@ public interface BisqNodeApp {
     int EXIT_SUCCESS = 0;
     int EXIT_FAILURE = 1;
 
-    Logger log = Logging.getLog("app");
+    Logger log = AppCategory.log;
 
     /**
      * Unwraps excessive exception nesting for better log output

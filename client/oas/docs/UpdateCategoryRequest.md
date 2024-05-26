@@ -1,14 +1,13 @@
 
 
-# LogConfig
+# UpdateCategoryRequest
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**name** | **String** |  |  |
-|**level** | **String** |  |  |
+|**categorySpec** | [**CategorySpec**](CategorySpec.md) |  |  [optional] |
 
 
 

@@ -1,14 +1,11 @@
 package bisq.core.node;
 
-import bisq.core.logging.Logging;
-import org.slf4j.Logger;
-
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Locale;
 
 import static java.lang.String.format;
-import static bisq.core.node.ConfLog.log;
+import static bisq.core.node.ConfCategory.log;
 
 class OperatingSystem {
 

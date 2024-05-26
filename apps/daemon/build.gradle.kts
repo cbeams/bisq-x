@@ -11,6 +11,7 @@ repositories {
 dependencies {
     implementation(project(":core:node"))
     implementation(project(":core:logging"))
+    implementation("ch.qos.logback:logback-classic:1.5.3")
 }
 
 application {

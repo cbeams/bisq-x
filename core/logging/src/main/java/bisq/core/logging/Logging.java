@@ -1,117 +1,162 @@
 package bisq.core.logging;
 
-import bisq.core.api.ApiLog;
-
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.ConsoleAppender;
-
 import ch.qos.logback.core.FileAppender;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.event.Level;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.List;
+
+import static bisq.core.logging.LogCategory.log;
+import static java.lang.String.format;
+import static java.util.stream.Collectors.toList;
 
 public class Logging {
 
-    private static final LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
-    private static final PatternLayoutEncoder encoder = new PatternLayoutEncoder();
-    private static final HashMap<String, Logger> allLogs = new HashMap<>();
-    private static final Logger log;
-    private static final ch.qos.logback.classic.Logger rootLogger;
-    private static Level defaultLevel;
+    private static final String BASE_CATEGORY_LOGGER_NAME = "bisq";
+    private static final String CATEGORY_LOGGER_PREFIX = format("%s.", BASE_CATEGORY_LOGGER_NAME);
+
+    private static final LoggerContext loggerContext = (LoggerContext) org.slf4j.LoggerFactory.getILoggerFactory();
+    private static final PatternLayoutEncoder patternLayoutEncoder = new PatternLayoutEncoder();
+    private static final Logger baseCategoryLogger = loggerContext.getLogger(BASE_CATEGORY_LOGGER_NAME);
 
     static {
-        // Reset the context to clear any existing configuration
-        context.reset();
+        // Reset the context to clear default configuration
+        loggerContext.reset();
 
-        // Configure the encoder
-        encoder.setContext(context);
-        encoder.setPattern("%d{yyyy-MM-dd'T'HH:mm:ss,UTC}Z [%4.-4logger] %msg%n");
-        encoder.start();
+        PatternLayout.DEFAULT_CONVERTER_MAP.put("categoryDisplayName", CategoryDisplayNameConverter.class.getName());
+        patternLayoutEncoder.setContext(loggerContext);
+        patternLayoutEncoder.setPattern("%d{yyyy-MM-dd'T'HH:mm:ss,UTC}Z [%5.-5categoryDisplayName] %msg%n");
+        patternLayoutEncoder.start();
 
-        // Configure the ConsoleAppender
         var consoleAppender = new ConsoleAppender<ILoggingEvent>();
-        consoleAppender.setContext(context);
-        consoleAppender.setEncoder(encoder);
+        consoleAppender.setContext(loggerContext);
+        consoleAppender.setEncoder(patternLayoutEncoder);
+        consoleAppender.setTarget("System.out");
         consoleAppender.start();
 
-        // Configure the root logger
-        rootLogger = context.getLogger(Logger.ROOT_LOGGER_NAME);
-        ch.qos.logback.classic.Level rootLevel = ch.qos.logback.classic.Level.INFO;
-        rootLogger.setLevel(rootLevel);
+        // Turn the root logger off entirely and do not attach any appender to it;
+        // this ensures there is no spurious logging from libraries and frameworks
+        loggerContext.getLogger(Logger.ROOT_LOGGER_NAME).setLevel(Level.OFF);
 
-        // Set the default level used for all Bisq logs to the same level.
-        defaultLevel = Level.valueOf(rootLevel.toString());
-
-        // Add the ConsoleAppender
-        rootLogger.addAppender(consoleAppender);
-
-        // Suppress all non-Bisq loggers to ERROR by default
-        // Micronaut is the only one requiring this so far
-        ch.qos.logback.classic.Logger micronautLogger = context.getLogger("io.micronaut");
-        micronautLogger.setLevel(ch.qos.logback.classic.Level.ERROR);
-
-
-        // Yes: 'log' is the log used to log about logging
-        log = getLog("log");
-
-        // Create and assign a log for the api module which is too low-level
-        // to have its own compile-time time dependency on the logging module
-        ApiLog.log = getLog(ApiLog.API_LOG_NAME);
+        // Set default log level and begin console logging
+        baseCategoryLogger.setLevel(Level.INFO);
+        baseCategoryLogger.addAppender(consoleAppender);
     }
 
-    public static void addAppender(File file) {
+    public static Level getLevel() {
+        var baseLevel = baseCategoryLogger.getLevel();
+        if (baseLevel == null)
+            throw new IllegalStateException("The level of the base category logger must not be null");
+
+        return baseLevel;
+    }
+
+    public static void setLevel(Level level) {
+        if (getLevel().levelInt == level.levelInt)
+            return;
+
+        baseCategoryLogger.setLevel(level);
+        log.debug("Setting log level to {}", level.levelStr.toLowerCase());
+    }
+
+    public static void addFileAppender(File file) {
         var fileAppender = new FileAppender<ILoggingEvent>();
-        fileAppender.setContext(context);
+        fileAppender.setContext(loggerContext);
+        fileAppender.setEncoder(patternLayoutEncoder);
         fileAppender.setFile(file.getAbsolutePath());
-        fileAppender.setEncoder(encoder);
         fileAppender.start();
 
-        rootLogger.addAppender(fileAppender);
+        baseCategoryLogger.addAppender(fileAppender);
     }
 
-    public static Collection<Logger> getLogs() {
-        return allLogs.values();
+    public static CategorySpec getCategorySpec(String name) {
+        return getCategorySpec(getCategoryLogger(name));
     }
 
-    public static Logger getLog(String name) {
-        if (allLogs.containsKey(name))
-            return allLogs.get(name);
-
-        var log = LoggerFactory.getLogger(name);
-
-        ((ch.qos.logback.classic.Logger) log)
-                .setLevel(ch.qos.logback.classic.Level.convertAnSLF4JLevel(defaultLevel));
-
-        allLogs.put(name, log);
-
-        return log;
+    public static CategorySpec getCategorySpec(Logger logger) {
+        return new CategorySpec(categoryDisplayNameFor(logger.getName()), logger.getEffectiveLevel().levelStr);
     }
 
-    public static void setLevel(Level level, Logger... logs) {
-        if (logs.length == 0) {
-            logs = allLogs.values().toArray(new Logger[0]);
-            defaultLevel = level;
+    public static List<CategorySpec> getCategorySpecs() {
+        return getCategoryLoggers().stream().map(Logging::getCategorySpec).collect(toList());
+    }
+
+    public static void update(CategorySpec categorySpec) {
+        var name = categorySpec.name();
+        // TODO: handle not found
+        var logger = Logging.getCategoryLogger(name);
+        String curLevel = logger.getEffectiveLevel().levelStr;
+        String newLevel = categorySpec.level();
+        if (!curLevel.equals(newLevel)) {
+            log.info("Changing [{}] log level from {} to {}", name, curLevel, newLevel);
+            logger.setLevel(Level.valueOf(newLevel));
         }
-
-        for (Logger log : logs)
-            ((ch.qos.logback.classic.Logger) log)
-                    .setLevel(ch.qos.logback.classic.Level.valueOf(level.name()));
-
-        log.debug("Setting {}log level to {}",
-                logs.length == allLogs.size() ? "" : Arrays.stream(logs).map(Logger::getName).toList() + " ",
-                level.toString().toLowerCase()
-        );
+        // TODO: handle no change
     }
 
-    public static void enableLevel(Level level) {
-        if (defaultLevel.compareTo(level) < 0)
-            setLevel(level);
+    public static Logger createCategoryLogger(String categoryDisplayName) {
+        if (loggerContext.exists(categoryLoggerNameFor(categoryDisplayName)) != null) {
+            // Print to stderr as well as throwing because the exception below gets thrown
+            // during class initialization ends up buried in a NoClassDefFound exception
+            var msg = format("a logger for category '%s' already exists", categoryDisplayName);
+            System.err.println("Error: " + msg);
+            throw new IllegalStateException(msg);
+        }
+        // create and return the new logger
+        return loggerContext.getLogger(categoryLoggerNameFor(categoryDisplayName));
+    }
+
+    public static Logger getCategoryLogger(String categoryDisplayName) {
+        var existingLogger = loggerContext.exists(categoryLoggerNameFor(categoryDisplayName));
+        if (existingLogger == null) {
+            // Print to stderr as well as throwing because the exception below gets thrown
+            // during class initialization ends up buried in a NoClassDefFound exception
+            var msg = format("no logger for category '%s' found; create it first", categoryDisplayName);
+            System.err.println("Error: " + msg);
+            throw new IllegalStateException(msg);
+        }
+        return existingLogger;
+    }
+
+    public static List<Logger> getCategoryLoggers() {
+        return loggerContext.getLoggerList().stream().filter(Logging::isCategoryLogger).toList();
+    }
+
+    static String categoryLoggerNameFor(String categoryDisplayName) {
+        if (isCategoryLoggerName(categoryDisplayName))
+            throw new IllegalArgumentException(
+                    format("'%s' is already a category logger name", categoryDisplayName));
+        return CATEGORY_LOGGER_PREFIX + categoryDisplayName;
+    }
+
+    private static boolean isCategoryLogger(Logger logger) {
+        return isCategoryLoggerName(logger.getName());
+    }
+
+    private static boolean isCategoryLoggerName(String candidateLoggerName) {
+        return candidateLoggerName.startsWith(CATEGORY_LOGGER_PREFIX);
+    }
+
+    private static String categoryDisplayNameFor(String categoryLoggerName) {
+        return categoryLoggerName.substring(CATEGORY_LOGGER_PREFIX.length());
+    }
+
+    public static class CategoryDisplayNameConverter extends ClassicConverter {
+        @Override
+        public String convert(ILoggingEvent event) {
+            var loggerName = event.getLoggerName();
+
+            if (isCategoryLoggerName(loggerName))
+                return categoryDisplayNameFor(loggerName);
+
+            return loggerName;
+        }
     }
 }

@@ -4,14 +4,14 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**get**](LoggingEndpoint.md#get) | **GET** /logs |  |
-| [**get1**](LoggingEndpoint.md#get1) | **GET** /logs/{name} |  |
-| [**put**](LoggingEndpoint.md#put) | **PUT** /logs/{name} |  |
+| [**getCategories**](LoggingEndpoint.md#getCategories) | **GET** /logging/categories |  |
+| [**getCategory**](LoggingEndpoint.md#getCategory) | **GET** /logging/categories/{name} |  |
+| [**updateCategory**](LoggingEndpoint.md#updateCategory) | **PUT** /logging/categories |  |
 
 
-<a id="get"></a>
-# **get**
-> List&lt;LogConfig&gt; get()
+<a id="getCategories"></a>
+# **getCategories**
+> List&lt;CategorySpec&gt; getCategories()
 
 
 
@@ -31,10 +31,10 @@ public class Example {
 
     LoggingEndpoint apiInstance = new LoggingEndpoint(defaultClient);
     try {
-      List<LogConfig> result = apiInstance.get();
+      List<CategorySpec> result = apiInstance.getCategories();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling LoggingEndpoint#get");
+      System.err.println("Exception when calling LoggingEndpoint#getCategories");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -49,7 +49,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List&lt;LogConfig&gt;**](LogConfig.md)
+[**List&lt;CategorySpec&gt;**](CategorySpec.md)
 
 ### Authorization
 
@@ -63,11 +63,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | get 200 response |  -  |
+| **200** | getCategories 200 response |  -  |
 
-<a id="get1"></a>
-# **get1**
-> LogConfig get1(name)
+<a id="getCategory"></a>
+# **getCategory**
+> CategorySpec getCategory(name)
 
 
 
@@ -88,10 +88,10 @@ public class Example {
     LoggingEndpoint apiInstance = new LoggingEndpoint(defaultClient);
     String name = "name_example"; // String | 
     try {
-      LogConfig result = apiInstance.get1(name);
+      CategorySpec result = apiInstance.getCategory(name);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling LoggingEndpoint#get1");
+      System.err.println("Exception when calling LoggingEndpoint#getCategory");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -109,7 +109,7 @@ public class Example {
 
 ### Return type
 
-[**LogConfig**](LogConfig.md)
+[**CategorySpec**](CategorySpec.md)
 
 ### Authorization
 
@@ -123,11 +123,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | get_1 200 response |  -  |
+| **200** | getCategory 200 response |  -  |
 
-<a id="put"></a>
-# **put**
-> put(name, putRequest)
+<a id="updateCategory"></a>
+# **updateCategory**
+> updateCategory(updateCategoryRequest)
 
 
 
@@ -146,12 +146,11 @@ public class Example {
     defaultClient.setBasePath("http://localhost");
 
     LoggingEndpoint apiInstance = new LoggingEndpoint(defaultClient);
-    String name = "name_example"; // String | 
-    PutRequest putRequest = new PutRequest(); // PutRequest | 
+    UpdateCategoryRequest updateCategoryRequest = new UpdateCategoryRequest(); // UpdateCategoryRequest | 
     try {
-      apiInstance.put(name, putRequest);
+      apiInstance.updateCategory(updateCategoryRequest);
     } catch (ApiException e) {
-      System.err.println("Exception when calling LoggingEndpoint#put");
+      System.err.println("Exception when calling LoggingEndpoint#updateCategory");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -165,8 +164,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **name** | **String**|  | |
-| **putRequest** | [**PutRequest**](PutRequest.md)|  | |
+| **updateCategoryRequest** | [**UpdateCategoryRequest**](UpdateCategoryRequest.md)|  | |
 
 ### Return type
 
@@ -184,5 +182,5 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | put 200 response |  -  |
+| **200** | updateCategory 200 response |  -  |
 

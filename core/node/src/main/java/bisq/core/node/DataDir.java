@@ -10,7 +10,7 @@ import java.io.UncheckedIOException;
 import java.nio.channels.FileLock;
 import java.nio.file.Files;
 
-import static bisq.core.node.NodeLog.log;
+import static bisq.core.node.NodeCategory.log;
 import static java.lang.String.format;
 
 class DataDir implements Closeable {
@@ -54,8 +54,8 @@ class DataDir implements Closeable {
 
         // Begin writing to log file (in addition to console) now that it's safe to do so
         var logFile = new File(dir, "bisq.log");
-        log.debug("Appending log output to {}", logFile);
-        Logging.addAppender(logFile);
+        log.debug("Appending logging output to {}", logFile);
+        Logging.addFileAppender(logFile);
 
         // Write current process id to pid file
         this.pidFile = new File(dir, "bisq.pid");
