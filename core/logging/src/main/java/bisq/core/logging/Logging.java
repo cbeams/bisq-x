@@ -9,6 +9,7 @@ import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.FileAppender;
+import ch.qos.logback.core.read.CyclicBufferAppender;
 
 import java.io.File;
 import java.util.List;
@@ -26,28 +27,40 @@ public class Logging {
     private static final PatternLayoutEncoder patternLayoutEncoder = new PatternLayoutEncoder();
     private static final Logger baseCategoryLogger = loggerContext.getLogger(BASE_CATEGORY_LOGGER_NAME);
 
+    private static final ConsoleAppender<ILoggingEvent> consoleAppender = new ConsoleAppender<>();
+    private static final CyclicBufferAppender<ILoggingEvent> logFileBufferAppender = new CyclicBufferAppender<>();
+    private static final FileAppender<ILoggingEvent> logFileAppender = new FileAppender<>();
+
     static {
         // Reset the context to clear default configuration
         loggerContext.reset();
 
+        // Turn the root logger off entirely and do not attach any appender to it;
+        // this prevents spurious logging from libraries and frameworks
+        loggerContext.getLogger(Logger.ROOT_LOGGER_NAME).setLevel(Level.OFF);
+
+        // Configure log entry formatting
         PatternLayout.DEFAULT_CONVERTER_MAP.put("categoryDisplayName", CategoryDisplayNameConverter.class.getName());
         patternLayoutEncoder.setContext(loggerContext);
         patternLayoutEncoder.setPattern("%d{yyyy-MM-dd'T'HH:mm:ss,UTC}Z [%5.-5categoryDisplayName] %msg%n");
         patternLayoutEncoder.start();
 
-        var consoleAppender = new ConsoleAppender<ILoggingEvent>();
+        // Configure console appender
         consoleAppender.setContext(loggerContext);
         consoleAppender.setEncoder(patternLayoutEncoder);
         consoleAppender.setTarget("System.out");
         consoleAppender.start();
 
-        // Turn the root logger off entirely and do not attach any appender to it;
-        // this ensures there is no spurious logging from libraries and frameworks
-        loggerContext.getLogger(Logger.ROOT_LOGGER_NAME).setLevel(Level.OFF);
+        // Configure buffering appender to be flushed to log file when located
+        logFileBufferAppender.setContext(loggerContext);
+        logFileBufferAppender.start();
 
-        // Set default log level and begin console logging
+        // Set default log level
         baseCategoryLogger.setLevel(Level.INFO);
+
+        // Begin logging
         baseCategoryLogger.addAppender(consoleAppender);
+        baseCategoryLogger.addAppender(logFileBufferAppender);
     }
 
     public static Level getLevel() {
@@ -66,14 +79,22 @@ public class Logging {
         log.debug("Setting log level to {}", level.levelStr.toLowerCase());
     }
 
-    public static void addFileAppender(File file) {
-        var fileAppender = new FileAppender<ILoggingEvent>();
-        fileAppender.setContext(loggerContext);
-        fileAppender.setEncoder(patternLayoutEncoder);
-        fileAppender.setFile(file.getAbsolutePath());
-        fileAppender.start();
+    public static void addLogFileAppender(File logFile) {
+        if (logFileAppender.isStarted())
+            throw new IllegalStateException("log file appender is already started");
 
-        baseCategoryLogger.addAppender(fileAppender);
+        logFileAppender.setContext(loggerContext);
+        logFileAppender.setEncoder(patternLayoutEncoder);
+        logFileAppender.setFile(logFile.getAbsolutePath());
+        logFileAppender.start();
+
+        // Flush the buffer to the file appender
+        for (int i = 0; i < logFileBufferAppender.getLength(); i++)
+            logFileAppender.doAppend(logFileBufferAppender.get(i));
+
+        baseCategoryLogger.detachAppender(logFileBufferAppender);
+        baseCategoryLogger.addAppender(logFileAppender);
+
     }
 
     public static CategorySpec getCategorySpec(String name) {
