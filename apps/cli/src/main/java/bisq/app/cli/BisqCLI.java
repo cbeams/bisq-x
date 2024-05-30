@@ -5,6 +5,7 @@ import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.endpoint.InfoEndpoint;
 import bisq.client.oas.endpoint.LoggingEndpoint;
+import bisq.client.oas.endpoint.OfferEndpoint;
 import bisq.client.oas.model.CategorySpec;
 import bisq.client.oas.model.UpdateCategoryRequest;
 import joptsimple.OptionParser;
@@ -81,6 +82,7 @@ public class BisqCLI {
             case "showlog" -> showlog(cmdArgs);
             case "debuglog" -> debuglog(cmdArgs);
             case "infolog" -> infolog(cmdArgs);
+            case "listoffers" -> listoffers(cmdArgs);
             default -> throw new IllegalStateException(format("'%s' is not a bisq command. see --help", command));
         }
     }
@@ -100,7 +102,7 @@ public class BisqCLI {
         try {
             var infoEndpoint = new InfoEndpoint(bisqClient);
             var info = infoEndpoint.getInfo();
-            System.out.println(info);
+            System.out.println(info.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
             System.err.println("Status code: " + e.getCode());
@@ -140,6 +142,18 @@ public class BisqCLI {
     private void infolog(List<String> args) {
         try {
             new LoggingEndpoint(bisqClient).updateCategory(new UpdateCategoryRequest().categorySpec(new CategorySpec().name("http").level("info")));
+        } catch (ApiException e) {
+            System.err.println("Exception when calling api");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace(System.err);
+        }
+    }
+
+    private void listoffers(List<String> args) {
+        try {
+            System.out.println(new OfferEndpoint(bisqClient).listAll());
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
             System.err.println("Status code: " + e.getCode());
