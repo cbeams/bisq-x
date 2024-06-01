@@ -3,9 +3,7 @@ package bisq.core.network.p2p;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -14,7 +12,7 @@ import static bisq.core.network.p2p.P2PCategory.log;
 public class P2PService implements Runnable {
 
     private final int port;
-    private final Set<String> knownPeers = new HashSet<>();
+    private final PeerDirectory peerDirectory = new PeerDirectory();
     private final Map<String, P2PClient> connections = new HashMap<>();
 
     public P2PService(int port) {
@@ -23,18 +21,23 @@ public class P2PService implements Runnable {
 
     @Override
     public void run() {
+
+        // start server to accept inbound connections
+
         ExecutorService executor = Executors.newCachedThreadPool();
         P2PServer server = new P2PServer("localhost", port);
         var localAddr = server.getAddress();
         executor.submit(server);
 
-        if (port != 2140)
-            knownPeers.add("localhost:2140"); // seed node 1
+        // establish outbound connections
 
-        for (String addr : knownPeers) {
+        for (String peerAddr : peerDirectory.getKnownPeers()) {
+            if (peerAddr.equals(localAddr))
+                continue;
+
             try {
-                var client = new P2PClient(addr, localAddr);
-                connections.put(addr, client);
+                var client = new P2PClient(peerAddr, localAddr);
+                connections.put(peerAddr, client);
                 //var ret = client.getPeers();
             } catch (IOException ex) {
                 throw new UncheckedIOException(ex);
