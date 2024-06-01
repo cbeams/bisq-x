@@ -27,7 +27,7 @@ class P2PServer implements Runnable {
     public void run() {
 
         try (var serverSocket = new ServerSocket(port)) {
-            log.info("Listening for peer connections at bisq://{}:{}", host, port);
+            log.info("Accepting connections at bisq://{}:{}", host, port);
             while (true) {
                 var conn = serverSocket.accept();
                 var input = conn.getInputStream();
@@ -44,6 +44,8 @@ class P2PServer implements Runnable {
                 if (!peers.add(peerAddr)) {
                     log.warn("Warning: already connected to {}", peerAddr);
                 }
+
+                log.info("Accepted inbound connection from bisq://{}", peerAddr);
 
                 new Thread(new ConnectionHandler(conn)).start();
             }

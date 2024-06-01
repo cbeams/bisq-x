@@ -28,6 +28,8 @@ class P2PClient {
 
         var connectRequest = P2P.ConnectionRequest.newBuilder().setAddress(originAddr).build();
         connectRequest.writeDelimitedTo(output);
+
+        P2PCategory.log.info("Established outbound connection to bisq://{}", destAddr);
     }
 
     public Set<String> getPeers() throws IOException {
