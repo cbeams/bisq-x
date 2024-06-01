@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package bisq.core.network.p2p.proto;
+
+message RequestType {
+    string value = 1;
+}
+
+message ConnectionRequest {
+    string address = 1;
+}
+
+message GetPeersRequest {
+}
+
+message Peer {
+    string address = 1;
+}
+
+message PeerList {
+    repeated Peer peers = 1;
+}
+
