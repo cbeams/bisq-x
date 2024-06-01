@@ -12,22 +12,21 @@ import java.util.Set;
 import static bisq.core.network.p2p.P2PCategory.log;
 import static java.util.stream.Collectors.toSet;
 
-class P2PServer implements Runnable {
+class InboundConnectionManager implements Runnable {
 
     final String host;
     final int port;
     private final Set<String> peers = new HashSet<>();
 
-    public P2PServer(String host, int port) {
+    public InboundConnectionManager(String host, int port, PeerDirectory peerDirectory) {
         this.host = host;
         this.port = port;
     }
 
     @Override
     public void run() {
-
         try (var serverSocket = new ServerSocket(port)) {
-            log.info("Accepting connections at bisq://{}:{}", host, port);
+            log.info("Accepting inbound connections at bisq://{}:{}", host, port);
             while (true) {
                 var conn = serverSocket.accept();
                 var input = conn.getInputStream();
@@ -56,6 +55,10 @@ class P2PServer implements Runnable {
 
     public String getAddress() {
         return String.format("%s:%d", host, port);
+    }
+
+    public void stop() {
+        log.info("Closing inbound connections");
     }
 
 

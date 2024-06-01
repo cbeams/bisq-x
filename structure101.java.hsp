@@ -44,7 +44,7 @@
     <exclude expression="main.bisq.client.oas.GzipRequestInterceptor" active="true" />
   </excludes>
   <excludes-from-xs>
-    <exclude-from-xs expression="main.bisq.core.network.p2p.P2PServer$ClientHandler" active="true" />
+    <exclude-from-xs expression="main.bisq.core.network.p2p.InboundConnectionManager$ClientHandler" active="true" />
   </excludes-from-xs>
   <restructuring>
     <set version="3" name="Action list 1" hiview="Codemap" active="true" todo="false" list="0" />
