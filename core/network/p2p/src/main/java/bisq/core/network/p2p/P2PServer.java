@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 
+import static bisq.core.network.p2p.P2PCategory.log;
 import static java.util.stream.Collectors.toSet;
 
 class P2PServer implements Runnable {
@@ -24,28 +25,24 @@ class P2PServer implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("P2PServer.run");
 
         try (var serverSocket = new ServerSocket(port)) {
+            log.info("Listening for peer connections at bisq://{}:{}", host, port);
             while (true) {
                 var conn = serverSocket.accept();
                 var input = conn.getInputStream();
                 var requestType = P2P.RequestType.parseDelimitedFrom(input);
 
                 if (!"connect".equalsIgnoreCase(requestType.getValue())) {
-                    System.out.println("Error: expected 'connect' request but got " + requestType);
+                    log.error("Error: expected 'connect' request but got {}", requestType);
                     conn.close();
                     break;
                 }
 
                 var peerAddr = P2P.ConnectionRequest.parseDelimitedFrom(input).getAddress();
 
-                System.out.println("peerAddr = " + peerAddr);
-
                 if (!peers.add(peerAddr)) {
-                    System.out.println("Error: already connected to " + peerAddr);
-                    conn.close();
-                    break;
+                    log.warn("Warning: already connected to {}", peerAddr);
                 }
 
                 new Thread(new ConnectionHandler(conn)).start();
@@ -77,11 +74,12 @@ class P2PServer implements Runnable {
                 REQUEST_LOOP:
                 while (true) {
                     var requestType = P2P.RequestType.parseDelimitedFrom(input);
-                    System.out.println("got request type '" + requestType + "'");
+                    if (requestType == null) {
+                        break;
+                    }
 
                     switch (requestType.getValue()) {
                         case "get_peers" -> {
-                            var req = P2P.GetPeersRequest.parseDelimitedFrom(input);
                             var peerList = P2P.PeerList.newBuilder().addAllPeers(
                                             peers.stream()
                                                     .map(peerAddr ->
@@ -93,7 +91,7 @@ class P2PServer implements Runnable {
                             peerList.writeDelimitedTo(output);
                         }
                         default -> {
-                            System.out.println("Error: unsupported request type: " + requestType);
+                            log.error("Error: unsupported request type: {}", requestType);
                             conn.close();
                             break REQUEST_LOOP;
                         }

@@ -32,7 +32,6 @@ class P2PClient {
 
     public Set<String> getPeers() throws IOException {
         P2P.RequestType.newBuilder().setValue("get_peers").build().writeDelimitedTo(output);
-        P2P.GetPeersRequest.newBuilder().build().writeDelimitedTo(output);
         var peerList = P2P.PeerList.parseDelimitedFrom(input);
         return peerList.getPeersList().stream().map(P2P.Peer::getAddress).collect(Collectors.toSet());
     }

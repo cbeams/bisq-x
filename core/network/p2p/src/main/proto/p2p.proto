@@ -10,9 +10,6 @@ message ConnectionRequest {
     string address = 1;
 }
 
-message GetPeersRequest {
-}
-
 message Peer {
     string address = 1;
 }
@@ -20,4 +17,3 @@ message Peer {
 message PeerList {
     repeated Peer peers = 1;
 }
-
