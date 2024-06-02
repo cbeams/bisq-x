@@ -12,12 +12,12 @@ import static bisq.core.network.p2p.P2PCategory.log;
 
 class InboundConnectionManager implements Runnable {
 
-    private final PeerAddress selfAddress;
-    private final HashMap<PeerAddress, InboundConnection> connections = new HashMap<>();
+    private final Address self;
     private final HashSet<RequestHandler> requestHandlers = new HashSet<>();
+    private final HashMap<Address, InboundConnection> connections = new HashMap<>();
 
-    public InboundConnectionManager(PeerAddress selfAddress) {
-        this.selfAddress = selfAddress;
+    public InboundConnectionManager(Address self) {
+        this.self = self;
     }
 
     public void addRequestHandler(RequestHandler requestHandler) {
@@ -26,8 +26,8 @@ class InboundConnectionManager implements Runnable {
 
     @Override
     public void run() {
-        try (var serverSocket = new ServerSocket(selfAddress.port())) {
-            log.info("Accepting inbound connections at {}", selfAddress);
+        try (var serverSocket = new ServerSocket(self.port())) {
+            log.info("Accepting inbound connections at {}", self);
             while (true) {
                 var socket = serverSocket.accept();
                 var input = socket.getInputStream();
@@ -39,12 +39,12 @@ class InboundConnectionManager implements Runnable {
                     break;
                 }
 
-                var peerAddr = PeerAddress.fromString(P2P.ConnectionRequest.parseDelimitedFrom(input).getFromAddress());
+                var peer = Address.fromString(P2P.ConnectionRequest.parseDelimitedFrom(input).getFromAddress());
 
-                log.info("Accepted inbound connection from {}", peerAddr);
+                log.info("Accepted inbound connection from {}", peer);
 
-                var conn = new InboundConnection(peerAddr, socket, requestHandlers);
-                connections.put(peerAddr, conn);
+                var conn = new InboundConnection(peer, socket, requestHandlers);
+                connections.put(peer, conn);
                 new Thread(conn).start();
             }
         } catch (IOException ex) {

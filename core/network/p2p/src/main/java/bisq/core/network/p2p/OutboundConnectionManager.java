@@ -8,21 +8,21 @@ import static bisq.core.network.p2p.P2PCategory.log;
 
 class OutboundConnectionManager implements Runnable {
 
-    private final PeerAddress selfAddress;
-    private final PeerAddresses peerAddresses;
-    private final HashMap<PeerAddress, OutboundConnection> connections = new HashMap<>();
+    private final Address self;
+    private final AddressManager addressManager;
+    private final HashMap<Address, OutboundConnection> connections = new HashMap<>();
 
-    public OutboundConnectionManager(PeerAddress selfAddress, PeerAddresses peerAddresses) {
-        this.selfAddress = selfAddress;
-        this.peerAddresses = peerAddresses;
+    public OutboundConnectionManager(Address self, AddressManager addressManager) {
+        this.self = self;
+        this.addressManager = addressManager;
     }
 
     @Override
     public void run() {
-        for (var peerAddress : peerAddresses.getAddresses()) {
+        for (var peer : addressManager.getAddresses()) {
             try {
-                var conn = OutboundConnection.open(selfAddress, peerAddress);
-                connections.put(peerAddress, conn);
+                var conn = OutboundConnection.open(self, peer);
+                connections.put(peer, conn);
             } catch (IOException ex) {
                 throw new UncheckedIOException(ex);
             }

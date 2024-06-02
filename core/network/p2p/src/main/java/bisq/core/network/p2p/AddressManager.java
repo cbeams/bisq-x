@@ -11,22 +11,22 @@ import java.util.function.Predicate;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toSet;
 
-public class PeerAddresses implements RequestHandler {
+public class AddressManager implements RequestHandler {
 
-    private static final PeerAddress SEED_NODE_1 = new PeerAddress("localhost", 2140);
-    private final Set<PeerAddress> addresses = new HashSet<>();
-    private final Predicate<PeerAddress> addressFilter;
+    private static final Address SEED_NODE_1 = new Address("localhost", 2140);
+    private final Set<Address> addresses = new HashSet<>();
+    private final Predicate<Address> addressFilter;
 
-    private PeerAddresses(Predicate<PeerAddress> addressFilter) {
+    private AddressManager(Predicate<Address> addressFilter) {
         this.addresses.add(SEED_NODE_1);
         this.addressFilter = addressFilter;
     }
 
-    public static PeerAddresses excluding(PeerAddress excludedAddress) {
-        return new PeerAddresses(address -> !address.equals(excludedAddress));
+    public static AddressManager excluding(Address excludedAddress) {
+        return new AddressManager(address -> !address.equals(excludedAddress));
     }
 
-    public Set<PeerAddress> getAddresses() {
+    public Set<Address> getAddresses() {
         return addresses.stream().filter(addressFilter).collect(toSet());
     }
 

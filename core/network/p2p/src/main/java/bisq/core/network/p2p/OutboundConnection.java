@@ -12,9 +12,9 @@ import static bisq.core.network.p2p.P2PCategory.log;
 class OutboundConnection implements Closeable {
 
     private final Socket socket;
-    private final PeerAddress toAddr;
+    private final Address toAddr;
 
-    public static OutboundConnection open(PeerAddress fromAddr, PeerAddress toAddr) throws IOException {
+    public static OutboundConnection open(Address fromAddr, Address toAddr) throws IOException {
 
         var socket = new Socket(toAddr.host(), toAddr.port());
 
@@ -31,7 +31,7 @@ class OutboundConnection implements Closeable {
         return new OutboundConnection(toAddr, socket);
     }
 
-    private OutboundConnection(PeerAddress toAddr, Socket socket) {
+    private OutboundConnection(Address toAddr, Socket socket) {
         this.toAddr = toAddr;
         this.socket = socket;
     }

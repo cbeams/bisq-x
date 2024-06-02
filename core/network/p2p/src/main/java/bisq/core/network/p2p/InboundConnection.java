@@ -12,12 +12,12 @@ import static bisq.core.network.p2p.P2PCategory.log;
 
 class InboundConnection implements Runnable, Closeable {
 
-    private final PeerAddress fromAddr;
+    private final Address peer;
     private final Socket socket;
     private final Set<RequestHandler> requestHandlers;
 
-    public InboundConnection(PeerAddress fromAddr, Socket socket, Set<RequestHandler> requestHandlers) {
-        this.fromAddr = fromAddr;
+    public InboundConnection(Address peer, Socket socket, Set<RequestHandler> requestHandlers) {
+        this.peer = peer;
         this.socket = socket;
         this.requestHandlers = requestHandlers;
     }
@@ -35,9 +35,9 @@ class InboundConnection implements Runnable, Closeable {
 
                 var type = requestType.getValue();
                 boolean handled = false;
-                for (RequestHandler requestHandler : requestHandlers) {
-                    if (requestHandler.canHandle(type)) {
-                        requestHandler.handle(type, socket);
+                for (var handler : requestHandlers) {
+                    if (handler.canHandle(type)) {
+                        handler.handle(type, socket);
                         handled = true;
                     }
                 }
@@ -54,7 +54,7 @@ class InboundConnection implements Runnable, Closeable {
 
     @Override
     public void close() {
-        log.info("Closing inbound connection from {}", fromAddr);
+        log.info("Closing inbound connection from {}", peer);
         //try {
             //socket.close();
         //} catch (IOException ex) {
