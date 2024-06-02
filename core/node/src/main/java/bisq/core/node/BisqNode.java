@@ -51,7 +51,7 @@ public class BisqNode {
                 .properties(Map.of("micronaut.server.port", options.httpPort()))
                 .start();
 
-        var p2pServer = new PeerService(options.p2pPort());
+        var peerService = new PeerService(options.p2pPort());
         var httpServer = new HttpServer(context.getBean(EmbeddedServer.class));
         var apiControllers = context.getBeansOfType(ApiController.class);
         var offerRepository = context.getBean(OfferRepository.class);
@@ -59,7 +59,7 @@ public class BisqNode {
 
         return new BisqNode(
                 options,
-                p2pServer,
+                peerService,
                 httpServer,
                 apiControllers,
                 offerRepository,
