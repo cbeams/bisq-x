@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import static bisq.core.network.p2p.P2PCategory.log;
 
-public class OutboundConnectionManager implements Runnable {
+class OutboundConnectionManager implements Runnable {
 
     private final PeerAddress selfAddress;
     private final PeerAddresses peerAddresses;

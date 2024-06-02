@@ -13,7 +13,7 @@ class InboundConnectionManager implements Runnable {
 
     private final PeerAddress selfAddress;
     private final PeerAddresses peerAddresses;
-    private final HashMap<PeerAddress, InboundConnectionHandler> connections = new HashMap<>();
+    private final HashMap<PeerAddress, InboundConnection> connections = new HashMap<>();
 
     public InboundConnectionManager(PeerAddress selfAddress, PeerAddresses peerAddresses) {
         this.selfAddress = selfAddress;
@@ -39,7 +39,7 @@ class InboundConnectionManager implements Runnable {
 
                 log.info("Accepted inbound connection from {}", peerAddr);
 
-                var conn = new InboundConnectionHandler(peerAddr, socket, peerAddresses);
+                var conn = new InboundConnection(peerAddr, socket, peerAddresses);
                 connections.put(peerAddr, conn);
                 new Thread(conn).start();
             }
@@ -50,6 +50,6 @@ class InboundConnectionManager implements Runnable {
 
     public void stop() {
         log.info("Closing inbound connections");
-        connections.values().forEach(InboundConnectionHandler::close);
+        connections.values().forEach(InboundConnection::close);
     }
 }
