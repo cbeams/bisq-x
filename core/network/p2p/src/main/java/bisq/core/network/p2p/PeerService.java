@@ -12,7 +12,13 @@ public class PeerService {
         var addressManager = AddressManager.excluding(self);
         icm = new InboundConnectionManager(self);
         ocm = new OutboundConnectionManager(self, addressManager);
+
         icm.addRequestHandler(addressManager);
+        icm.addInboundConnectionListener(addressManager);
+
+        ocm.addOutboundConnectionListener(addressManager);
+
+        addressManager.addAddressListener(ocm);
     }
 
     public void start() {

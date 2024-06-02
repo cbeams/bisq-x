@@ -10,7 +10,7 @@ import java.util.Set;
 
 import static bisq.core.network.p2p.P2PCategory.log;
 
-class InboundConnection implements Runnable, Closeable {
+public class InboundConnection implements Runnable, Closeable {
 
     private final Address peer;
     private final Socket socket;
@@ -30,6 +30,7 @@ class InboundConnection implements Runnable, Closeable {
             while (true) {
                 var requestType = P2P.RequestType.parseDelimitedFrom(input);
                 if (requestType == null) {
+                    // TODO: handle "disconnect" as well; call close() and call back to manager to remove connection
                     break;
                 }
 
@@ -50,6 +51,10 @@ class InboundConnection implements Runnable, Closeable {
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
+    }
+
+    public Address getAddress() {
+        return peer;
     }
 
     @Override

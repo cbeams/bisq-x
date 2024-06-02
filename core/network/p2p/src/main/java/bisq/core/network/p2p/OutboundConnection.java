@@ -9,7 +9,7 @@ import java.net.Socket;
 
 import static bisq.core.network.p2p.P2PCategory.log;
 
-class OutboundConnection implements Closeable {
+public class OutboundConnection implements Closeable {
 
     private final Socket socket;
     private final Address toAddr;
@@ -36,13 +36,9 @@ class OutboundConnection implements Closeable {
         this.socket = socket;
     }
 
-    /*
-    public Set<String> getPeers() throws IOException {
-        P2P.RequestType.newBuilder().setValue("get_peers").build().writeDelimitedTo(output);
-        var peerList = P2P.PeerList.parseDelimitedFrom(input);
-        return peerList.getPeersList().stream().map(P2P.Peer::getAddress).collect(Collectors.toSet());
+    public Socket getSocket() {
+        return socket;
     }
-     */
 
     @Override
     public void close() {

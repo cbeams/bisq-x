@@ -15,6 +15,7 @@ class InboundConnectionManager implements Runnable {
     private final Address self;
     private final HashSet<RequestHandler> requestHandlers = new HashSet<>();
     private final HashMap<Address, InboundConnection> connections = new HashMap<>();
+    private final HashSet<InboundConnectionListener> inboundConnectionListeners = new HashSet<>();
 
     public InboundConnectionManager(Address self) {
         this.self = self;
@@ -22,6 +23,10 @@ class InboundConnectionManager implements Runnable {
 
     public void addRequestHandler(RequestHandler requestHandler) {
         requestHandlers.add(requestHandler);
+    }
+
+    public void addInboundConnectionListener(InboundConnectionListener listener) {
+        inboundConnectionListeners.add(listener);
     }
 
     @Override
@@ -45,7 +50,11 @@ class InboundConnectionManager implements Runnable {
 
                 var conn = new InboundConnection(peer, socket, requestHandlers);
                 connections.put(peer, conn);
+
                 new Thread(conn).start();
+
+                for (var listener : inboundConnectionListeners)
+                    listener.onNewInboundConnection(conn);
             }
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
