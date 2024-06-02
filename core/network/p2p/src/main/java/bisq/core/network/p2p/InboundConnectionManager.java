@@ -5,106 +5,51 @@ import bisq.core.network.p2p.proto.P2P;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
 
 import static bisq.core.network.p2p.P2PCategory.log;
-import static java.util.stream.Collectors.toSet;
 
 class InboundConnectionManager implements Runnable {
 
-    final String host;
-    final int port;
-    private final Set<String> peers = new HashSet<>();
+    private final PeerAddress selfAddress;
+    private final PeerAddresses peerAddresses;
+    private final HashMap<PeerAddress, InboundConnectionHandler> connections = new HashMap<>();
 
-    public InboundConnectionManager(String host, int port, PeerDirectory peerDirectory) {
-        this.host = host;
-        this.port = port;
+    public InboundConnectionManager(PeerAddress selfAddress, PeerAddresses peerAddresses) {
+        this.selfAddress = selfAddress;
+        this.peerAddresses = peerAddresses;
     }
 
     @Override
     public void run() {
-        try (var serverSocket = new ServerSocket(port)) {
-            log.info("Accepting inbound connections at bisq://{}:{}", host, port);
+        try (var serverSocket = new ServerSocket(selfAddress.port())) {
+            log.info("Accepting inbound connections at {}", selfAddress);
             while (true) {
-                var conn = serverSocket.accept();
-                var input = conn.getInputStream();
+                var socket = serverSocket.accept();
+                var input = socket.getInputStream();
                 var requestType = P2P.RequestType.parseDelimitedFrom(input);
 
                 if (!"connect".equalsIgnoreCase(requestType.getValue())) {
                     log.error("Error: expected 'connect' request but got {}", requestType);
-                    conn.close();
+                    socket.close();
                     break;
                 }
 
-                var peerAddr = P2P.ConnectionRequest.parseDelimitedFrom(input).getAddress();
+                var peerAddr = PeerAddress.fromString(P2P.ConnectionRequest.parseDelimitedFrom(input).getFromAddress());
 
-                if (!peers.add(peerAddr)) {
-                    log.warn("Warning: already connected to {}", peerAddr);
-                }
+                log.info("Accepted inbound connection from {}", peerAddr);
 
-                log.info("Accepted inbound connection from bisq://{}", peerAddr);
-
-                new Thread(new ConnectionHandler(conn)).start();
+                var conn = new InboundConnectionHandler(peerAddr, socket, peerAddresses);
+                connections.put(peerAddr, conn);
+                new Thread(conn).start();
             }
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
     }
 
-    public String getAddress() {
-        return String.format("%s:%d", host, port);
-    }
-
     public void stop() {
         log.info("Closing inbound connections");
-    }
-
-
-    class ConnectionHandler implements Runnable {
-
-        private final Socket conn;
-
-        public ConnectionHandler(Socket conn) {
-            this.conn = conn;
-        }
-
-        @Override
-        public void run() {
-            try {
-                var input = conn.getInputStream();
-                var output = conn.getOutputStream();
-
-                REQUEST_LOOP:
-                while (true) {
-                    var requestType = P2P.RequestType.parseDelimitedFrom(input);
-                    if (requestType == null) {
-                        break;
-                    }
-
-                    switch (requestType.getValue()) {
-                        case "get_peers" -> {
-                            var peerList = P2P.PeerList.newBuilder().addAllPeers(
-                                            peers.stream()
-                                                    .map(peerAddr ->
-                                                            P2P.Peer.newBuilder()
-                                                                    .setAddress(peerAddr)
-                                                                    .build()
-                                                    ).collect(toSet()))
-                                    .build();
-                            peerList.writeDelimitedTo(output);
-                        }
-                        default -> {
-                            log.error("Error: unsupported request type: {}", requestType);
-                            conn.close();
-                            break REQUEST_LOOP;
-                        }
-                    }
-                }
-            } catch (IOException ex) {
-                throw new UncheckedIOException(ex);
-            }
-        }
+        connections.values().forEach(InboundConnectionHandler::close);
     }
 }

@@ -7,7 +7,7 @@ message RequestType {
 }
 
 message ConnectionRequest {
-    string address = 1;
+    string fromAddress = 1;
 }
 
 message Peer {

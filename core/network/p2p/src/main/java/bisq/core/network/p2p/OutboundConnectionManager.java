@@ -3,31 +3,27 @@ package bisq.core.network.p2p;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import static bisq.core.network.p2p.P2PCategory.log;
 
 public class OutboundConnectionManager implements Runnable {
 
-    private final Map<String, P2PClient> connections = new HashMap<>();
-    private final String myAddr;
-    private final PeerDirectory peerDirectory;
+    private final PeerAddress selfAddress;
+    private final PeerAddresses peerAddresses;
+    private final HashMap<PeerAddress, OutboundConnection> connections = new HashMap<>();
 
-    public OutboundConnectionManager(String myAddr, PeerDirectory peerDirectory) {
-        this.myAddr = myAddr;
-        this.peerDirectory = peerDirectory;
+    public OutboundConnectionManager(PeerAddress selfAddress, PeerAddresses peerAddresses) {
+        this.selfAddress = selfAddress;
+        this.peerAddresses = peerAddresses;
     }
 
     @Override
     public void run() {
-        for (String peerAddr : peerDirectory.getKnownPeers()) {
-            if (peerAddr.equals(myAddr))
-                continue;
+        for (var peerAddress : peerAddresses.getAddresses()) {
 
             try {
-                var client = new P2PClient(peerAddr, myAddr);
-                connections.put(peerAddr, client);
-                //var ret = client.getPeers();
+                var conn = OutboundConnection.open(selfAddress, peerAddress);
+                connections.put(peerAddress, conn);
             } catch (IOException ex) {
                 throw new UncheckedIOException(ex);
             }
@@ -36,5 +32,6 @@ public class OutboundConnectionManager implements Runnable {
 
     public void stop() {
         log.info("Closing outbound connections");
+        connections.values().forEach(OutboundConnection::close);
     }
 }
