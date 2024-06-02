@@ -6,18 +6,22 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.ServerSocket;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static bisq.core.network.p2p.P2PCategory.log;
 
 class InboundConnectionManager implements Runnable {
 
     private final PeerAddress selfAddress;
-    private final PeerAddresses peerAddresses;
     private final HashMap<PeerAddress, InboundConnection> connections = new HashMap<>();
+    private final HashSet<RequestHandler> requestHandlers = new HashSet<>();
 
-    public InboundConnectionManager(PeerAddress selfAddress, PeerAddresses peerAddresses) {
+    public InboundConnectionManager(PeerAddress selfAddress) {
         this.selfAddress = selfAddress;
-        this.peerAddresses = peerAddresses;
+    }
+
+    public void addRequestHandler(RequestHandler requestHandler) {
+        requestHandlers.add(requestHandler);
     }
 
     @Override
@@ -39,7 +43,7 @@ class InboundConnectionManager implements Runnable {
 
                 log.info("Accepted inbound connection from {}", peerAddr);
 
-                var conn = new InboundConnection(peerAddr, socket, peerAddresses);
+                var conn = new InboundConnection(peerAddr, socket, requestHandlers);
                 connections.put(peerAddr, conn);
                 new Thread(conn).start();
             }

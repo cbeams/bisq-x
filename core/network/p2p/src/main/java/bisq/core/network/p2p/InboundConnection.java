@@ -6,52 +6,45 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.Socket;
+import java.util.Set;
 
 import static bisq.core.network.p2p.P2PCategory.log;
-import static java.util.stream.Collectors.toSet;
 
 class InboundConnection implements Runnable, Closeable {
 
     private final PeerAddress fromAddr;
     private final Socket socket;
-    private final PeerAddresses peerAddresses;
+    private final Set<RequestHandler> requestHandlers;
 
-    public InboundConnection(PeerAddress fromAddr, Socket socket, PeerAddresses peerAddresses) {
+    public InboundConnection(PeerAddress fromAddr, Socket socket, Set<RequestHandler> requestHandlers) {
         this.fromAddr = fromAddr;
         this.socket = socket;
-        this.peerAddresses = peerAddresses; // TODO: remove, extract to listener
+        this.requestHandlers = requestHandlers;
     }
 
     @Override
     public void run() {
         try {
             var input = socket.getInputStream();
-            var output = socket.getOutputStream();
 
-            REQUEST_LOOP:
             while (true) {
                 var requestType = P2P.RequestType.parseDelimitedFrom(input);
                 if (requestType == null) {
                     break;
                 }
 
-                switch (requestType.getValue()) {
-                    case "get_peers" -> {
-                        var peerList = P2P.PeerList.newBuilder().addAllPeers(
-                                        peerAddresses.getAddresses().stream()
-                                                .map(peerAddr ->
-                                                        P2P.Peer.newBuilder()
-                                                                .setAddress(peerAddr.toString())
-                                                                .build()
-                                                ).collect(toSet()))
-                                .build();
-                        peerList.writeDelimitedTo(output);
+                var type = requestType.getValue();
+                boolean handled = false;
+                for (RequestHandler requestHandler : requestHandlers) {
+                    if (requestHandler.canHandle(type)) {
+                        requestHandler.handle(type, socket);
+                        handled = true;
                     }
-                    default -> {
-                        log.error("Error: unsupported request type: {}", requestType);
-                        this.close();
-                        break REQUEST_LOOP;
-                    }
+                }
+                if (!handled) {
+                    log.error("Error: unsupported request type: {}", requestType);
+                    this.close();
+                    break;
                 }
             }
         } catch (IOException ex) {
@@ -62,10 +55,10 @@ class InboundConnection implements Runnable, Closeable {
     @Override
     public void close() {
         log.info("Closing inbound connection from {}", fromAddr);
-        try {
-            socket.close();
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+        //try {
+            //socket.close();
+        //} catch (IOException ex) {
+            //throw new UncheckedIOException(ex);
+        //}
     }
 }

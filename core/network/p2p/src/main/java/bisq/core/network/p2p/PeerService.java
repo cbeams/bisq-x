@@ -10,8 +10,9 @@ public class PeerService {
     public PeerService(int port) {
         var selfAddress = new PeerAddress("localhost", port);
         var peerAddresses = PeerAddresses.excluding(selfAddress);
-        this.icm = new InboundConnectionManager(selfAddress, peerAddresses);
-        this.ocm = new OutboundConnectionManager(selfAddress, peerAddresses);
+        icm = new InboundConnectionManager(selfAddress);
+        ocm = new OutboundConnectionManager(selfAddress, peerAddresses);
+        icm.addRequestHandler(peerAddresses);
     }
 
     public void start() {

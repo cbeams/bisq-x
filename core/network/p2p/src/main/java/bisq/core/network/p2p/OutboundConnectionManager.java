@@ -20,7 +20,6 @@ class OutboundConnectionManager implements Runnable {
     @Override
     public void run() {
         for (var peerAddress : peerAddresses.getAddresses()) {
-
             try {
                 var conn = OutboundConnection.open(selfAddress, peerAddress);
                 connections.put(peerAddress, conn);
