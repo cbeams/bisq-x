@@ -13,9 +13,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.UUID;
 
 import static bisq.core.node.app.BisqNodeApp.*;
 import static ch.qos.logback.classic.Level.*;
@@ -111,13 +115,29 @@ public class BisqDesktop extends Application implements BisqNodeApp {
     @Override
     public void start(Stage primaryStage) {
 
-        StackPane root = new StackPane();
+        BorderPane root = new BorderPane();
+        StackPane offerPane = new StackPane();
+        VBox offerCreator = new VBox();
+
+        root.setCenter(offerPane);
+        root.setLeft(offerCreator);
+
+        offerCreator.setMinWidth(150);
+
+        TextField contentInput = new TextField();
+        Button sendOfferButton = new Button("Send Offer");
+
+
+        offerCreator.getChildren().addAll(
+                new Label("Content:"), contentInput,
+                sendOfferButton);
+
 
         ObservableList<Offer> offers = FXCollections.observableArrayList();
         ListView<Offer> offerListView = new ListView<>(offers);
-        root.getChildren().add(offerListView);
+        offerPane.getChildren().add(offerListView);
 
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 450, 250);
 
         primaryStage.setTitle(bisqNode.getName());
         primaryStage.setScene(scene);
@@ -127,6 +147,12 @@ public class BisqDesktop extends Application implements BisqNodeApp {
         // bind underlying offer repository to our observable list
         // of offers shown in the list view in a completely naive way
         var offerRepository = bisqNode.getOfferRepository();
+
+
+        sendOfferButton.setOnMouseClicked(e ->
+                offerRepository.save(new Offer(UUID.randomUUID().toString(), contentInput.getText()))
+        );
+
         offerRepository.addChangeCallback(() ->
                 Platform.runLater(() -> {
                     offers.clear();
