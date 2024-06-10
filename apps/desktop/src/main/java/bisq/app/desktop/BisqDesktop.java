@@ -127,12 +127,12 @@ public class BisqDesktop extends Application implements BisqNodeApp {
 
         offerCreator.setMinWidth(150);
 
-        var contentInput = new TextField();
-        var sendOfferButton = new Button("Send Offer");
+        var detailsInput = new TextField();
+        var createOfferButton = new Button("Create Offer");
 
         offerCreator.getChildren().addAll(
-                new Label("Content:"), contentInput,
-                sendOfferButton);
+                new Label("Details:"), detailsInput,
+                createOfferButton);
 
         ObservableList<Offer> offers = FXCollections.observableArrayList();
         var offerListView = new ListView<>(offers);
@@ -149,8 +149,8 @@ public class BisqDesktop extends Application implements BisqNodeApp {
         // of offers shown in the list view in a completely naive way
         var offerRepository = bisqNode.getOfferRepository();
 
-        sendOfferButton.setOnMouseClicked(e ->
-                offerRepository.save(new Offer(UUID.randomUUID().toString(), contentInput.getText()))
+        createOfferButton.setOnMouseClicked(e ->
+                offerRepository.save(new Offer(UUID.randomUUID().toString(), detailsInput.getText()))
         );
 
         offerRepository.addChangeCallback(() ->
