@@ -13,7 +13,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -127,11 +130,9 @@ public class BisqDesktop extends Application implements BisqNodeApp {
         TextField contentInput = new TextField();
         Button sendOfferButton = new Button("Send Offer");
 
-
         offerCreator.getChildren().addAll(
                 new Label("Content:"), contentInput,
                 sendOfferButton);
-
 
         ObservableList<Offer> offers = FXCollections.observableArrayList();
         ListView<Offer> offerListView = new ListView<>(offers);
@@ -147,7 +148,6 @@ public class BisqDesktop extends Application implements BisqNodeApp {
         // bind underlying offer repository to our observable list
         // of offers shown in the list view in a completely naive way
         var offerRepository = bisqNode.getOfferRepository();
-
 
         sendOfferButton.setOnMouseClicked(e ->
                 offerRepository.save(new Offer(UUID.randomUUID().toString(), contentInput.getText()))
