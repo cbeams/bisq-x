@@ -22,8 +22,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.UUID;
-
 import static bisq.core.node.app.BisqNodeApp.*;
 import static ch.qos.logback.classic.Level.*;
 
@@ -150,7 +148,7 @@ public class BisqDesktop extends Application implements BisqNodeApp {
         var offerRepository = bisqNode.getOfferRepository();
 
         createOfferButton.setOnMouseClicked(e ->
-                offerRepository.save(new Offer(UUID.randomUUID().toString(), detailsInput.getText()))
+                offerRepository.save(Offer.withDetails(detailsInput.getText()))
         );
 
         offerRepository.addChangeCallback(() ->

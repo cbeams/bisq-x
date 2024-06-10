@@ -12,7 +12,6 @@ import io.micronaut.http.annotation.Post;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 import static bisq.core.domain.trade.OfferCategory.log;
 
@@ -41,9 +40,8 @@ public class OfferController implements ApiController {
     @Post()
     public HttpResponse<?> add(Offer offer) {
         log.debug("Adding {}", offer);
-        var id = UUID.randomUUID().toString();
-        offerRepository.save(new Offer(id, offer.details()));
-        return HttpResponse.created(URI.create("/trade/offers/" + id));
+        offerRepository.save(Offer.withDetails(offer.details()));
+        return HttpResponse.created(URI.create("/trade/offers/" + offer.id()));
     }
 
     @Delete("/{id}")
