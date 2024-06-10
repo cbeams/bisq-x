@@ -13,8 +13,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import static bisq.core.node.app.BisqNodeApp.*;
@@ -111,13 +116,27 @@ public class BisqDesktop extends Application implements BisqNodeApp {
     @Override
     public void start(Stage primaryStage) {
 
-        StackPane root = new StackPane();
+        var root = new BorderPane();
+        var offerPane = new StackPane();
+        var offerCreator = new VBox();
+
+        root.setCenter(offerPane);
+        root.setLeft(offerCreator);
+
+        offerCreator.setMinWidth(150);
+
+        var detailsInput = new TextField();
+        var createOfferButton = new Button("Create Offer");
+
+        offerCreator.getChildren().addAll(
+                new Label("Details:"), detailsInput,
+                createOfferButton);
 
         ObservableList<Offer> offers = FXCollections.observableArrayList();
-        ListView<Offer> offerListView = new ListView<>(offers);
-        root.getChildren().add(offerListView);
+        var offerListView = new ListView<>(offers);
+        offerPane.getChildren().add(offerListView);
 
-        Scene scene = new Scene(root, 300, 250);
+        var scene = new Scene(root, 450, 250);
 
         primaryStage.setTitle(bisqNode.getName());
         primaryStage.setScene(scene);
@@ -127,6 +146,11 @@ public class BisqDesktop extends Application implements BisqNodeApp {
         // bind underlying offer repository to our observable list
         // of offers shown in the list view in a completely naive way
         var offerRepository = bisqNode.getOfferRepository();
+
+        createOfferButton.setOnMouseClicked(e ->
+                offerRepository.save(Offer.withDetails(detailsInput.getText()))
+        );
+
         offerRepository.addChangeCallback(() ->
                 Platform.runLater(() -> {
                     offers.clear();
