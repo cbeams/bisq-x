@@ -13,7 +13,7 @@ import jakarta.inject.Singleton;
 import static bisq.core.domain.trade.OfferCategory.log;
 
 @Singleton
-public class P2POfferRepository implements P2PMessageListener, OfferRepository {
+public class P2POfferbook implements P2PMessageListener, Offerbook {
 
     private static final String MESSAGE_TYPE = "offer";
 
@@ -22,7 +22,7 @@ public class P2POfferRepository implements P2PMessageListener, OfferRepository {
     private List<Offer> offers = new ArrayList<>();
     private ArrayList<Runnable> callbacks = new ArrayList<>();
 
-    public P2POfferRepository(P2PMessageStore messageStore) {
+    public P2POfferbook(P2PMessageStore messageStore) {
         this.messageStore = messageStore;
     }
 

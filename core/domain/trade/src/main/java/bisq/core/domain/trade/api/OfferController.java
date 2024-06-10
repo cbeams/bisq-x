@@ -2,7 +2,7 @@ package bisq.core.domain.trade.api;
 
 import bisq.core.api.ApiController;
 import bisq.core.domain.trade.Offer;
-import bisq.core.domain.trade.OfferRepository;
+import bisq.core.domain.trade.Offerbook;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
@@ -16,20 +16,20 @@ import java.util.List;
 @Controller("/trade/offers")
 public class OfferController implements ApiController {
 
-    private final OfferRepository offerRepository;
+    private final Offerbook offerbook;
 
-    public OfferController(OfferRepository offerRepository) {
-        this.offerRepository = offerRepository;
+    public OfferController(Offerbook offerbook) {
+        this.offerbook = offerbook;
     }
 
     @Get
     public List<Offer> listAll() {
-        return offerRepository.findAll();
+        return offerbook.findAll();
     }
 
     @Get("/{id}")
     public HttpResponse<Offer> show(String id) {
-        var offer = offerRepository.findById(id);
+        var offer = offerbook.findById(id);
         return offer.isPresent() ?
                 HttpResponse.ok(offer.get()) :
                 HttpResponse.notFound();
@@ -37,7 +37,7 @@ public class OfferController implements ApiController {
 
     @Post()
     public HttpResponse<?> add(Offer offer) {
-        offerRepository.save(Offer.withDetails(offer.details()));
+        offerbook.save(Offer.withDetails(offer.details()));
         return HttpResponse.created(URI.create("/trade/offers/" + offer.id()));
     }
 

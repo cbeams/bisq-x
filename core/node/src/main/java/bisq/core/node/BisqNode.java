@@ -7,7 +7,7 @@ import bisq.core.oas.OpenApiSpecification;
 import bisq.core.network.http.HttpServer;
 import bisq.core.network.p2p.P2PServer;
 
-import bisq.core.domain.trade.OfferRepository;
+import bisq.core.domain.trade.Offerbook;
 
 import bisq.core.logging.Logging;
 import ch.qos.logback.classic.Level;
@@ -27,7 +27,7 @@ public class BisqNode {
     private final P2PServer p2pServer;
     private final HttpServer httpServer;
     private final Collection<ApiController> apiControllers;
-    private final OfferRepository offerRepository;
+    private final Offerbook offerbook;
 
     private DataDir dataDir;
 
@@ -35,14 +35,14 @@ public class BisqNode {
                     P2PServer p2pServer,
                     HttpServer httpServer,
                     Collection<ApiController> apiControllers,
-                    OfferRepository offerRepository,
+                    Offerbook offerbook,
                     // injected to express dependency from core.node => core.oas
                     @SuppressWarnings("unused") OpenApiSpecification openApiSpecification) {
         this.options = options;
         this.p2pServer = p2pServer;
         this.httpServer = httpServer;
         this.apiControllers = apiControllers;
-        this.offerRepository = offerRepository;
+        this.offerbook = offerbook;
     }
 
     public static BisqNode withOptions(Options options) {
@@ -54,7 +54,7 @@ public class BisqNode {
         var p2pServer = new P2PServer(options.p2pPort());
         var httpServer = new HttpServer(context.getBean(EmbeddedServer.class));
         var apiControllers = context.getBeansOfType(ApiController.class);
-        var offerRepository = context.getBean(OfferRepository.class);
+        var offerbook = context.getBean(Offerbook.class);
         var openApiSpec = context.getBean(OpenApiSpecification.class);
 
         return new BisqNode(
@@ -62,7 +62,7 @@ public class BisqNode {
                 p2pServer,
                 httpServer,
                 apiControllers,
-                offerRepository,
+                offerbook,
                 openApiSpec
         );
     }
@@ -107,7 +107,7 @@ public class BisqNode {
         return options.appName();
     }
 
-    public OfferRepository getOfferRepository() {
-        return offerRepository;
+    public Offerbook getOfferbook() {
+        return offerbook;
     }
 }

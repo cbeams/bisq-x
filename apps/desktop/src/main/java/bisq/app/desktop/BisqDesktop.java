@@ -145,16 +145,16 @@ public class BisqDesktop extends Application implements BisqNodeApp {
 
         // bind underlying offer repository to our observable list
         // of offers shown in the list view in a completely naive way
-        var offerRepository = bisqNode.getOfferRepository();
+        var offerbook = bisqNode.getOfferbook();
 
         createOfferButton.setOnMouseClicked(e ->
-                offerRepository.save(Offer.withDetails(detailsInput.getText()))
+                offerbook.save(Offer.withDetails(detailsInput.getText()))
         );
 
-        offerRepository.addChangeCallback(() ->
+        offerbook.addChangeCallback(() ->
                 Platform.runLater(() -> {
                     offers.clear();
-                    offers.addAll(offerRepository.findAll());
+                    offers.addAll(offerbook.findAll());
                 }));
     }
 }
