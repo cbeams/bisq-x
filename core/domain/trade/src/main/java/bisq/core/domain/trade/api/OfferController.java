@@ -13,8 +13,6 @@ import io.micronaut.http.annotation.Post;
 import java.net.URI;
 import java.util.List;
 
-import static bisq.core.domain.trade.OfferCategory.log;
-
 @Controller("/trade/offers")
 public class OfferController implements ApiController {
 
@@ -39,7 +37,6 @@ public class OfferController implements ApiController {
 
     @Post()
     public HttpResponse<?> add(Offer offer) {
-        log.debug("Adding {}", offer);
         offerRepository.save(Offer.withDetails(offer.details()));
         return HttpResponse.created(URI.create("/trade/offers/" + offer.id()));
     }

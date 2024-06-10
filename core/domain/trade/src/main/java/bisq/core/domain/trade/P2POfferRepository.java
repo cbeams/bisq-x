@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import jakarta.inject.Singleton;
 
+import static bisq.core.domain.trade.OfferCategory.log;
+
 @Singleton
 public class P2POfferRepository implements P2PMessageListener, OfferRepository {
 
@@ -53,6 +55,7 @@ public class P2POfferRepository implements P2PMessageListener, OfferRepository {
 
     @Override
     public void save(Offer offer) {
+        log.debug("Adding {}", offer);
         if (offers.stream().noneMatch(existing -> existing.id().equals(offer.id()))) {
             offers.add(offer);
             messageStore.add(new P2PMessage(MESSAGE_TYPE, offer.id(), offer.details()), this);
