@@ -118,27 +118,27 @@ public class BisqDesktop extends Application implements BisqNodeApp {
     @Override
     public void start(Stage primaryStage) {
 
-        BorderPane root = new BorderPane();
-        StackPane offerPane = new StackPane();
-        VBox offerCreator = new VBox();
+        var root = new BorderPane();
+        var offerPane = new StackPane();
+        var offerCreator = new VBox();
 
         root.setCenter(offerPane);
         root.setLeft(offerCreator);
 
         offerCreator.setMinWidth(150);
 
-        TextField contentInput = new TextField();
-        Button sendOfferButton = new Button("Send Offer");
+        var contentInput = new TextField();
+        var sendOfferButton = new Button("Send Offer");
 
         offerCreator.getChildren().addAll(
                 new Label("Content:"), contentInput,
                 sendOfferButton);
 
         ObservableList<Offer> offers = FXCollections.observableArrayList();
-        ListView<Offer> offerListView = new ListView<>(offers);
+        var offerListView = new ListView<>(offers);
         offerPane.getChildren().add(offerListView);
 
-        Scene scene = new Scene(root, 450, 250);
+        var scene = new Scene(root, 450, 250);
 
         primaryStage.setTitle(bisqNode.getName());
         primaryStage.setScene(scene);
