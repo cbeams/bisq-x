@@ -18,6 +18,7 @@
 package bisq.core.node.app;
 
 import bisq.core.node.BisqNode;
+
 import ch.qos.logback.classic.Logger;
 
 /**

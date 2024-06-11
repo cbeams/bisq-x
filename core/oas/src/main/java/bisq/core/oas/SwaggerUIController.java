@@ -18,6 +18,7 @@
 package bisq.core.oas;
 
 import bisq.core.api.ApiController;
+
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;

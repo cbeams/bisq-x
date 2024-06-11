@@ -17,13 +17,13 @@
 
 package bisq.app.daemon;
 
+import bisq.core.logging.Logging;
 import bisq.core.node.BisqNode;
 import bisq.core.node.Options;
 import bisq.core.node.app.BisqNodeApp;
 import bisq.core.node.app.CommandLine;
-import bisq.core.logging.Logging;
 
-import static bisq.core.node.app.BisqNodeApp.*;
+import static bisq.core.node.app.BisqNodeApp.unwrap;
 import static ch.qos.logback.classic.Level.*;
 
 public class BisqDaemon implements BisqNodeApp {

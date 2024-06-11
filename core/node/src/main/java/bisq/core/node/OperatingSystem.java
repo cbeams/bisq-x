@@ -21,8 +21,8 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.Locale;
 
-import static java.lang.String.format;
 import static bisq.core.node.ConfCategory.log;
+import static java.lang.String.format;
 
 class OperatingSystem {
 

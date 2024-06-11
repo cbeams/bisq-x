@@ -22,9 +22,10 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import static bisq.core.node.Options.*;
+import static bisq.core.node.Options.DEFAULT_CONF_FILENAME;
+import static bisq.core.node.Options.HTTP_PORT_OPT;
 import static java.lang.String.format;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OptionsTest {
 

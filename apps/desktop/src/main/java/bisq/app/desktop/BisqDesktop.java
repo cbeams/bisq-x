@@ -17,18 +17,17 @@
 
 package bisq.app.desktop;
 
+import bisq.core.domain.trade.Offer;
+import bisq.core.logging.Logging;
 import bisq.core.node.BisqNode;
 import bisq.core.node.Options;
 import bisq.core.node.app.BisqNodeApp;
 import bisq.core.node.app.CommandLine;
-import bisq.core.domain.trade.Offer;
-import bisq.core.logging.Logging;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,7 +38,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import static bisq.core.node.app.BisqNodeApp.*;
+import static bisq.core.node.app.BisqNodeApp.unwrap;
 import static ch.qos.logback.classic.Level.*;
 
 public class BisqDesktop extends Application implements BisqNodeApp {

@@ -18,20 +18,17 @@
 package bisq.core.node;
 
 import bisq.core.api.ApiController;
+import bisq.core.domain.trade.Offerbook;
 import bisq.core.logging.ApiCategory;
-import bisq.core.oas.OpenApiSpecification;
-
+import bisq.core.logging.Logging;
 import bisq.core.network.http.HttpServer;
 import bisq.core.network.p2p.P2PServer;
+import bisq.core.oas.OpenApiSpecification;
 
-import bisq.core.domain.trade.Offerbook;
-
-import bisq.core.logging.Logging;
 import ch.qos.logback.classic.Level;
-import org.slf4j.Logger;
-
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.runtime.server.EmbeddedServer;
+import org.slf4j.Logger;
 
 import java.util.Collection;
 import java.util.Map;

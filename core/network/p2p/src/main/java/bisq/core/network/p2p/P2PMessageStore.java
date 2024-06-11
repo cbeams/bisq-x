@@ -18,7 +18,6 @@
 package bisq.core.network.p2p;
 
 import java.util.ArrayList;
-
 import jakarta.inject.Singleton;
 
 import static bisq.core.network.p2p.P2PMessage.Operation.ADD;

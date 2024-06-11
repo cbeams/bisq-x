@@ -18,7 +18,6 @@
 package bisq.core.logging.api;
 
 import bisq.core.api.ApiController;
-
 import bisq.core.logging.CategorySpec;
 import bisq.core.logging.Logging;
 

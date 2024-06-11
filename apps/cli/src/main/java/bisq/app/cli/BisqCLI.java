@@ -25,6 +25,7 @@ import bisq.client.oas.endpoint.LoggingEndpoint;
 import bisq.client.oas.endpoint.OfferEndpoint;
 import bisq.client.oas.model.CategorySpec;
 import bisq.client.oas.model.UpdateCategoryRequest;
+
 import joptsimple.OptionParser;
 
 import java.io.IOException;

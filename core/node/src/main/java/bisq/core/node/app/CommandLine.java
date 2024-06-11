@@ -18,6 +18,7 @@
 package bisq.core.node.app;
 
 import bisq.core.node.Options;
+
 import joptsimple.OptionParser;
 
 import java.io.ByteArrayOutputStream;
@@ -26,8 +27,8 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.List;
 
-import static bisq.core.node.Options.*;
 import static bisq.core.node.ConfCategory.log;
+import static bisq.core.node.Options.*;
 import static java.lang.String.format;
 
 public class CommandLine {
