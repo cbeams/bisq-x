@@ -1,4 +1,4 @@
-
+​
 <p align="center">
   <img src="https://bisq.network/images/bisq-logo.svg"/>
 </p>

@@ -37,8 +37,8 @@ class OperatingSystem {
             if (path == null)
                 throw new IllegalStateException(
                         format("Cannot determine user data directory because the '%s' " +
-                               "environment variable is not set as expected. Is this " +
-                               "actually a Windows OS?", prop));
+                                "environment variable is not set as expected. Is this " +
+                                "actually a Windows OS?", prop));
 
             return validUserDataDir(path);
         }
@@ -48,7 +48,7 @@ class OperatingSystem {
         if (homePath == null || homePath.isBlank()) {
             throw new IllegalStateException(
                     format("Cannot determine user data directory because the '%s' " +
-                           "system property is not set as expected.", homeProp));
+                            "system property is not set as expected.", homeProp));
         }
 
         if (isMac(osName)) {
@@ -85,8 +85,8 @@ class OperatingSystem {
         if (!target.isDirectory() || !target.canWrite())
             throw new IllegalStateException(
                     format("Cannot determine user data directory because " +
-                    "'%s' is not a writeable directory as expected. Create " +
-                           "this directory or modify its permissions as appropriate.", target));
+                            "'%s' is not a writeable directory as expected. Create " +
+                            "this directory or modify its permissions as appropriate.", target));
         log.trace("Found user data directory {}", target);
         return target;
     }

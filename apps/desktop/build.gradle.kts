@@ -33,7 +33,8 @@ application {
 tasks.getByName<CreateStartScripts>("startScripts") {
     defaultJvmOpts = listOf(
         "--module-path", "${rootDir}/apps/desktop/build/install/desktop/lib/",
-        "--add-modules", "javafx.controls")
+        "--add-modules", "javafx.controls"
+    )
 }
 
 tasks.getByName("build").dependsOn("installDist")

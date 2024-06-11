@@ -64,7 +64,7 @@ class DataDir implements Closeable {
             if (lock == null)
                 throw new IllegalStateException(
                         format("Could not obtain a lock on data directory '%s'. " +
-                               "Bisq is probably already running.", dir));
+                                "Bisq is probably already running.", dir));
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }

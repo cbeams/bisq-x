@@ -143,15 +143,17 @@ public final class Options {
                     continue; // skip static and/or final fields; check only mutable option value instance fields
                 }
                 if (fieldType.isPrimitive()) {
-                    throw new IllegalStateException(format("Option value fields may not be primitive. " +
-                                                           "Please box the field named '%s' appropriately", fieldName));
+                    throw new IllegalStateException(
+                            format("Option value fields may not be primitive. Please box the field named '%s' " +
+                                    "appropriately", fieldName));
                 }
                 if (field.get(this) == null) {
-                    throw new IllegalStateException(format("Option fields may not be null after initialization time. " +
-                                                           "Please ensure the field named '%s' is assigned a default " +
-                                                           "value. This may be because its value was not assigned " +
-                                                           "in Options.assignValues() or because it is missing an " +
-                                                           "entry in the default %s configuration file.", fieldName, DEFAULT_CONF_FILENAME));
+                    throw new IllegalStateException(
+                            format("Option fields may not be null after initialization time. " +
+                                    "Please ensure the field named '%s' is assigned a default " +
+                                    "value. This may be because its value was not assigned " +
+                                    "in Options.assignValues() or because it is missing an " +
+                                    "entry in the default %s configuration file.", fieldName, DEFAULT_CONF_FILENAME));
                 }
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
