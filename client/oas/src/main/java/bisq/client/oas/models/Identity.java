@@ -11,10 +11,9 @@
  */
 
 
-package bisq.client.oas.model;
+package bisq.client.oas.models;
 
 import java.util.Objects;
-import bisq.client.oas.model.Identity;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -48,33 +47,33 @@ import java.util.Set;
 import bisq.client.oas.JSON;
 
 /**
- * CreateRequest
+ * Identity
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.5.0")
-public class CreateRequest {
-  public static final String SERIALIZED_NAME_IDENTITY = "identity";
-  @SerializedName(SERIALIZED_NAME_IDENTITY)
-  private Identity identity;
+public class Identity {
+  public static final String SERIALIZED_NAME_NYM = "nym";
+  @SerializedName(SERIALIZED_NAME_NYM)
+  private String nym;
 
-  public CreateRequest() {
+  public Identity() {
   }
 
-  public CreateRequest identity(Identity identity) {
-    this.identity = identity;
+  public Identity nym(String nym) {
+    this.nym = nym;
     return this;
   }
 
    /**
-   * Get identity
-   * @return identity
+   * Get nym
+   * @return nym
   **/
-  @javax.annotation.Nullable
-  public Identity getIdentity() {
-    return identity;
+  @javax.annotation.Nonnull
+  public String getNym() {
+    return nym;
   }
 
-  public void setIdentity(Identity identity) {
-    this.identity = identity;
+  public void setNym(String nym) {
+    this.nym = nym;
   }
 
 
@@ -87,20 +86,20 @@ public class CreateRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CreateRequest createRequest = (CreateRequest) o;
-    return Objects.equals(this.identity, createRequest.identity);
+    Identity identity = (Identity) o;
+    return Objects.equals(this.nym, identity.nym);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity);
+    return Objects.hash(nym);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CreateRequest {\n");
-    sb.append("    identity: ").append(toIndentedString(identity)).append("\n");
+    sb.append("class Identity {\n");
+    sb.append("    nym: ").append(toIndentedString(nym)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -123,36 +122,43 @@ public class CreateRequest {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("identity");
+    openapiFields.add("nym");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("nym");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CreateRequest
+  * @throws IOException if the JSON Element is invalid with respect to Identity
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!CreateRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CreateRequest is not found in the empty JSON string", CreateRequest.openapiRequiredFields.toString()));
+        if (!Identity.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in Identity is not found in the empty JSON string", Identity.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!CreateRequest.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `CreateRequest` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!Identity.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Identity` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : Identity.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      // validate the optional field `identity`
-      if (jsonObj.get("identity") != null && !jsonObj.get("identity").isJsonNull()) {
-        Identity.validateJsonElement(jsonObj.get("identity"));
+      if (!jsonObj.get("nym").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `nym` to be a primitive type in the JSON string but got `%s`", jsonObj.get("nym").toString()));
       }
   }
 
@@ -160,22 +166,22 @@ public class CreateRequest {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CreateRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CreateRequest' and its subtypes
+       if (!Identity.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'Identity' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CreateRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CreateRequest.class));
+       final TypeAdapter<Identity> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(Identity.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<CreateRequest>() {
+       return (TypeAdapter<T>) new TypeAdapter<Identity>() {
            @Override
-           public void write(JsonWriter out, CreateRequest value) throws IOException {
+           public void write(JsonWriter out, Identity value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public CreateRequest read(JsonReader in) throws IOException {
+           public Identity read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -186,18 +192,18 @@ public class CreateRequest {
   }
 
  /**
-  * Create an instance of CreateRequest given an JSON string
+  * Create an instance of Identity given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of CreateRequest
-  * @throws IOException if the JSON string is invalid with respect to CreateRequest
+  * @return An instance of Identity
+  * @throws IOException if the JSON string is invalid with respect to Identity
   */
-  public static CreateRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CreateRequest.class);
+  public static Identity fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, Identity.class);
   }
 
  /**
-  * Convert an instance of CreateRequest to an JSON string
+  * Convert an instance of Identity to an JSON string
   *
   * @return JSON string
   */

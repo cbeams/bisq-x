@@ -11,7 +11,7 @@
  */
 
 
-package bisq.client.oas.model;
+package bisq.client.oas.models;
 
 import java.util.Objects;
 import com.google.gson.TypeAdapter;
@@ -47,56 +47,56 @@ import java.util.Set;
 import bisq.client.oas.JSON;
 
 /**
- * LoggingCategory
+ * Offer
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.5.0")
-public class LoggingCategory {
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
-  private String name;
+public class Offer {
+  public static final String SERIALIZED_NAME_ID = "id";
+  @SerializedName(SERIALIZED_NAME_ID)
+  private String id;
 
-  public static final String SERIALIZED_NAME_LEVEL = "level";
-  @SerializedName(SERIALIZED_NAME_LEVEL)
-  private String level;
+  public static final String SERIALIZED_NAME_DETAILS = "details";
+  @SerializedName(SERIALIZED_NAME_DETAILS)
+  private String details;
 
-  public LoggingCategory() {
+  public Offer() {
   }
 
-  public LoggingCategory name(String name) {
-    this.name = name;
+  public Offer id(String id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Get name
-   * @return name
+   * Get id
+   * @return id
   **/
   @javax.annotation.Nonnull
-  public String getName() {
-    return name;
+  public String getId() {
+    return id;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setId(String id) {
+    this.id = id;
   }
 
 
-  public LoggingCategory level(String level) {
-    this.level = level;
+  public Offer details(String details) {
+    this.details = details;
     return this;
   }
 
    /**
-   * Get level
-   * @return level
+   * Get details
+   * @return details
   **/
   @javax.annotation.Nonnull
-  public String getLevel() {
-    return level;
+  public String getDetails() {
+    return details;
   }
 
-  public void setLevel(String level) {
-    this.level = level;
+  public void setDetails(String details) {
+    this.details = details;
   }
 
 
@@ -109,22 +109,22 @@ public class LoggingCategory {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    LoggingCategory loggingCategory = (LoggingCategory) o;
-    return Objects.equals(this.name, loggingCategory.name) &&
-        Objects.equals(this.level, loggingCategory.level);
+    Offer offer = (Offer) o;
+    return Objects.equals(this.id, offer.id) &&
+        Objects.equals(this.details, offer.details);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, level);
+    return Objects.hash(id, details);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class LoggingCategory {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    level: ").append(toIndentedString(level)).append("\n");
+    sb.append("class Offer {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -147,48 +147,48 @@ public class LoggingCategory {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("name");
-    openapiFields.add("level");
+    openapiFields.add("id");
+    openapiFields.add("details");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("name");
-    openapiRequiredFields.add("level");
+    openapiRequiredFields.add("id");
+    openapiRequiredFields.add("details");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to LoggingCategory
+  * @throws IOException if the JSON Element is invalid with respect to Offer
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!LoggingCategory.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in LoggingCategory is not found in the empty JSON string", LoggingCategory.openapiRequiredFields.toString()));
+        if (!Offer.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in Offer is not found in the empty JSON string", Offer.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!LoggingCategory.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `LoggingCategory` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!Offer.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Offer` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : LoggingCategory.openapiRequiredFields) {
+      for (String requiredField : Offer.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      if (!jsonObj.get("id").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
-      if (!jsonObj.get("level").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `level` to be a primitive type in the JSON string but got `%s`", jsonObj.get("level").toString()));
+      if (!jsonObj.get("details").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `details` to be a primitive type in the JSON string but got `%s`", jsonObj.get("details").toString()));
       }
   }
 
@@ -196,22 +196,22 @@ public class LoggingCategory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!LoggingCategory.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'LoggingCategory' and its subtypes
+       if (!Offer.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'Offer' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<LoggingCategory> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(LoggingCategory.class));
+       final TypeAdapter<Offer> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(Offer.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<LoggingCategory>() {
+       return (TypeAdapter<T>) new TypeAdapter<Offer>() {
            @Override
-           public void write(JsonWriter out, LoggingCategory value) throws IOException {
+           public void write(JsonWriter out, Offer value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public LoggingCategory read(JsonReader in) throws IOException {
+           public Offer read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -222,18 +222,18 @@ public class LoggingCategory {
   }
 
  /**
-  * Create an instance of LoggingCategory given an JSON string
+  * Create an instance of Offer given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of LoggingCategory
-  * @throws IOException if the JSON string is invalid with respect to LoggingCategory
+  * @return An instance of Offer
+  * @throws IOException if the JSON string is invalid with respect to Offer
   */
-  public static LoggingCategory fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, LoggingCategory.class);
+  public static Offer fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, Offer.class);
   }
 
  /**
-  * Convert an instance of LoggingCategory to an JSON string
+  * Convert an instance of Offer to an JSON string
   *
   * @return JSON string
   */

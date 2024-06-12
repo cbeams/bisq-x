@@ -11,10 +11,10 @@
  */
 
 
-package bisq.client.oas.model;
+package bisq.client.oas.models;
 
 import java.util.Objects;
-import bisq.client.oas.model.Offer;
+import bisq.client.oas.models.Offer;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;

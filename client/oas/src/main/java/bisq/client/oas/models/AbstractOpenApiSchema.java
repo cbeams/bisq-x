@@ -11,7 +11,7 @@
  */
 
 
-package bisq.client.oas.model;
+package bisq.client.oas.models;
 
 import bisq.client.oas.ApiException;
 import java.util.Objects;

@@ -11,7 +11,7 @@
  */
 
 
-package bisq.client.oas.endpoint;
+package bisq.client.oas.operations;
 
 import bisq.client.oas.ApiCallback;
 import bisq.client.oas.ApiClient;
@@ -27,8 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import bisq.client.oas.model.AddOfferRequest;
-import bisq.client.oas.model.Offer;
+import bisq.client.oas.models.AddOfferRequest;
+import bisq.client.oas.models.Offer;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -36,16 +36,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OfferbookEndpoint {
+public class OfferbookOperations {
     private ApiClient localVarApiClient;
     private int localHostIndex;
     private String localCustomBaseUrl;
 
-    public OfferbookEndpoint() {
+    public OfferbookOperations() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public OfferbookEndpoint(ApiClient apiClient) {
+    public OfferbookOperations(ApiClient apiClient) {
         this.localVarApiClient = apiClient;
     }
 

@@ -1,15 +1,15 @@
-# UserEndpoint
+# InfoOperations
 
 All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**create**](UserEndpoint.md#create) | **POST** /identities |  |
+| [**getInfo**](InfoOperations.md#getInfo) | **GET** /info |  |
 
 
-<a id="create"></a>
-# **create**
-> Object create(createRequest)
+<a id="getInfo"></a>
+# **getInfo**
+> Info getInfo()
 
 
 
@@ -20,20 +20,19 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.models.*;
-import bisq.client.oas.endpoint.UserEndpoint;
+import bisq.client.oas.operations.InfoOperations;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    UserEndpoint apiInstance = new UserEndpoint(defaultClient);
-    CreateRequest createRequest = new CreateRequest(); // CreateRequest | 
+    InfoOperations apiInstance = new InfoOperations(defaultClient);
     try {
-      Object result = apiInstance.create(createRequest);
+      Info result = apiInstance.getInfo();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling UserEndpoint#create");
+      System.err.println("Exception when calling InfoOperations#getInfo");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -44,14 +43,11 @@ public class Example {
 ```
 
 ### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **createRequest** | [**CreateRequest**](CreateRequest.md)|  | |
+This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**Info**](Info.md)
 
 ### Authorization
 
@@ -59,11 +55,11 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | create 200 response |  -  |
+| **200** | getInfo 200 response |  -  |
 

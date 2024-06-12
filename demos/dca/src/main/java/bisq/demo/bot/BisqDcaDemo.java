@@ -20,10 +20,10 @@ package bisq.demo.bot;
 import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
-import bisq.client.oas.endpoint.InfoEndpoint;
-import bisq.client.oas.endpoint.OfferbookEndpoint;
-import bisq.client.oas.model.AddOfferRequest;
-import bisq.client.oas.model.Offer;
+import bisq.client.oas.models.AddOfferRequest;
+import bisq.client.oas.models.Offer;
+import bisq.client.oas.operations.InfoOperations;
+import bisq.client.oas.operations.OfferbookOperations;
 
 import java.time.Duration;
 
@@ -35,8 +35,8 @@ public class BisqDcaDemo {
         ApiClient bisqClient = Configuration.getDefaultApiClient();
         bisqClient.setBasePath("http://localhost:2141");
 
-        var info = new InfoEndpoint(bisqClient).getInfo();
-        var offerbook = new OfferbookEndpoint(bisqClient);
+        var info = new InfoOperations(bisqClient).getInfo();
+        var offerbook = new OfferbookOperations(bisqClient);
         var interval = Duration.ofSeconds(2);
 
         System.out.println("Connected to node version " + info.getVersion());

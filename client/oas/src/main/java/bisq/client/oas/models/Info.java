@@ -11,7 +11,7 @@
  */
 
 
-package bisq.client.oas.model;
+package bisq.client.oas.models;
 
 import java.util.Objects;
 import com.google.gson.TypeAdapter;
@@ -47,56 +47,33 @@ import java.util.Set;
 import bisq.client.oas.JSON;
 
 /**
- * Offer
+ * Info
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.5.0")
-public class Offer {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private String id;
+public class Info {
+  public static final String SERIALIZED_NAME_VERSION = "version";
+  @SerializedName(SERIALIZED_NAME_VERSION)
+  private String version;
 
-  public static final String SERIALIZED_NAME_DETAILS = "details";
-  @SerializedName(SERIALIZED_NAME_DETAILS)
-  private String details;
-
-  public Offer() {
+  public Info() {
   }
 
-  public Offer id(String id) {
-    this.id = id;
+  public Info version(String version) {
+    this.version = version;
     return this;
   }
 
    /**
-   * Get id
-   * @return id
+   * Get version
+   * @return version
   **/
   @javax.annotation.Nonnull
-  public String getId() {
-    return id;
+  public String getVersion() {
+    return version;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public Offer details(String details) {
-    this.details = details;
-    return this;
-  }
-
-   /**
-   * Get details
-   * @return details
-  **/
-  @javax.annotation.Nonnull
-  public String getDetails() {
-    return details;
-  }
-
-  public void setDetails(String details) {
-    this.details = details;
+  public void setVersion(String version) {
+    this.version = version;
   }
 
 
@@ -109,22 +86,20 @@ public class Offer {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Offer offer = (Offer) o;
-    return Objects.equals(this.id, offer.id) &&
-        Objects.equals(this.details, offer.details);
+    Info info = (Info) o;
+    return Objects.equals(this.version, info.version);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, details);
+    return Objects.hash(version);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Offer {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    details: ").append(toIndentedString(details)).append("\n");
+    sb.append("class Info {\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -147,48 +122,43 @@ public class Offer {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("id");
-    openapiFields.add("details");
+    openapiFields.add("version");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("id");
-    openapiRequiredFields.add("details");
+    openapiRequiredFields.add("version");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Offer
+  * @throws IOException if the JSON Element is invalid with respect to Info
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!Offer.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Offer is not found in the empty JSON string", Offer.openapiRequiredFields.toString()));
+        if (!Info.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in Info is not found in the empty JSON string", Info.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!Offer.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Offer` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!Info.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Info` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : Offer.openapiRequiredFields) {
+      for (String requiredField : Info.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("id").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
-      }
-      if (!jsonObj.get("details").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `details` to be a primitive type in the JSON string but got `%s`", jsonObj.get("details").toString()));
+      if (!jsonObj.get("version").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `version` to be a primitive type in the JSON string but got `%s`", jsonObj.get("version").toString()));
       }
   }
 
@@ -196,22 +166,22 @@ public class Offer {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Offer.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Offer' and its subtypes
+       if (!Info.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'Info' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Offer> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Offer.class));
+       final TypeAdapter<Info> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(Info.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<Offer>() {
+       return (TypeAdapter<T>) new TypeAdapter<Info>() {
            @Override
-           public void write(JsonWriter out, Offer value) throws IOException {
+           public void write(JsonWriter out, Info value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public Offer read(JsonReader in) throws IOException {
+           public Info read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -222,18 +192,18 @@ public class Offer {
   }
 
  /**
-  * Create an instance of Offer given an JSON string
+  * Create an instance of Info given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of Offer
-  * @throws IOException if the JSON string is invalid with respect to Offer
+  * @return An instance of Info
+  * @throws IOException if the JSON string is invalid with respect to Info
   */
-  public static Offer fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Offer.class);
+  public static Info fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, Info.class);
   }
 
  /**
-  * Convert an instance of Offer to an JSON string
+  * Convert an instance of Info to an JSON string
   *
   * @return JSON string
   */

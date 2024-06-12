@@ -40,9 +40,9 @@ openApiGenerate {
     inputSpec = "$rootDir/core/oas/build/classes/java/main/META-INF/swagger/bisq-openapi-2.1.0.yml"
     outputDir = projectDir.path
     invokerPackage = basePackage
-    apiPackage = "${basePackage}.endpoint"
-    modelPackage = "${basePackage}.model"
-    apiNameSuffix = "Endpoint"
+    apiPackage = "${basePackage}.operations"
+    modelPackage = "${basePackage}.models"
+    apiNameSuffix = "Operations"
     generateApiTests = false
     generateModelTests = false
     configOptions.put("hideGenerationTimestamp", "true") // [2]

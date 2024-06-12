@@ -1,13 +1,13 @@
-# OfferbookEndpoint
+# OfferbookOperations
 
 All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addOffer**](OfferbookEndpoint.md#addOffer) | **POST** /trading/offerbook |  |
-| [**getOffer**](OfferbookEndpoint.md#getOffer) | **GET** /trading/offerbook/{offerId} |  |
-| [**getOffers**](OfferbookEndpoint.md#getOffers) | **GET** /trading/offerbook |  |
-| [**removeOffer**](OfferbookEndpoint.md#removeOffer) | **DELETE** /trading/offerbook/{offerId} |  |
+| [**addOffer**](OfferbookOperations.md#addOffer) | **POST** /trading/offerbook |  |
+| [**getOffer**](OfferbookOperations.md#getOffer) | **GET** /trading/offerbook/{offerId} |  |
+| [**getOffers**](OfferbookOperations.md#getOffers) | **GET** /trading/offerbook |  |
+| [**removeOffer**](OfferbookOperations.md#removeOffer) | **DELETE** /trading/offerbook/{offerId} |  |
 
 
 <a id="addOffer"></a>
@@ -23,20 +23,20 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.models.*;
-import bisq.client.oas.endpoint.OfferbookEndpoint;
+import bisq.client.oas.operations.OfferbookOperations;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    OfferbookEndpoint apiInstance = new OfferbookEndpoint(defaultClient);
+    OfferbookOperations apiInstance = new OfferbookOperations(defaultClient);
     AddOfferRequest addOfferRequest = new AddOfferRequest(); // AddOfferRequest | 
     try {
       Object result = apiInstance.addOffer(addOfferRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling OfferbookEndpoint#addOffer");
+      System.err.println("Exception when calling OfferbookOperations#addOffer");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -83,20 +83,20 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.models.*;
-import bisq.client.oas.endpoint.OfferbookEndpoint;
+import bisq.client.oas.operations.OfferbookOperations;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    OfferbookEndpoint apiInstance = new OfferbookEndpoint(defaultClient);
+    OfferbookOperations apiInstance = new OfferbookOperations(defaultClient);
     String offerId = "offerId_example"; // String | 
     try {
       Offer result = apiInstance.getOffer(offerId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling OfferbookEndpoint#getOffer");
+      System.err.println("Exception when calling OfferbookOperations#getOffer");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -143,19 +143,19 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.models.*;
-import bisq.client.oas.endpoint.OfferbookEndpoint;
+import bisq.client.oas.operations.OfferbookOperations;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    OfferbookEndpoint apiInstance = new OfferbookEndpoint(defaultClient);
+    OfferbookOperations apiInstance = new OfferbookOperations(defaultClient);
     try {
       List<Offer> result = apiInstance.getOffers();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling OfferbookEndpoint#getOffers");
+      System.err.println("Exception when calling OfferbookOperations#getOffers");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -199,20 +199,20 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.models.*;
-import bisq.client.oas.endpoint.OfferbookEndpoint;
+import bisq.client.oas.operations.OfferbookOperations;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    OfferbookEndpoint apiInstance = new OfferbookEndpoint(defaultClient);
+    OfferbookOperations apiInstance = new OfferbookOperations(defaultClient);
     String offerId = "offerId_example"; // String | 
     try {
       Offer result = apiInstance.removeOffer(offerId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling OfferbookEndpoint#removeOffer");
+      System.err.println("Exception when calling OfferbookOperations#removeOffer");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());

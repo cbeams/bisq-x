@@ -20,11 +20,11 @@ package bisq.app.cli;
 import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
-import bisq.client.oas.endpoint.InfoEndpoint;
-import bisq.client.oas.endpoint.LoggingEndpoint;
-import bisq.client.oas.endpoint.OfferbookEndpoint;
-import bisq.client.oas.model.LoggingCategory;
-import bisq.client.oas.model.UpdateLoggingCategoryRequest;
+import bisq.client.oas.models.LoggingCategory;
+import bisq.client.oas.models.UpdateLoggingCategoryRequest;
+import bisq.client.oas.operations.InfoOperations;
+import bisq.client.oas.operations.LoggingOperations;
+import bisq.client.oas.operations.OfferbookOperations;
 
 import joptsimple.OptionParser;
 
@@ -118,8 +118,8 @@ public class BisqCLI {
 
     private void info(List<String> args) {
         try {
-            var infoEndpoint = new InfoEndpoint(bisqClient);
-            var info = infoEndpoint.getInfo();
+            var infoOperations = new InfoOperations(bisqClient);
+            var info = infoOperations.getInfo();
             System.out.println(info.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
@@ -132,8 +132,8 @@ public class BisqCLI {
 
     private void showlog(List<String> args) {
         try {
-            var loggingEndpoint = new LoggingEndpoint(bisqClient);
-            var http = loggingEndpoint.getLoggingCategory("http");
+            var loggingOperations = new LoggingOperations(bisqClient);
+            var http = loggingOperations.getLoggingCategory("http");
             System.out.println(http);
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
@@ -146,7 +146,7 @@ public class BisqCLI {
 
     private void debuglog(List<String> args) {
         try {
-            new LoggingEndpoint(bisqClient)
+            new LoggingOperations(bisqClient)
                     .updateLoggingCategory(new UpdateLoggingCategoryRequest()
                             .loggingCategory(new LoggingCategory().name("http").level("debug")));
         } catch (ApiException e) {
@@ -160,7 +160,7 @@ public class BisqCLI {
 
     private void infolog(List<String> args) {
         try {
-            new LoggingEndpoint(bisqClient).updateLoggingCategory(
+            new LoggingOperations(bisqClient).updateLoggingCategory(
                     new UpdateLoggingCategoryRequest()
                             .loggingCategory(new LoggingCategory().name("http").level("info")));
         } catch (ApiException e) {
@@ -174,7 +174,7 @@ public class BisqCLI {
 
     private void listoffers(List<String> args) {
         try {
-            System.out.println(new OfferbookEndpoint(bisqClient).getOffers());
+            System.out.println(new OfferbookOperations(bisqClient).getOffers());
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
             System.err.println("Status code: " + e.getCode());

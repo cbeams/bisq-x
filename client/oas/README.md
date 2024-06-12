@@ -84,19 +84,19 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.models.*;
-import bisq.client.oas.endpoint.InfoEndpoint;
+import bisq.client.oas.operations.InfoOperations;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    InfoEndpoint apiInstance = new InfoEndpoint(defaultClient);
+    InfoOperations apiInstance = new InfoOperations(defaultClient);
     try {
       Info result = apiInstance.getInfo();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling InfoEndpoint#getInfo");
+      System.err.println("Exception when calling InfoOperations#getInfo");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -113,15 +113,15 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*InfoEndpoint* | [**getInfo**](docs/InfoEndpoint.md#getInfo) | **GET** /info | 
-*LoggingEndpoint* | [**getLoggingCategories**](docs/LoggingEndpoint.md#getLoggingCategories) | **GET** /logging/categories | 
-*LoggingEndpoint* | [**getLoggingCategory**](docs/LoggingEndpoint.md#getLoggingCategory) | **GET** /logging/categories/{name} | 
-*LoggingEndpoint* | [**updateLoggingCategory**](docs/LoggingEndpoint.md#updateLoggingCategory) | **PUT** /logging/categories | 
-*OfferbookEndpoint* | [**addOffer**](docs/OfferbookEndpoint.md#addOffer) | **POST** /trading/offerbook | 
-*OfferbookEndpoint* | [**getOffer**](docs/OfferbookEndpoint.md#getOffer) | **GET** /trading/offerbook/{offerId} | 
-*OfferbookEndpoint* | [**getOffers**](docs/OfferbookEndpoint.md#getOffers) | **GET** /trading/offerbook | 
-*OfferbookEndpoint* | [**removeOffer**](docs/OfferbookEndpoint.md#removeOffer) | **DELETE** /trading/offerbook/{offerId} | 
-*UserEndpoint* | [**create**](docs/UserEndpoint.md#create) | **POST** /identities | 
+*InfoOperations* | [**getInfo**](docs/InfoOperations.md#getInfo) | **GET** /info | 
+*LoggingOperations* | [**getLoggingCategories**](docs/LoggingOperations.md#getLoggingCategories) | **GET** /logging/categories | 
+*LoggingOperations* | [**getLoggingCategory**](docs/LoggingOperations.md#getLoggingCategory) | **GET** /logging/categories/{name} | 
+*LoggingOperations* | [**updateLoggingCategory**](docs/LoggingOperations.md#updateLoggingCategory) | **PUT** /logging/categories | 
+*OfferbookOperations* | [**addOffer**](docs/OfferbookOperations.md#addOffer) | **POST** /trading/offerbook | 
+*OfferbookOperations* | [**getOffer**](docs/OfferbookOperations.md#getOffer) | **GET** /trading/offerbook/{offerId} | 
+*OfferbookOperations* | [**getOffers**](docs/OfferbookOperations.md#getOffers) | **GET** /trading/offerbook | 
+*OfferbookOperations* | [**removeOffer**](docs/OfferbookOperations.md#removeOffer) | **DELETE** /trading/offerbook/{offerId} | 
+*UserOperations* | [**create**](docs/UserOperations.md#create) | **POST** /identities | 
 
 
 ## Documentation for Models

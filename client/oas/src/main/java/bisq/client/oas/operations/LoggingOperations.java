@@ -11,7 +11,7 @@
  */
 
 
-package bisq.client.oas.endpoint;
+package bisq.client.oas.operations;
 
 import bisq.client.oas.ApiCallback;
 import bisq.client.oas.ApiClient;
@@ -27,8 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import bisq.client.oas.model.LoggingCategory;
-import bisq.client.oas.model.UpdateLoggingCategoryRequest;
+import bisq.client.oas.models.LoggingCategory;
+import bisq.client.oas.models.UpdateLoggingCategoryRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -36,16 +36,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LoggingEndpoint {
+public class LoggingOperations {
     private ApiClient localVarApiClient;
     private int localHostIndex;
     private String localCustomBaseUrl;
 
-    public LoggingEndpoint() {
+    public LoggingOperations() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public LoggingEndpoint(ApiClient apiClient) {
+    public LoggingOperations(ApiClient apiClient) {
         this.localVarApiClient = apiClient;
     }
 

@@ -11,9 +11,10 @@
  */
 
 
-package bisq.client.oas.model;
+package bisq.client.oas.models;
 
 import java.util.Objects;
+import bisq.client.oas.models.LoggingCategory;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -47,33 +48,33 @@ import java.util.Set;
 import bisq.client.oas.JSON;
 
 /**
- * Identity
+ * UpdateLoggingCategoryRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.5.0")
-public class Identity {
-  public static final String SERIALIZED_NAME_NYM = "nym";
-  @SerializedName(SERIALIZED_NAME_NYM)
-  private String nym;
+public class UpdateLoggingCategoryRequest {
+  public static final String SERIALIZED_NAME_LOGGING_CATEGORY = "loggingCategory";
+  @SerializedName(SERIALIZED_NAME_LOGGING_CATEGORY)
+  private LoggingCategory loggingCategory;
 
-  public Identity() {
+  public UpdateLoggingCategoryRequest() {
   }
 
-  public Identity nym(String nym) {
-    this.nym = nym;
+  public UpdateLoggingCategoryRequest loggingCategory(LoggingCategory loggingCategory) {
+    this.loggingCategory = loggingCategory;
     return this;
   }
 
    /**
-   * Get nym
-   * @return nym
+   * Get loggingCategory
+   * @return loggingCategory
   **/
-  @javax.annotation.Nonnull
-  public String getNym() {
-    return nym;
+  @javax.annotation.Nullable
+  public LoggingCategory getLoggingCategory() {
+    return loggingCategory;
   }
 
-  public void setNym(String nym) {
-    this.nym = nym;
+  public void setLoggingCategory(LoggingCategory loggingCategory) {
+    this.loggingCategory = loggingCategory;
   }
 
 
@@ -86,20 +87,20 @@ public class Identity {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Identity identity = (Identity) o;
-    return Objects.equals(this.nym, identity.nym);
+    UpdateLoggingCategoryRequest updateLoggingCategoryRequest = (UpdateLoggingCategoryRequest) o;
+    return Objects.equals(this.loggingCategory, updateLoggingCategoryRequest.loggingCategory);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nym);
+    return Objects.hash(loggingCategory);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Identity {\n");
-    sb.append("    nym: ").append(toIndentedString(nym)).append("\n");
+    sb.append("class UpdateLoggingCategoryRequest {\n");
+    sb.append("    loggingCategory: ").append(toIndentedString(loggingCategory)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -122,43 +123,36 @@ public class Identity {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("nym");
+    openapiFields.add("loggingCategory");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("nym");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to Identity
+  * @throws IOException if the JSON Element is invalid with respect to UpdateLoggingCategoryRequest
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!Identity.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Identity is not found in the empty JSON string", Identity.openapiRequiredFields.toString()));
+        if (!UpdateLoggingCategoryRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in UpdateLoggingCategoryRequest is not found in the empty JSON string", UpdateLoggingCategoryRequest.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!Identity.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `Identity` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
-        }
-      }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : Identity.openapiRequiredFields) {
-        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        if (!UpdateLoggingCategoryRequest.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `UpdateLoggingCategoryRequest` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("nym").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `nym` to be a primitive type in the JSON string but got `%s`", jsonObj.get("nym").toString()));
+      // validate the optional field `loggingCategory`
+      if (jsonObj.get("loggingCategory") != null && !jsonObj.get("loggingCategory").isJsonNull()) {
+        LoggingCategory.validateJsonElement(jsonObj.get("loggingCategory"));
       }
   }
 
@@ -166,22 +160,22 @@ public class Identity {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Identity.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Identity' and its subtypes
+       if (!UpdateLoggingCategoryRequest.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'UpdateLoggingCategoryRequest' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Identity> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Identity.class));
+       final TypeAdapter<UpdateLoggingCategoryRequest> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(UpdateLoggingCategoryRequest.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<Identity>() {
+       return (TypeAdapter<T>) new TypeAdapter<UpdateLoggingCategoryRequest>() {
            @Override
-           public void write(JsonWriter out, Identity value) throws IOException {
+           public void write(JsonWriter out, UpdateLoggingCategoryRequest value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public Identity read(JsonReader in) throws IOException {
+           public UpdateLoggingCategoryRequest read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -192,18 +186,18 @@ public class Identity {
   }
 
  /**
-  * Create an instance of Identity given an JSON string
+  * Create an instance of UpdateLoggingCategoryRequest given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of Identity
-  * @throws IOException if the JSON string is invalid with respect to Identity
+  * @return An instance of UpdateLoggingCategoryRequest
+  * @throws IOException if the JSON string is invalid with respect to UpdateLoggingCategoryRequest
   */
-  public static Identity fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Identity.class);
+  public static UpdateLoggingCategoryRequest fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, UpdateLoggingCategoryRequest.class);
   }
 
  /**
-  * Convert an instance of Identity to an JSON string
+  * Convert an instance of UpdateLoggingCategoryRequest to an JSON string
   *
   * @return JSON string
   */

@@ -11,7 +11,7 @@
  */
 
 
-package bisq.client.oas.endpoint;
+package bisq.client.oas.operations;
 
 import bisq.client.oas.ApiCallback;
 import bisq.client.oas.ApiClient;
@@ -27,7 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import bisq.client.oas.model.Info;
+import bisq.client.oas.models.CreateRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -35,16 +35,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InfoEndpoint {
+public class UserOperations {
     private ApiClient localVarApiClient;
     private int localHostIndex;
     private String localCustomBaseUrl;
 
-    public InfoEndpoint() {
+    public UserOperations() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public InfoEndpoint(ApiClient apiClient) {
+    public UserOperations(ApiClient apiClient) {
         this.localVarApiClient = apiClient;
     }
 
@@ -73,17 +73,18 @@ public class InfoEndpoint {
     }
 
     /**
-     * Build call for getInfo
+     * Build call for create
+     * @param createRequest  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> getInfo 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> create 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getInfoCall(final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createCall(CreateRequest createRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -97,10 +98,10 @@ public class InfoEndpoint {
             basePath = null;
         }
 
-        Object localVarPostBody = null;
+        Object localVarPostBody = createRequest;
 
         // create path and map variables
-        String localVarPath = "/info";
+        String localVarPath = "/identities";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -117,6 +118,7 @@ public class InfoEndpoint {
         }
 
         final String[] localVarContentTypes = {
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
@@ -124,64 +126,72 @@ public class InfoEndpoint {
         }
 
         String[] localVarAuthNames = new String[] {  };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getInfoValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return getInfoCall(_callback);
+    private okhttp3.Call createValidateBeforeCall(CreateRequest createRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'createRequest' is set
+        if (createRequest == null) {
+            throw new ApiException("Missing the required parameter 'createRequest' when calling create(Async)");
+        }
+
+        return createCall(createRequest, _callback);
 
     }
 
     /**
      * 
      * 
-     * @return Info
+     * @param createRequest  (required)
+     * @return Object
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> getInfo 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> create 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public Info getInfo() throws ApiException {
-        ApiResponse<Info> localVarResp = getInfoWithHttpInfo();
+    public Object create(CreateRequest createRequest) throws ApiException {
+        ApiResponse<Object> localVarResp = createWithHttpInfo(createRequest);
         return localVarResp.getData();
     }
 
     /**
      * 
      * 
-     * @return ApiResponse&lt;Info&gt;
+     * @param createRequest  (required)
+     * @return ApiResponse&lt;Object&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> getInfo 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> create 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Info> getInfoWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = getInfoValidateBeforeCall(null);
-        Type localVarReturnType = new TypeToken<Info>(){}.getType();
+    public ApiResponse<Object> createWithHttpInfo(CreateRequest createRequest) throws ApiException {
+        okhttp3.Call localVarCall = createValidateBeforeCall(createRequest, null);
+        Type localVarReturnType = new TypeToken<Object>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      *  (asynchronously)
      * 
+     * @param createRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> getInfo 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> create 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getInfoAsync(final ApiCallback<Info> _callback) throws ApiException {
+    public okhttp3.Call createAsync(CreateRequest createRequest, final ApiCallback<Object> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getInfoValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<Info>(){}.getType();
+        okhttp3.Call localVarCall = createValidateBeforeCall(createRequest, _callback);
+        Type localVarReturnType = new TypeToken<Object>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

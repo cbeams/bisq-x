@@ -100,13 +100,13 @@ public class JSON {
         gsonBuilder.registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter);
         gsonBuilder.registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(byte[].class, byteArrayAdapter);
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.AddOfferRequest.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.CreateRequest.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.Identity.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.Info.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.LoggingCategory.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.Offer.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.UpdateLoggingCategoryRequest.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.models.AddOfferRequest.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.models.CreateRequest.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.models.Identity.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.models.Info.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.models.LoggingCategory.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.models.Offer.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.models.UpdateLoggingCategoryRequest.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();
     }
 
