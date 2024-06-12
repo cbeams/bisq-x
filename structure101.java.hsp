@@ -19,10 +19,11 @@
     <classpathentry kind="lib" path="apps/cli/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="apps/daemon/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="apps/desktop/build/classes/java/main" module="main" displaymodule="main" />
-    <classpathentry kind="lib" path="client/oas/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="client/java/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="core/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/oas/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/node/build/classes/java/main" module="main" displaymodule="main" />
-    <classpathentry kind="lib" path="core/domain/trade/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="core/domain/trading/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/network/http/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/network/p2p/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/logging/build/classes/java/main" module="main" displaymodule="main" />
@@ -33,15 +34,15 @@
   <excludes>
     <exclude expression="*.*&amp;amp;*" active="true" />
     <exclude expression="*.*&amp;*" active="true" />
-    <exclude expression="main.bisq.client.oas.JSON" active="true" />
-    <exclude expression="main.bisq.client.oas.StringUtil" active="true" />
-    <exclude expression="main.bisq.client.oas.ProgressRequestBody" active="true" />
-    <exclude expression="main.bisq.client.oas.Pair" active="true" />
-    <exclude expression="main.bisq.client.oas.ApiCallback" active="true" />
-    <exclude expression="main.bisq.client.oas.ServerVariable" active="true" />
-    <exclude expression="main.bisq.client.oas.ProgressResponseBody" active="true" />
-    <exclude expression="main.bisq.client.oas.ServerConfiguration" active="true" />
-    <exclude expression="main.bisq.client.oas.GzipRequestInterceptor" active="true" />
+    <exclude expression="main.bisq.client.java.JSON" active="true" />
+    <exclude expression="main.bisq.client.java.StringUtil" active="true" />
+    <exclude expression="main.bisq.client.java.ProgressRequestBody" active="true" />
+    <exclude expression="main.bisq.client.java.Pair" active="true" />
+    <exclude expression="main.bisq.client.java.ApiCallback" active="true" />
+    <exclude expression="main.bisq.client.java.ServerVariable" active="true" />
+    <exclude expression="main.bisq.client.java.ProgressResponseBody" active="true" />
+    <exclude expression="main.bisq.client.java.ServerConfiguration" active="true" />
+    <exclude expression="main.bisq.client.java.GzipRequestInterceptor" active="true" />
   </excludes>
   <excludes-from-xs>
     <exclude-from-xs expression="main.bisq.core.network.p2p.P2PServer$ClientHandler" active="true" />

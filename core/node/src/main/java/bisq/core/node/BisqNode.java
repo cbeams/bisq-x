@@ -18,7 +18,6 @@
 package bisq.core.node;
 
 import bisq.core.api.ApiController;
-import bisq.core.api.ApiLayer;
 import bisq.core.domain.trading.offerbook.Offerbook;
 import bisq.core.logging.LoggingService;
 import bisq.core.network.http.HttpServer;

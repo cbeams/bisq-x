@@ -15,14 +15,14 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.api;
+package bisq.core.node;
 
 import bisq.core.Layer;
 import bisq.core.logging.LoggingService;
 
 import ch.qos.logback.classic.Logger;
 
-public interface ApiLayer extends Layer {
+interface ApiLayer extends Layer {
 
     Logger log = LoggingService.createCategoryLogger("api");
 }
