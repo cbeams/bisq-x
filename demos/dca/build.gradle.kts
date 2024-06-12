@@ -13,7 +13,7 @@ application {
 }
 
 dependencies {
-    implementation(project(":client:oas"))
+    implementation(project(":client:java"))
 }
 
 tasks.getByName("build").dependsOn("installDist")
