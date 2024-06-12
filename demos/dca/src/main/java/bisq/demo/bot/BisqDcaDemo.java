@@ -17,13 +17,13 @@
 
 package bisq.demo.bot;
 
-import bisq.client.oas.ApiClient;
-import bisq.client.oas.ApiException;
-import bisq.client.oas.Configuration;
-import bisq.client.oas.models.AddOfferRequest;
-import bisq.client.oas.models.Offer;
-import bisq.client.oas.operations.InfoOperations;
-import bisq.client.oas.operations.OfferbookOperations;
+import bisq.client.java.ApiClient;
+import bisq.client.java.ApiException;
+import bisq.client.java.Configuration;
+import bisq.client.java.models.AddOfferRequest;
+import bisq.client.java.models.Offer;
+import bisq.client.java.operations.InfoOperations;
+import bisq.client.java.operations.OfferbookOperations;
 
 import java.time.Duration;
 

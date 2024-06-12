@@ -16,11 +16,11 @@ All URIs are relative to *http://localhost*
 ### Example
 ```java
 // Import classes:
-import bisq.client.oas.ApiClient;
-import bisq.client.oas.ApiException;
-import bisq.client.oas.Configuration;
-import bisq.client.oas.models.*;
-import bisq.client.oas.operations.UserOperations;
+import bisq.client.java.ApiClient;
+import bisq.client.java.ApiException;
+import bisq.client.java.Configuration;
+import bisq.client.java.models.*;
+import bisq.client.java.operations.UserOperations;
 
 public class Example {
   public static void main(String[] args) {

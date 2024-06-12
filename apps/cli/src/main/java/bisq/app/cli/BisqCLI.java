@@ -17,14 +17,14 @@
 
 package bisq.app.cli;
 
-import bisq.client.oas.ApiClient;
-import bisq.client.oas.ApiException;
-import bisq.client.oas.Configuration;
-import bisq.client.oas.models.LoggingCategory;
-import bisq.client.oas.models.UpdateLoggingCategoryRequest;
-import bisq.client.oas.operations.InfoOperations;
-import bisq.client.oas.operations.LoggingOperations;
-import bisq.client.oas.operations.OfferbookOperations;
+import bisq.client.java.ApiClient;
+import bisq.client.java.ApiException;
+import bisq.client.java.Configuration;
+import bisq.client.java.models.LoggingCategory;
+import bisq.client.java.models.UpdateLoggingCategoryRequest;
+import bisq.client.java.operations.InfoOperations;
+import bisq.client.java.operations.LoggingOperations;
+import bisq.client.java.operations.OfferbookOperations;
 
 import joptsimple.OptionParser;
 

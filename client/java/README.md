@@ -80,11 +80,11 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 
 // Import classes:
-import bisq.client.oas.ApiClient;
-import bisq.client.oas.ApiException;
-import bisq.client.oas.Configuration;
-import bisq.client.oas.models.*;
-import bisq.client.oas.operations.InfoOperations;
+import bisq.client.java.ApiClient;
+import bisq.client.java.ApiException;
+import bisq.client.java.Configuration;
+import bisq.client.java.models.*;
+import bisq.client.java.operations.InfoOperations;
 
 public class Example {
   public static void main(String[] args) {
