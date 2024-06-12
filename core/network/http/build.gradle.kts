@@ -13,6 +13,7 @@ micronaut {
 }
 
 dependencies {
+    implementation(project(":core"))
     implementation(project(":core:logging"))
 
     implementation("io.micronaut:micronaut-http")

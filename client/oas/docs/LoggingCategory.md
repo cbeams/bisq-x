@@ -1,6 +1,6 @@
 
 
-# CategorySpec
+# LoggingCategory
 
 
 ## Properties

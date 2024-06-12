@@ -15,10 +15,7 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.logging;
+package bisq.core;
 
-public interface Category {
-    String name();
-
-    String level();
+public interface Assembly extends Component {
 }

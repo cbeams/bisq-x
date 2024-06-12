@@ -15,14 +15,14 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.node.app;
+package bisq.core.node;
 
-import bisq.core.logging.Category;
+import bisq.core.Layer;
 import bisq.core.logging.Logging;
 
 import ch.qos.logback.classic.Logger;
 
-public interface AppCategory extends Category {
+public interface ConfigLayer extends Layer {
 
-    Logger log = Logging.createCategoryLogger("app");
+    Logger log = Logging.createCategoryLogger("conf");
 }

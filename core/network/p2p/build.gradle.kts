@@ -13,6 +13,7 @@ micronaut {
 }
 
 dependencies {
+    implementation(project(":core"))
     implementation(project(":core:logging"))
     implementation("ch.qos.logback:logback-classic:1.5.3")
 

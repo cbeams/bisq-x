@@ -18,8 +18,8 @@
 package bisq.core.logging.api;
 
 import bisq.core.api.ApiController;
-import bisq.core.logging.CategorySpec;
 import bisq.core.logging.Logging;
+import bisq.core.logging.LoggingCategory;
 
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -32,18 +32,18 @@ import java.util.List;
 public class LoggingController implements ApiController {
 
     @Get("/categories")
-    public List<CategorySpec> getCategories() {
-        return Logging.getCategorySpecs();
+    public List<LoggingCategory> getCategories() {
+        return Logging.getLoggingCategories();
     }
 
     @Get("/categories/{name}")
-    public CategorySpec getCategory(String name) {
-        return Logging.getCategorySpec(name);
+    public LoggingCategory getCategory(String name) {
+        return Logging.getLoggingCategory(name);
     }
 
     @Put("/categories")
-    public void updateCategory(CategorySpec categorySpec) {
-        Logging.update(categorySpec);
+    public void updateCategory(LoggingCategory loggingCategory) {
+        Logging.updateLoggingCategory(loggingCategory);
     }
 }
 

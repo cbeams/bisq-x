@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.List;
 
-import static bisq.core.node.ConfCategory.log;
+import static bisq.core.node.ConfigLayer.log;
 import static bisq.core.node.Options.*;
 import static java.lang.String.format;
 

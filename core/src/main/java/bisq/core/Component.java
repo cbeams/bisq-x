@@ -15,14 +15,7 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.network.p2p;
+package bisq.core;
 
-import bisq.core.logging.Category;
-import bisq.core.logging.Logging;
-
-import ch.qos.logback.classic.Logger;
-
-public interface P2PCategory extends Category {
-
-    Logger log = Logging.createCategoryLogger("p2p");
+public interface Component {
 }

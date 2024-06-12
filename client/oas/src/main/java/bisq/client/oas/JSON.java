@@ -101,10 +101,10 @@ public class JSON {
         gsonBuilder.registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(byte[].class, byteArrayAdapter);
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.AddRequest.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.CategorySpec.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.CreateRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.Identity.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.Info.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.LoggingCategory.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.Offer.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.UpdateCategoryRequest.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();

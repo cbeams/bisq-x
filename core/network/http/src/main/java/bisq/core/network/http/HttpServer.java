@@ -22,7 +22,7 @@ import io.micronaut.runtime.server.EmbeddedServer;
 import java.io.Closeable;
 import java.net.URI;
 
-import static bisq.core.network.http.HttpCategory.log;
+import static bisq.core.network.http.HttpSubsystem.log;
 
 public class HttpServer implements Runnable, Closeable {
 

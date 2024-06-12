@@ -23,7 +23,7 @@ import io.micronaut.http.annotation.RequestFilter;
 import io.micronaut.http.annotation.ResponseFilter;
 import io.micronaut.http.annotation.ServerFilter;
 
-import static bisq.core.network.http.HttpCategory.log;
+import static bisq.core.network.http.HttpSubsystem.log;
 
 @ServerFilter("/**")
 class HttpCallLoggingFilter {

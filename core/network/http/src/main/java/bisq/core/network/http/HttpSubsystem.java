@@ -15,14 +15,14 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.domain.trade;
+package bisq.core.network.http;
 
-import bisq.core.logging.Category;
+import bisq.core.Subsystem;
 import bisq.core.logging.Logging;
 
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
 
-public interface OfferCategory extends Category {
+interface HttpSubsystem extends Subsystem {
 
-    Logger log = Logging.createCategoryLogger("offer");
+    Logger log = Logging.createCategoryLogger("http");
 }

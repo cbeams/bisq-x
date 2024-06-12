@@ -11,7 +11,7 @@ All URIs are relative to *http://localhost*
 
 <a id="getCategories"></a>
 # **getCategories**
-> List&lt;CategorySpec&gt; getCategories()
+> List&lt;LoggingCategory&gt; getCategories()
 
 
 
@@ -31,7 +31,7 @@ public class Example {
 
     LoggingEndpoint apiInstance = new LoggingEndpoint(defaultClient);
     try {
-      List<CategorySpec> result = apiInstance.getCategories();
+      List<LoggingCategory> result = apiInstance.getCategories();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling LoggingEndpoint#getCategories");
@@ -49,7 +49,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List&lt;CategorySpec&gt;**](CategorySpec.md)
+[**List&lt;LoggingCategory&gt;**](LoggingCategory.md)
 
 ### Authorization
 
@@ -67,7 +67,7 @@ No authorization required
 
 <a id="getCategory"></a>
 # **getCategory**
-> CategorySpec getCategory(name)
+> LoggingCategory getCategory(name)
 
 
 
@@ -88,7 +88,7 @@ public class Example {
     LoggingEndpoint apiInstance = new LoggingEndpoint(defaultClient);
     String name = "name_example"; // String | 
     try {
-      CategorySpec result = apiInstance.getCategory(name);
+      LoggingCategory result = apiInstance.getCategory(name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling LoggingEndpoint#getCategory");
@@ -109,7 +109,7 @@ public class Example {
 
 ### Return type
 
-[**CategorySpec**](CategorySpec.md)
+[**LoggingCategory**](LoggingCategory.md)
 
 ### Authorization
 

@@ -15,31 +15,14 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.node.app;
+package bisq.core.domain.trade;
 
+import bisq.core.Feature;
 import bisq.core.logging.Logging;
-import bisq.core.node.BisqNode;
 
 import ch.qos.logback.classic.Logger;
 
-/**
- * Indicates that an implementing class configures and runs a {@link BisqNode}, typically
- * from a main method entry point.
- */
-public interface BisqNodeApp {
+public interface OfferbookFeature extends Feature {
 
-    int EXIT_SUCCESS = 0;
-    int EXIT_FAILURE = 1;
-
-    Logger log = Logging.createCategoryLogger("app");
-
-    /**
-     * Unwraps excessive exception nesting for better log output
-     */
-    static Throwable unwrap(Throwable t) {
-        while (t.getCause() != null && t.getMessage().contains("Exception")) {
-            t = t.getCause();
-        }
-        return t;
-    }
+    Logger log = Logging.createCategoryLogger("offer");
 }

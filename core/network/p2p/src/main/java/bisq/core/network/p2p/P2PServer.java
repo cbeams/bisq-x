@@ -27,7 +27,7 @@ import java.io.UncheckedIOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static bisq.core.network.p2p.P2PCategory.log;
+import static bisq.core.network.p2p.P2PSubsystem.log;
 
 public class P2PServer extends Thread {
 

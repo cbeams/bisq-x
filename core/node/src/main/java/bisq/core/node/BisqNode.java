@@ -18,8 +18,8 @@
 package bisq.core.node;
 
 import bisq.core.api.ApiController;
+import bisq.core.api.ApiLayer;
 import bisq.core.domain.trade.Offerbook;
-import bisq.core.logging.ApiCategory;
 import bisq.core.logging.Logging;
 import bisq.core.network.http.HttpServer;
 import bisq.core.network.p2p.P2PServer;
@@ -35,7 +35,7 @@ import java.util.Map;
 
 public class BisqNode {
 
-    private static final Logger log = NodeCategory.log;
+    private static final Logger log = NodeAssembly.log;
 
     private final Options options;
     private final P2PServer p2pServer;
@@ -97,8 +97,8 @@ public class BisqNode {
         httpServer.start();
 
         // Report available API endpoints
-        ApiCategory.log.debug("Reporting available api endpoints");
-        apiControllers.forEach(controller -> controller.logEndpoints(ApiCategory.log));
+        ApiLayer.log.debug("Reporting available api endpoints");
+        apiControllers.forEach(controller -> controller.logEndpoints(ApiLayer.log));
 
         // Register shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {

@@ -15,15 +15,7 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.node;
+package bisq.core;
 
-import bisq.core.logging.Category;
-import bisq.core.logging.Logging;
-
-import ch.qos.logback.classic.Logger;
-
-public interface NodeCategory extends Category {
-
-    Logger log = Logging.createCategoryLogger("node");
+public interface Subsystem extends Component {
 }
-

@@ -127,10 +127,10 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [AddRequest](docs/AddRequest.md)
- - [CategorySpec](docs/CategorySpec.md)
  - [CreateRequest](docs/CreateRequest.md)
  - [Identity](docs/Identity.md)
  - [Info](docs/Info.md)
+ - [LoggingCategory](docs/LoggingCategory.md)
  - [Offer](docs/Offer.md)
  - [UpdateCategoryRequest](docs/UpdateCategoryRequest.md)
 

@@ -23,7 +23,7 @@ import bisq.client.oas.Configuration;
 import bisq.client.oas.endpoint.InfoEndpoint;
 import bisq.client.oas.endpoint.LoggingEndpoint;
 import bisq.client.oas.endpoint.OfferEndpoint;
-import bisq.client.oas.model.CategorySpec;
+import bisq.client.oas.model.LoggingCategory;
 import bisq.client.oas.model.UpdateCategoryRequest;
 
 import joptsimple.OptionParser;
@@ -147,7 +147,7 @@ public class BisqCLI {
     private void debuglog(List<String> args) {
         try {
             new LoggingEndpoint(bisqClient)
-                    .updateCategory(new UpdateCategoryRequest().categorySpec(new CategorySpec().name("http").level("debug")));
+                    .updateCategory(new UpdateCategoryRequest().loggingCategory(new LoggingCategory().name("http").level("debug")));
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
             System.err.println("Status code: " + e.getCode());
@@ -159,7 +159,7 @@ public class BisqCLI {
 
     private void infolog(List<String> args) {
         try {
-            new LoggingEndpoint(bisqClient).updateCategory(new UpdateCategoryRequest().categorySpec(new CategorySpec().name("http").level("info")));
+            new LoggingEndpoint(bisqClient).updateCategory(new UpdateCategoryRequest().loggingCategory(new LoggingCategory().name("http").level("info")));
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
             System.err.println("Status code: " + e.getCode());

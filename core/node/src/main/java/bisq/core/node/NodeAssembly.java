@@ -17,12 +17,13 @@
 
 package bisq.core.node;
 
-import bisq.core.logging.Category;
+import bisq.core.Assembly;
 import bisq.core.logging.Logging;
 
 import ch.qos.logback.classic.Logger;
 
-public interface ConfCategory extends Category {
+public interface NodeAssembly extends Assembly {
 
-    Logger log = Logging.createCategoryLogger("conf");
+    Logger log = Logging.createCategoryLogger("node");
 }
+

@@ -31,7 +31,7 @@ import ch.qos.logback.core.read.CyclicBufferAppender;
 import java.io.File;
 import java.util.List;
 
-import static bisq.core.logging.LogCategory.log;
+import static bisq.core.logging.LoggingSubsystem.log;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 
@@ -114,24 +114,24 @@ public class Logging {
 
     }
 
-    public static CategorySpec getCategorySpec(String name) {
-        return getCategorySpec(getCategoryLogger(name));
+    public static LoggingCategory getLoggingCategory(String name) {
+        return getLoggingCategory(getCategoryLogger(name));
     }
 
-    public static CategorySpec getCategorySpec(Logger logger) {
-        return new CategorySpec(categoryDisplayNameFor(logger.getName()), logger.getEffectiveLevel().levelStr);
+    public static LoggingCategory getLoggingCategory(Logger logger) {
+        return new LoggingCategory(categoryDisplayNameFor(logger.getName()), logger.getEffectiveLevel().levelStr);
     }
 
-    public static List<CategorySpec> getCategorySpecs() {
-        return getCategoryLoggers().stream().map(Logging::getCategorySpec).collect(toList());
+    public static List<LoggingCategory> getLoggingCategories() {
+        return getCategoryLoggers().stream().map(Logging::getLoggingCategory).collect(toList());
     }
 
-    public static void update(CategorySpec categorySpec) {
-        var name = categorySpec.name();
+    public static void updateLoggingCategory(LoggingCategory loggingCategory) {
+        var name = loggingCategory.name();
         // TODO: handle not found
         var logger = Logging.getCategoryLogger(name);
         String curLevel = logger.getEffectiveLevel().levelStr;
-        String newLevel = categorySpec.level();
+        String newLevel = loggingCategory.level();
         if (!curLevel.equals(newLevel)) {
             log.info("Changing [{}] log level from {} to {}", name, curLevel, newLevel);
             logger.setLevel(Level.valueOf(newLevel));

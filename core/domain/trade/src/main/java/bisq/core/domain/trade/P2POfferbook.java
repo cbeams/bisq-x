@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 import jakarta.inject.Singleton;
 
-import static bisq.core.domain.trade.OfferCategory.log;
+import static bisq.core.domain.trade.OfferbookFeature.log;
 
 @Singleton
 public class P2POfferbook implements P2PMessageListener, Offerbook {

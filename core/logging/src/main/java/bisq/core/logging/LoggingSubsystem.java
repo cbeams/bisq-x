@@ -17,10 +17,11 @@
 
 package bisq.core.logging;
 
-import io.micronaut.serde.annotation.Serdeable;
+import bisq.core.Subsystem;
 
-import jakarta.validation.constraints.NotBlank;
+import ch.qos.logback.classic.Logger;
 
-@Serdeable
-public record CategorySpec(@NotBlank String name, @NotBlank String level) implements Category {
+public interface LoggingSubsystem extends Subsystem {
+
+    Logger log = Logging.createCategoryLogger("log");
 }

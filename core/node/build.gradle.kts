@@ -13,6 +13,7 @@ micronaut {
 }
 
 dependencies {
+    implementation(project(":core"))
     implementation(project(":core:oas"))
     implementation(project(":core:domain:trade"))
     implementation(project(":core:network:http"))

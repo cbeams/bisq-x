@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
 
 import jakarta.inject.Inject;
 
-import static bisq.core.network.http.HttpCategory.log;
+import static bisq.core.network.http.HttpSubsystem.log;
 import static io.micronaut.http.HttpHeaders.FORWARDED;
 import static io.micronaut.http.HttpHeaders.HOST;
 

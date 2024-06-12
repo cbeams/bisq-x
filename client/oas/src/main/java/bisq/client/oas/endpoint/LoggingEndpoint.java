@@ -27,7 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import bisq.client.oas.model.CategorySpec;
+import bisq.client.oas.model.LoggingCategory;
 import bisq.client.oas.model.UpdateCategoryRequest;
 
 import java.lang.reflect.Type;
@@ -137,7 +137,7 @@ public class LoggingEndpoint {
     /**
      * 
      * 
-     * @return List&lt;CategorySpec&gt;
+     * @return List&lt;LoggingCategory&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -145,15 +145,15 @@ public class LoggingEndpoint {
         <tr><td> 200 </td><td> getCategories 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public List<CategorySpec> getCategories() throws ApiException {
-        ApiResponse<List<CategorySpec>> localVarResp = getCategoriesWithHttpInfo();
+    public List<LoggingCategory> getCategories() throws ApiException {
+        ApiResponse<List<LoggingCategory>> localVarResp = getCategoriesWithHttpInfo();
         return localVarResp.getData();
     }
 
     /**
      * 
      * 
-     * @return ApiResponse&lt;List&lt;CategorySpec&gt;&gt;
+     * @return ApiResponse&lt;List&lt;LoggingCategory&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -161,9 +161,9 @@ public class LoggingEndpoint {
         <tr><td> 200 </td><td> getCategories 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<CategorySpec>> getCategoriesWithHttpInfo() throws ApiException {
+    public ApiResponse<List<LoggingCategory>> getCategoriesWithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = getCategoriesValidateBeforeCall(null);
-        Type localVarReturnType = new TypeToken<List<CategorySpec>>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<LoggingCategory>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -179,10 +179,10 @@ public class LoggingEndpoint {
         <tr><td> 200 </td><td> getCategories 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCategoriesAsync(final ApiCallback<List<CategorySpec>> _callback) throws ApiException {
+    public okhttp3.Call getCategoriesAsync(final ApiCallback<List<LoggingCategory>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getCategoriesValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<List<CategorySpec>>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<LoggingCategory>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -258,7 +258,7 @@ public class LoggingEndpoint {
      * 
      * 
      * @param name  (required)
-     * @return CategorySpec
+     * @return LoggingCategory
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -266,8 +266,8 @@ public class LoggingEndpoint {
         <tr><td> 200 </td><td> getCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public CategorySpec getCategory(String name) throws ApiException {
-        ApiResponse<CategorySpec> localVarResp = getCategoryWithHttpInfo(name);
+    public LoggingCategory getCategory(String name) throws ApiException {
+        ApiResponse<LoggingCategory> localVarResp = getCategoryWithHttpInfo(name);
         return localVarResp.getData();
     }
 
@@ -275,7 +275,7 @@ public class LoggingEndpoint {
      * 
      * 
      * @param name  (required)
-     * @return ApiResponse&lt;CategorySpec&gt;
+     * @return ApiResponse&lt;LoggingCategory&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -283,9 +283,9 @@ public class LoggingEndpoint {
         <tr><td> 200 </td><td> getCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CategorySpec> getCategoryWithHttpInfo(String name) throws ApiException {
+    public ApiResponse<LoggingCategory> getCategoryWithHttpInfo(String name) throws ApiException {
         okhttp3.Call localVarCall = getCategoryValidateBeforeCall(name, null);
-        Type localVarReturnType = new TypeToken<CategorySpec>(){}.getType();
+        Type localVarReturnType = new TypeToken<LoggingCategory>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -302,10 +302,10 @@ public class LoggingEndpoint {
         <tr><td> 200 </td><td> getCategory 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCategoryAsync(String name, final ApiCallback<CategorySpec> _callback) throws ApiException {
+    public okhttp3.Call getCategoryAsync(String name, final ApiCallback<LoggingCategory> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getCategoryValidateBeforeCall(name, _callback);
-        Type localVarReturnType = new TypeToken<CategorySpec>(){}.getType();
+        Type localVarReturnType = new TypeToken<LoggingCategory>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

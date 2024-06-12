@@ -15,14 +15,14 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.network.http;
+package bisq.core.network.p2p;
 
-import bisq.core.logging.Category;
+import bisq.core.Subsystem;
 import bisq.core.logging.Logging;
 
 import ch.qos.logback.classic.Logger;
 
-interface HttpCategory extends Category {
+public interface P2PSubsystem extends Subsystem {
 
-    Logger log = Logging.createCategoryLogger("http");
+    Logger log = Logging.createCategoryLogger("p2p");
 }

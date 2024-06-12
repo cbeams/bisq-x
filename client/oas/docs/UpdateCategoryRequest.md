@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**categorySpec** | [**CategorySpec**](CategorySpec.md) |  |  [optional] |
+|**loggingCategory** | [**LoggingCategory**](LoggingCategory.md) |  |  [optional] |
 
 
 

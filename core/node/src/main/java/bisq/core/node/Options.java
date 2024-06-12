@@ -25,7 +25,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Properties;
 
-import static bisq.core.node.ConfCategory.log;
+import static bisq.core.node.ConfigLayer.log;
 import static java.lang.String.format;
 import static java.lang.reflect.Modifier.isFinal;
 import static java.lang.reflect.Modifier.isStatic;

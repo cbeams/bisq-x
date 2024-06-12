@@ -14,7 +14,7 @@
 package bisq.client.oas.model;
 
 import java.util.Objects;
-import bisq.client.oas.model.CategorySpec;
+import bisq.client.oas.model.LoggingCategory;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -52,29 +52,29 @@ import bisq.client.oas.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.5.0")
 public class UpdateCategoryRequest {
-  public static final String SERIALIZED_NAME_CATEGORY_SPEC = "categorySpec";
-  @SerializedName(SERIALIZED_NAME_CATEGORY_SPEC)
-  private CategorySpec categorySpec;
+  public static final String SERIALIZED_NAME_LOGGING_CATEGORY = "loggingCategory";
+  @SerializedName(SERIALIZED_NAME_LOGGING_CATEGORY)
+  private LoggingCategory loggingCategory;
 
   public UpdateCategoryRequest() {
   }
 
-  public UpdateCategoryRequest categorySpec(CategorySpec categorySpec) {
-    this.categorySpec = categorySpec;
+  public UpdateCategoryRequest loggingCategory(LoggingCategory loggingCategory) {
+    this.loggingCategory = loggingCategory;
     return this;
   }
 
    /**
-   * Get categorySpec
-   * @return categorySpec
+   * Get loggingCategory
+   * @return loggingCategory
   **/
   @javax.annotation.Nullable
-  public CategorySpec getCategorySpec() {
-    return categorySpec;
+  public LoggingCategory getLoggingCategory() {
+    return loggingCategory;
   }
 
-  public void setCategorySpec(CategorySpec categorySpec) {
-    this.categorySpec = categorySpec;
+  public void setLoggingCategory(LoggingCategory loggingCategory) {
+    this.loggingCategory = loggingCategory;
   }
 
 
@@ -88,19 +88,19 @@ public class UpdateCategoryRequest {
       return false;
     }
     UpdateCategoryRequest updateCategoryRequest = (UpdateCategoryRequest) o;
-    return Objects.equals(this.categorySpec, updateCategoryRequest.categorySpec);
+    return Objects.equals(this.loggingCategory, updateCategoryRequest.loggingCategory);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(categorySpec);
+    return Objects.hash(loggingCategory);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateCategoryRequest {\n");
-    sb.append("    categorySpec: ").append(toIndentedString(categorySpec)).append("\n");
+    sb.append("    loggingCategory: ").append(toIndentedString(loggingCategory)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -123,7 +123,7 @@ public class UpdateCategoryRequest {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("categorySpec");
+    openapiFields.add("loggingCategory");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -150,9 +150,9 @@ public class UpdateCategoryRequest {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      // validate the optional field `categorySpec`
-      if (jsonObj.get("categorySpec") != null && !jsonObj.get("categorySpec").isJsonNull()) {
-        CategorySpec.validateJsonElement(jsonObj.get("categorySpec"));
+      // validate the optional field `loggingCategory`
+      if (jsonObj.get("loggingCategory") != null && !jsonObj.get("loggingCategory").isJsonNull()) {
+        LoggingCategory.validateJsonElement(jsonObj.get("loggingCategory"));
       }
   }
 
