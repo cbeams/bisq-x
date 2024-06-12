@@ -27,6 +27,7 @@
     <classpathentry kind="lib" path="core/network/p2p/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/logging/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/api/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="demos/marketmaker/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="demos/satstacker/build/classes/java/main" module="main" displaymodule="main" />
   </classpath>
   <pom-root-files />

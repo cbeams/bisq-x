@@ -14,5 +14,6 @@ include(
     "core:logging",
     "core:api",
     "core",
+    "demos:marketmaker",
     "demos:satstacker",
 )
