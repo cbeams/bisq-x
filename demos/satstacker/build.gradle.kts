@@ -9,7 +9,7 @@ repositories {
 }
 
 application {
-    mainClass = "bisq.demo.bot.BisqDcaDemo"
+    mainClass = "bisq.demo.satstacker.DcaBot"
 }
 
 dependencies {

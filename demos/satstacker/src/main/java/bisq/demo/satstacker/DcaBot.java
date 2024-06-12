@@ -15,7 +15,7 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.demo.bot;
+package bisq.demo.satstacker;
 
 import bisq.client.java.ApiClient;
 import bisq.client.java.ApiException;
@@ -27,7 +27,7 @@ import bisq.client.java.operations.OfferbookOperations;
 
 import java.time.Duration;
 
-public class BisqDcaDemo {
+public class DcaBot {
 
     public static void main(String... args) throws ApiException {
         System.out.println("Bisq DCA bot demo");

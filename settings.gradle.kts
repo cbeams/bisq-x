@@ -14,5 +14,5 @@ include(
     "core:logging",
     "core:api",
     "core",
-    "demos:dca",
+    "demos:satstacker",
 )
