@@ -18,12 +18,12 @@
 package bisq.core.node;
 
 import bisq.core.Assembly;
-import bisq.core.logging.Logging;
+import bisq.core.logging.LoggingService;
 
 import ch.qos.logback.classic.Logger;
 
 public interface NodeAssembly extends Assembly {
 
-    Logger log = Logging.createCategoryLogger("node");
+    Logger log = LoggingService.createCategoryLogger("node");
 }
 

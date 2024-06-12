@@ -17,7 +17,7 @@
 
 package bisq.core.node.app;
 
-import bisq.core.logging.Logging;
+import bisq.core.logging.LoggingService;
 import bisq.core.node.BisqNode;
 
 import ch.qos.logback.classic.Logger;
@@ -31,7 +31,7 @@ public interface BisqNodeApp {
     int EXIT_SUCCESS = 0;
     int EXIT_FAILURE = 1;
 
-    Logger log = Logging.createCategoryLogger("app");
+    Logger log = LoggingService.createCategoryLogger("app");
 
     /**
      * Unwraps excessive exception nesting for better log output

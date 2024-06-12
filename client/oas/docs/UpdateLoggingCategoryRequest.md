@@ -1,6 +1,6 @@
 
 
-# UpdateCategoryRequest
+# UpdateLoggingCategoryRequest
 
 
 ## Properties

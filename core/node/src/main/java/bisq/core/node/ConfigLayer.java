@@ -18,11 +18,11 @@
 package bisq.core.node;
 
 import bisq.core.Layer;
-import bisq.core.logging.Logging;
+import bisq.core.logging.LoggingService;
 
 import ch.qos.logback.classic.Logger;
 
 public interface ConfigLayer extends Layer {
 
-    Logger log = Logging.createCategoryLogger("conf");
+    Logger log = LoggingService.createCategoryLogger("conf");
 }

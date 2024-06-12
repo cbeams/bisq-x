@@ -18,11 +18,11 @@
 package bisq.core.network.http;
 
 import bisq.core.Subsystem;
-import bisq.core.logging.Logging;
+import bisq.core.logging.LoggingService;
 
 import org.slf4j.Logger;
 
 interface HttpSubsystem extends Subsystem {
 
-    Logger log = Logging.createCategoryLogger("http");
+    Logger log = LoggingService.createCategoryLogger("http");
 }

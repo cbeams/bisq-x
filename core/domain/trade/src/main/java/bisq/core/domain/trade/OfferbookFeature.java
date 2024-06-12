@@ -18,11 +18,11 @@
 package bisq.core.domain.trade;
 
 import bisq.core.Feature;
-import bisq.core.logging.Logging;
+import bisq.core.logging.LoggingService;
 
 import ch.qos.logback.classic.Logger;
 
 public interface OfferbookFeature extends Feature {
 
-    Logger log = Logging.createCategoryLogger("offer");
+    Logger log = LoggingService.createCategoryLogger("offer");
 }

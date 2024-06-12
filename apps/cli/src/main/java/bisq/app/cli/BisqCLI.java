@@ -24,7 +24,7 @@ import bisq.client.oas.endpoint.InfoEndpoint;
 import bisq.client.oas.endpoint.LoggingEndpoint;
 import bisq.client.oas.endpoint.OfferEndpoint;
 import bisq.client.oas.model.LoggingCategory;
-import bisq.client.oas.model.UpdateCategoryRequest;
+import bisq.client.oas.model.UpdateLoggingCategoryRequest;
 
 import joptsimple.OptionParser;
 
@@ -133,7 +133,7 @@ public class BisqCLI {
     private void showlog(List<String> args) {
         try {
             var loggingEndpoint = new LoggingEndpoint(bisqClient);
-            var http = loggingEndpoint.getCategory("http");
+            var http = loggingEndpoint.getLoggingCategory("http");
             System.out.println(http);
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
@@ -147,7 +147,8 @@ public class BisqCLI {
     private void debuglog(List<String> args) {
         try {
             new LoggingEndpoint(bisqClient)
-                    .updateCategory(new UpdateCategoryRequest().loggingCategory(new LoggingCategory().name("http").level("debug")));
+                    .updateLoggingCategory(new UpdateLoggingCategoryRequest()
+                            .loggingCategory(new LoggingCategory().name("http").level("debug")));
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
             System.err.println("Status code: " + e.getCode());
@@ -159,7 +160,9 @@ public class BisqCLI {
 
     private void infolog(List<String> args) {
         try {
-            new LoggingEndpoint(bisqClient).updateCategory(new UpdateCategoryRequest().loggingCategory(new LoggingCategory().name("http").level("info")));
+            new LoggingEndpoint(bisqClient).updateLoggingCategory(
+                    new UpdateLoggingCategoryRequest()
+                            .loggingCategory(new LoggingCategory().name("http").level("info")));
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
             System.err.println("Status code: " + e.getCode());

@@ -17,7 +17,7 @@
 
 package bisq.app.daemon;
 
-import bisq.core.logging.Logging;
+import bisq.core.logging.LoggingService;
 import bisq.core.node.BisqNode;
 import bisq.core.node.Options;
 import bisq.core.node.app.BisqNodeApp;
@@ -49,7 +49,7 @@ public class BisqDaemon implements BisqNodeApp {
         // Init logging
         // ------------------------------------------------------------------
 
-        Logging.setLevel(INFO);
+        LoggingService.setLevel(INFO);
 
         var cli = new CommandLine(args);
         var helpRequested = cli.helpRequested();
@@ -57,14 +57,14 @@ public class BisqDaemon implements BisqNodeApp {
 
         // Suppress normal log output if we know help output is coming
         if (helpRequested && !debugRequested)
-            Logging.setLevel(WARN);
+            LoggingService.setLevel(WARN);
 
         // Identify what is running
         log.info(APP_NAME_AND_VERSION);
 
         // Enable debug logging as early as possible if requested
         if (debugRequested)
-            Logging.setLevel(DEBUG);
+            LoggingService.setLevel(DEBUG);
 
         // ------------------------------------------------------------------
         // Configure node

@@ -48,18 +48,18 @@ import java.util.Set;
 import bisq.client.oas.JSON;
 
 /**
- * UpdateCategoryRequest
+ * UpdateLoggingCategoryRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.5.0")
-public class UpdateCategoryRequest {
+public class UpdateLoggingCategoryRequest {
   public static final String SERIALIZED_NAME_LOGGING_CATEGORY = "loggingCategory";
   @SerializedName(SERIALIZED_NAME_LOGGING_CATEGORY)
   private LoggingCategory loggingCategory;
 
-  public UpdateCategoryRequest() {
+  public UpdateLoggingCategoryRequest() {
   }
 
-  public UpdateCategoryRequest loggingCategory(LoggingCategory loggingCategory) {
+  public UpdateLoggingCategoryRequest loggingCategory(LoggingCategory loggingCategory) {
     this.loggingCategory = loggingCategory;
     return this;
   }
@@ -87,8 +87,8 @@ public class UpdateCategoryRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UpdateCategoryRequest updateCategoryRequest = (UpdateCategoryRequest) o;
-    return Objects.equals(this.loggingCategory, updateCategoryRequest.loggingCategory);
+    UpdateLoggingCategoryRequest updateLoggingCategoryRequest = (UpdateLoggingCategoryRequest) o;
+    return Objects.equals(this.loggingCategory, updateLoggingCategoryRequest.loggingCategory);
   }
 
   @Override
@@ -99,7 +99,7 @@ public class UpdateCategoryRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UpdateCategoryRequest {\n");
+    sb.append("class UpdateLoggingCategoryRequest {\n");
     sb.append("    loggingCategory: ").append(toIndentedString(loggingCategory)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -133,20 +133,20 @@ public class UpdateCategoryRequest {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to UpdateCategoryRequest
+  * @throws IOException if the JSON Element is invalid with respect to UpdateLoggingCategoryRequest
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!UpdateCategoryRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in UpdateCategoryRequest is not found in the empty JSON string", UpdateCategoryRequest.openapiRequiredFields.toString()));
+        if (!UpdateLoggingCategoryRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in UpdateLoggingCategoryRequest is not found in the empty JSON string", UpdateLoggingCategoryRequest.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!UpdateCategoryRequest.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `UpdateCategoryRequest` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!UpdateLoggingCategoryRequest.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `UpdateLoggingCategoryRequest` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -160,22 +160,22 @@ public class UpdateCategoryRequest {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!UpdateCategoryRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'UpdateCategoryRequest' and its subtypes
+       if (!UpdateLoggingCategoryRequest.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'UpdateLoggingCategoryRequest' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<UpdateCategoryRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(UpdateCategoryRequest.class));
+       final TypeAdapter<UpdateLoggingCategoryRequest> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(UpdateLoggingCategoryRequest.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<UpdateCategoryRequest>() {
+       return (TypeAdapter<T>) new TypeAdapter<UpdateLoggingCategoryRequest>() {
            @Override
-           public void write(JsonWriter out, UpdateCategoryRequest value) throws IOException {
+           public void write(JsonWriter out, UpdateLoggingCategoryRequest value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public UpdateCategoryRequest read(JsonReader in) throws IOException {
+           public UpdateLoggingCategoryRequest read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -186,18 +186,18 @@ public class UpdateCategoryRequest {
   }
 
  /**
-  * Create an instance of UpdateCategoryRequest given an JSON string
+  * Create an instance of UpdateLoggingCategoryRequest given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of UpdateCategoryRequest
-  * @throws IOException if the JSON string is invalid with respect to UpdateCategoryRequest
+  * @return An instance of UpdateLoggingCategoryRequest
+  * @throws IOException if the JSON string is invalid with respect to UpdateLoggingCategoryRequest
   */
-  public static UpdateCategoryRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, UpdateCategoryRequest.class);
+  public static UpdateLoggingCategoryRequest fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, UpdateLoggingCategoryRequest.class);
   }
 
  /**
-  * Convert an instance of UpdateCategoryRequest to an JSON string
+  * Convert an instance of UpdateLoggingCategoryRequest to an JSON string
   *
   * @return JSON string
   */

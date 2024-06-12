@@ -17,7 +17,7 @@
 
 package bisq.core.node;
 
-import bisq.core.logging.Logging;
+import bisq.core.logging.LoggingService;
 
 import java.io.Closeable;
 import java.io.File;
@@ -72,7 +72,7 @@ class DataDir implements Closeable {
         // Begin writing to log file (in addition to console) now that it's safe to do so
         var logFile = new File(dir, "bisq.log");
         log.debug("Appending logging output to {}", logFile);
-        Logging.addLogFileAppender(logFile);
+        LoggingService.addLogFileAppender(logFile);
 
         // Write current process id to pid file
         this.pidFile = new File(dir, "bisq.pid");

@@ -23,5 +23,5 @@ import ch.qos.logback.classic.Logger;
 
 public interface LoggingSubsystem extends Subsystem {
 
-    Logger log = Logging.createCategoryLogger("log");
+    Logger log = LoggingService.createCategoryLogger("log");
 }

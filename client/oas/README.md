@@ -114,9 +114,9 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *InfoEndpoint* | [**getInfo**](docs/InfoEndpoint.md#getInfo) | **GET** /info | 
-*LoggingEndpoint* | [**getCategories**](docs/LoggingEndpoint.md#getCategories) | **GET** /logging/categories | 
-*LoggingEndpoint* | [**getCategory**](docs/LoggingEndpoint.md#getCategory) | **GET** /logging/categories/{name} | 
-*LoggingEndpoint* | [**updateCategory**](docs/LoggingEndpoint.md#updateCategory) | **PUT** /logging/categories | 
+*LoggingEndpoint* | [**getLoggingCategories**](docs/LoggingEndpoint.md#getLoggingCategories) | **GET** /logging/categories | 
+*LoggingEndpoint* | [**getLoggingCategory**](docs/LoggingEndpoint.md#getLoggingCategory) | **GET** /logging/categories/{name} | 
+*LoggingEndpoint* | [**updateLoggingCategory**](docs/LoggingEndpoint.md#updateLoggingCategory) | **PUT** /logging/categories | 
 *OfferEndpoint* | [**add**](docs/OfferEndpoint.md#add) | **POST** /trade/offers | 
 *OfferEndpoint* | [**delete**](docs/OfferEndpoint.md#delete) | **DELETE** /trade/offers/{id} | 
 *OfferEndpoint* | [**listAll**](docs/OfferEndpoint.md#listAll) | **GET** /trade/offers | 
@@ -132,7 +132,7 @@ Class | Method | HTTP request | Description
  - [Info](docs/Info.md)
  - [LoggingCategory](docs/LoggingCategory.md)
  - [Offer](docs/Offer.md)
- - [UpdateCategoryRequest](docs/UpdateCategoryRequest.md)
+ - [UpdateLoggingCategoryRequest](docs/UpdateLoggingCategoryRequest.md)
 
 
 <a id="documentation-for-authorization"></a>

@@ -20,7 +20,7 @@ package bisq.core.node;
 import bisq.core.api.ApiController;
 import bisq.core.api.ApiLayer;
 import bisq.core.domain.trade.Offerbook;
-import bisq.core.logging.Logging;
+import bisq.core.logging.LoggingService;
 import bisq.core.network.http.HttpServer;
 import bisq.core.network.p2p.P2PServer;
 import bisq.core.oas.OpenApiSpecification;
@@ -86,7 +86,7 @@ public class BisqNode {
 
         // Enable debug logging
         if (options.debug())
-            Logging.setLevel(Level.DEBUG);
+            LoggingService.setLevel(Level.DEBUG);
 
         // Init data directory
         dataDir = DataDir.init(options);

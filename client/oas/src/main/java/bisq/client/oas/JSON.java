@@ -106,7 +106,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.Info.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.LoggingCategory.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.Offer.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.UpdateCategoryRequest.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.UpdateLoggingCategoryRequest.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();
     }
 

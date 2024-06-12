@@ -10,7 +10,7 @@ docs/LoggingCategory.md
 docs/LoggingEndpoint.md
 docs/Offer.md
 docs/OfferEndpoint.md
-docs/UpdateCategoryRequest.md
+docs/UpdateLoggingCategoryRequest.md
 docs/UserEndpoint.md
 src/main/AndroidManifest.xml
 src/main/java/bisq/client/oas/ApiCallback.java
@@ -41,4 +41,4 @@ src/main/java/bisq/client/oas/model/Identity.java
 src/main/java/bisq/client/oas/model/Info.java
 src/main/java/bisq/client/oas/model/LoggingCategory.java
 src/main/java/bisq/client/oas/model/Offer.java
-src/main/java/bisq/client/oas/model/UpdateCategoryRequest.java
+src/main/java/bisq/client/oas/model/UpdateLoggingCategoryRequest.java

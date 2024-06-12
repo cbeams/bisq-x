@@ -42,7 +42,7 @@ paths:
       - application/json
   /logging/categories:
     get:
-      operationId: getCategories
+      operationId: getLoggingCategories
       responses:
         "200":
           content:
@@ -51,22 +51,22 @@ paths:
                 items:
                   $ref: '#/components/schemas/LoggingCategory'
                 type: array
-          description: getCategories 200 response
+          description: getLoggingCategories 200 response
       tags:
       - Logging
       x-accepts:
       - application/json
     put:
-      operationId: updateCategory
+      operationId: updateLoggingCategory
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/updateCategory_request'
+              $ref: '#/components/schemas/updateLoggingCategory_request'
         required: true
       responses:
         "200":
-          description: updateCategory 200 response
+          description: updateLoggingCategory 200 response
       tags:
       - Logging
       x-content-type: application/json
@@ -74,7 +74,7 @@ paths:
       - application/json
   /logging/categories/{name}:
     get:
-      operationId: getCategory
+      operationId: getLoggingCategory
       parameters:
       - explode: false
         in: path
@@ -89,7 +89,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoggingCategory'
-          description: getCategory 200 response
+          description: getLoggingCategory 200 response
       tags:
       - Logging
       x-accepts:
@@ -227,7 +227,7 @@ components:
         identity:
           $ref: '#/components/schemas/Identity'
       type: object
-    updateCategory_request:
+    updateLoggingCategory_request:
       properties:
         loggingCategory:
           $ref: '#/components/schemas/LoggingCategory'

@@ -4,14 +4,14 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**getCategories**](LoggingEndpoint.md#getCategories) | **GET** /logging/categories |  |
-| [**getCategory**](LoggingEndpoint.md#getCategory) | **GET** /logging/categories/{name} |  |
-| [**updateCategory**](LoggingEndpoint.md#updateCategory) | **PUT** /logging/categories |  |
+| [**getLoggingCategories**](LoggingEndpoint.md#getLoggingCategories) | **GET** /logging/categories |  |
+| [**getLoggingCategory**](LoggingEndpoint.md#getLoggingCategory) | **GET** /logging/categories/{name} |  |
+| [**updateLoggingCategory**](LoggingEndpoint.md#updateLoggingCategory) | **PUT** /logging/categories |  |
 
 
-<a id="getCategories"></a>
-# **getCategories**
-> List&lt;LoggingCategory&gt; getCategories()
+<a id="getLoggingCategories"></a>
+# **getLoggingCategories**
+> List&lt;LoggingCategory&gt; getLoggingCategories()
 
 
 
@@ -31,10 +31,10 @@ public class Example {
 
     LoggingEndpoint apiInstance = new LoggingEndpoint(defaultClient);
     try {
-      List<LoggingCategory> result = apiInstance.getCategories();
+      List<LoggingCategory> result = apiInstance.getLoggingCategories();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling LoggingEndpoint#getCategories");
+      System.err.println("Exception when calling LoggingEndpoint#getLoggingCategories");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -63,11 +63,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | getCategories 200 response |  -  |
+| **200** | getLoggingCategories 200 response |  -  |
 
-<a id="getCategory"></a>
-# **getCategory**
-> LoggingCategory getCategory(name)
+<a id="getLoggingCategory"></a>
+# **getLoggingCategory**
+> LoggingCategory getLoggingCategory(name)
 
 
 
@@ -88,10 +88,10 @@ public class Example {
     LoggingEndpoint apiInstance = new LoggingEndpoint(defaultClient);
     String name = "name_example"; // String | 
     try {
-      LoggingCategory result = apiInstance.getCategory(name);
+      LoggingCategory result = apiInstance.getLoggingCategory(name);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling LoggingEndpoint#getCategory");
+      System.err.println("Exception when calling LoggingEndpoint#getLoggingCategory");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -123,11 +123,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | getCategory 200 response |  -  |
+| **200** | getLoggingCategory 200 response |  -  |
 
-<a id="updateCategory"></a>
-# **updateCategory**
-> updateCategory(updateCategoryRequest)
+<a id="updateLoggingCategory"></a>
+# **updateLoggingCategory**
+> updateLoggingCategory(updateLoggingCategoryRequest)
 
 
 
@@ -146,11 +146,11 @@ public class Example {
     defaultClient.setBasePath("http://localhost");
 
     LoggingEndpoint apiInstance = new LoggingEndpoint(defaultClient);
-    UpdateCategoryRequest updateCategoryRequest = new UpdateCategoryRequest(); // UpdateCategoryRequest | 
+    UpdateLoggingCategoryRequest updateLoggingCategoryRequest = new UpdateLoggingCategoryRequest(); // UpdateLoggingCategoryRequest | 
     try {
-      apiInstance.updateCategory(updateCategoryRequest);
+      apiInstance.updateLoggingCategory(updateLoggingCategoryRequest);
     } catch (ApiException e) {
-      System.err.println("Exception when calling LoggingEndpoint#updateCategory");
+      System.err.println("Exception when calling LoggingEndpoint#updateLoggingCategory");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -164,7 +164,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **updateCategoryRequest** | [**UpdateCategoryRequest**](UpdateCategoryRequest.md)|  | |
+| **updateLoggingCategoryRequest** | [**UpdateLoggingCategoryRequest**](UpdateLoggingCategoryRequest.md)|  | |
 
 ### Return type
 
@@ -182,5 +182,5 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | updateCategory 200 response |  -  |
+| **200** | updateLoggingCategory 200 response |  -  |
 

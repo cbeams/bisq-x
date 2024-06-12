@@ -35,7 +35,7 @@ import static bisq.core.logging.LoggingSubsystem.log;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 
-public class Logging {
+public class LoggingService {
 
     private static final String BASE_CATEGORY_LOGGER_NAME = "bisq";
     private static final String CATEGORY_LOGGER_PREFIX = format("%s.", BASE_CATEGORY_LOGGER_NAME);
@@ -57,9 +57,9 @@ public class Logging {
         loggerContext.getLogger(Logger.ROOT_LOGGER_NAME).setLevel(Level.OFF);
 
         // Configure log entry formatting
-        PatternLayout.DEFAULT_CONVERTER_MAP.put("categoryDisplayName", CategoryDisplayNameConverter.class.getName());
+        PatternLayout.DEFAULT_CONVERTER_MAP.put("categoryName", CategoryNameConverter.class.getName());
         patternLayoutEncoder.setContext(loggerContext);
-        patternLayoutEncoder.setPattern("%d{yyyy-MM-dd'T'HH:mm:ss,UTC}Z [%5.-5categoryDisplayName] %msg%n");
+        patternLayoutEncoder.setPattern("%d{yyyy-MM-dd'T'HH:mm:ss,UTC}Z [%5.-5categoryName] %msg%n");
         patternLayoutEncoder.start();
 
         // Configure console appender
@@ -119,17 +119,17 @@ public class Logging {
     }
 
     public static LoggingCategory getLoggingCategory(Logger logger) {
-        return new LoggingCategory(categoryDisplayNameFor(logger.getName()), logger.getEffectiveLevel().levelStr);
+        return new LoggingCategory(categoryNameFor(logger.getName()), logger.getEffectiveLevel().levelStr);
     }
 
     public static List<LoggingCategory> getLoggingCategories() {
-        return getCategoryLoggers().stream().map(Logging::getLoggingCategory).collect(toList());
+        return getCategoryLoggers().stream().map(LoggingService::getLoggingCategory).collect(toList());
     }
 
     public static void updateLoggingCategory(LoggingCategory loggingCategory) {
         var name = loggingCategory.name();
         // TODO: handle not found
-        var logger = Logging.getCategoryLogger(name);
+        var logger = LoggingService.getCategoryLogger(name);
         String curLevel = logger.getEffectiveLevel().levelStr;
         String newLevel = loggingCategory.level();
         if (!curLevel.equals(newLevel)) {
@@ -139,24 +139,24 @@ public class Logging {
         // TODO: handle no change
     }
 
-    public static Logger createCategoryLogger(String categoryDisplayName) {
-        if (loggerContext.exists(categoryLoggerNameFor(categoryDisplayName)) != null) {
+    public static Logger createCategoryLogger(String categoryName) {
+        if (loggerContext.exists(fqLoggerNameFor(categoryName)) != null) {
             // Print to stderr as well as throwing because the exception below gets thrown
             // during class initialization ends up buried in a NoClassDefFound exception
-            var msg = format("a logger for category '%s' already exists", categoryDisplayName);
+            var msg = format("a logger for category '%s' already exists", categoryName);
             System.err.println("Error: " + msg);
             throw new IllegalStateException(msg);
         }
         // create and return the new logger
-        return loggerContext.getLogger(categoryLoggerNameFor(categoryDisplayName));
+        return loggerContext.getLogger(fqLoggerNameFor(categoryName));
     }
 
-    public static Logger getCategoryLogger(String categoryDisplayName) {
-        var existingLogger = loggerContext.exists(categoryLoggerNameFor(categoryDisplayName));
+    public static Logger getCategoryLogger(String categoryName) {
+        var existingLogger = loggerContext.exists(fqLoggerNameFor(categoryName));
         if (existingLogger == null) {
             // Print to stderr as well as throwing because the exception below gets thrown
             // during class initialization ends up buried in a NoClassDefFound exception
-            var msg = format("no logger for category '%s' found; create it first", categoryDisplayName);
+            var msg = format("no logger for category '%s' found; create it first", categoryName);
             System.err.println("Error: " + msg);
             throw new IllegalStateException(msg);
         }
@@ -164,14 +164,14 @@ public class Logging {
     }
 
     public static List<Logger> getCategoryLoggers() {
-        return loggerContext.getLoggerList().stream().filter(Logging::isCategoryLogger).toList();
+        return loggerContext.getLoggerList().stream().filter(LoggingService::isCategoryLogger).toList();
     }
 
-    static String categoryLoggerNameFor(String categoryDisplayName) {
-        if (isCategoryLoggerName(categoryDisplayName))
+    static String fqLoggerNameFor(String categoryName) {
+        if (isCategoryLoggerName(categoryName))
             throw new IllegalArgumentException(
-                    format("'%s' is already a category logger name", categoryDisplayName));
-        return CATEGORY_LOGGER_PREFIX + categoryDisplayName;
+                    format("'%s' is already a category logger name", categoryName));
+        return CATEGORY_LOGGER_PREFIX + categoryName;
     }
 
     private static boolean isCategoryLogger(Logger logger) {
@@ -182,19 +182,19 @@ public class Logging {
         return candidateLoggerName.startsWith(CATEGORY_LOGGER_PREFIX);
     }
 
-    private static String categoryDisplayNameFor(String categoryLoggerName) {
+    private static String categoryNameFor(String categoryLoggerName) {
         return categoryLoggerName.substring(CATEGORY_LOGGER_PREFIX.length());
     }
 
-    public static class CategoryDisplayNameConverter extends ClassicConverter {
+    public static class CategoryNameConverter extends ClassicConverter {
         @Override
         public String convert(ILoggingEvent event) {
-            var loggerName = event.getLoggerName();
+            var fqLoggerName = event.getLoggerName();
 
-            if (isCategoryLoggerName(loggerName))
-                return categoryDisplayNameFor(loggerName);
+            if (isCategoryLoggerName(fqLoggerName))
+                return categoryNameFor(fqLoggerName);
 
-            return loggerName;
+            return fqLoggerName;
         }
     }
 }

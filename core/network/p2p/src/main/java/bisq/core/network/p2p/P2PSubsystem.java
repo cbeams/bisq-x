@@ -18,11 +18,11 @@
 package bisq.core.network.p2p;
 
 import bisq.core.Subsystem;
-import bisq.core.logging.Logging;
+import bisq.core.logging.LoggingService;
 
 import ch.qos.logback.classic.Logger;
 
 public interface P2PSubsystem extends Subsystem {
 
-    Logger log = Logging.createCategoryLogger("p2p");
+    Logger log = LoggingService.createCategoryLogger("p2p");
 }
