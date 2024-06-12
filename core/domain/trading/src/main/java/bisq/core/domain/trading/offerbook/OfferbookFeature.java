@@ -15,19 +15,14 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.domain.trade;
+package bisq.core.domain.trading.offerbook;
 
-import io.micronaut.serde.annotation.Serdeable;
+import bisq.core.Feature;
+import bisq.core.logging.LoggingService;
 
-import java.util.UUID;
-import jakarta.validation.constraints.NotBlank;
+import ch.qos.logback.classic.Logger;
 
-@Serdeable
-public record Offer(String id, @NotBlank String details) {
+public interface OfferbookFeature extends Feature {
 
-    public static Offer withDetails(String details) {
-        var uuid = UUID.randomUUID().toString();
-        var id = uuid.substring(0, uuid.indexOf('-'));
-        return new Offer(id, details);
-    }
+    Logger log = LoggingService.createCategoryLogger("offer");
 }

@@ -15,17 +15,19 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.domain.trade;
+package bisq.core.domain.trading.offerbook;
 
-import java.util.List;
-import java.util.Optional;
+import io.micronaut.serde.annotation.Serdeable;
 
-public interface Offerbook {
-    List<Offer> findAll();
+import java.util.UUID;
+import jakarta.validation.constraints.NotBlank;
 
-    Optional<Offer> findById(String id);
+@Serdeable
+public record Offer(String id, @NotBlank String details) {
 
-    void save(Offer offer);
-
-    void addChangeCallback(Runnable callback);
+    public static Offer withDetails(String details) {
+        var uuid = UUID.randomUUID().toString();
+        var id = uuid.substring(0, uuid.indexOf('-'));
+        return new Offer(id, details);
+    }
 }

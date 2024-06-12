@@ -100,7 +100,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter);
         gsonBuilder.registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(byte[].class, byteArrayAdapter);
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.AddRequest.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.AddOfferRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.CreateRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.Identity.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.oas.model.Info.CustomTypeAdapterFactory());

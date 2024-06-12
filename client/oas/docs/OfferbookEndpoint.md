@@ -1,18 +1,18 @@
-# OfferEndpoint
+# OfferbookEndpoint
 
 All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**add**](OfferEndpoint.md#add) | **POST** /trade/offers |  |
-| [**delete**](OfferEndpoint.md#delete) | **DELETE** /trade/offers/{id} |  |
-| [**listAll**](OfferEndpoint.md#listAll) | **GET** /trade/offers |  |
-| [**show**](OfferEndpoint.md#show) | **GET** /trade/offers/{id} |  |
+| [**addOffer**](OfferbookEndpoint.md#addOffer) | **POST** /trading/offerbook |  |
+| [**getOffer**](OfferbookEndpoint.md#getOffer) | **GET** /trading/offerbook/{offerId} |  |
+| [**getOffers**](OfferbookEndpoint.md#getOffers) | **GET** /trading/offerbook |  |
+| [**removeOffer**](OfferbookEndpoint.md#removeOffer) | **DELETE** /trading/offerbook/{offerId} |  |
 
 
-<a id="add"></a>
-# **add**
-> Object add(addRequest)
+<a id="addOffer"></a>
+# **addOffer**
+> Object addOffer(addOfferRequest)
 
 
 
@@ -23,20 +23,20 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.models.*;
-import bisq.client.oas.endpoint.OfferEndpoint;
+import bisq.client.oas.endpoint.OfferbookEndpoint;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    OfferEndpoint apiInstance = new OfferEndpoint(defaultClient);
-    AddRequest addRequest = new AddRequest(); // AddRequest | 
+    OfferbookEndpoint apiInstance = new OfferbookEndpoint(defaultClient);
+    AddOfferRequest addOfferRequest = new AddOfferRequest(); // AddOfferRequest | 
     try {
-      Object result = apiInstance.add(addRequest);
+      Object result = apiInstance.addOffer(addOfferRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling OfferEndpoint#add");
+      System.err.println("Exception when calling OfferbookEndpoint#addOffer");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -50,7 +50,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **addRequest** | [**AddRequest**](AddRequest.md)|  | |
+| **addOfferRequest** | [**AddOfferRequest**](AddOfferRequest.md)|  | |
 
 ### Return type
 
@@ -68,11 +68,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | add 200 response |  -  |
+| **200** | addOffer 200 response |  -  |
 
-<a id="delete"></a>
-# **delete**
-> Offer delete(id)
+<a id="getOffer"></a>
+# **getOffer**
+> Offer getOffer(offerId)
 
 
 
@@ -83,20 +83,20 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.models.*;
-import bisq.client.oas.endpoint.OfferEndpoint;
+import bisq.client.oas.endpoint.OfferbookEndpoint;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    OfferEndpoint apiInstance = new OfferEndpoint(defaultClient);
-    String id = "id_example"; // String | 
+    OfferbookEndpoint apiInstance = new OfferbookEndpoint(defaultClient);
+    String offerId = "offerId_example"; // String | 
     try {
-      Offer result = apiInstance.delete(id);
+      Offer result = apiInstance.getOffer(offerId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling OfferEndpoint#delete");
+      System.err.println("Exception when calling OfferbookEndpoint#getOffer");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -110,7 +110,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **id** | **String**|  | |
+| **offerId** | **String**|  | |
 
 ### Return type
 
@@ -128,11 +128,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | delete 200 response |  -  |
+| **200** | getOffer 200 response |  -  |
 
-<a id="listAll"></a>
-# **listAll**
-> List&lt;Offer&gt; listAll()
+<a id="getOffers"></a>
+# **getOffers**
+> List&lt;Offer&gt; getOffers()
 
 
 
@@ -143,19 +143,19 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.models.*;
-import bisq.client.oas.endpoint.OfferEndpoint;
+import bisq.client.oas.endpoint.OfferbookEndpoint;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    OfferEndpoint apiInstance = new OfferEndpoint(defaultClient);
+    OfferbookEndpoint apiInstance = new OfferbookEndpoint(defaultClient);
     try {
-      List<Offer> result = apiInstance.listAll();
+      List<Offer> result = apiInstance.getOffers();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling OfferEndpoint#listAll");
+      System.err.println("Exception when calling OfferbookEndpoint#getOffers");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -184,11 +184,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | listAll 200 response |  -  |
+| **200** | getOffers 200 response |  -  |
 
-<a id="show"></a>
-# **show**
-> Offer show(id)
+<a id="removeOffer"></a>
+# **removeOffer**
+> Offer removeOffer(offerId)
 
 
 
@@ -199,20 +199,20 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.models.*;
-import bisq.client.oas.endpoint.OfferEndpoint;
+import bisq.client.oas.endpoint.OfferbookEndpoint;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    OfferEndpoint apiInstance = new OfferEndpoint(defaultClient);
-    String id = "id_example"; // String | 
+    OfferbookEndpoint apiInstance = new OfferbookEndpoint(defaultClient);
+    String offerId = "offerId_example"; // String | 
     try {
-      Offer result = apiInstance.show(id);
+      Offer result = apiInstance.removeOffer(offerId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling OfferEndpoint#show");
+      System.err.println("Exception when calling OfferbookEndpoint#removeOffer");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -226,7 +226,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **id** | **String**|  | |
+| **offerId** | **String**|  | |
 
 ### Return type
 
@@ -244,5 +244,5 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | show 200 response |  -  |
+| **200** | removeOffer 200 response |  -  |
 

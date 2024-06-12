@@ -15,14 +15,17 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.domain.trade;
+package bisq.core.domain.trading.offerbook;
 
-import bisq.core.Feature;
-import bisq.core.logging.LoggingService;
+import java.util.List;
+import java.util.Optional;
 
-import ch.qos.logback.classic.Logger;
+public interface Offerbook {
+    List<Offer> findAll();
 
-public interface OfferbookFeature extends Feature {
+    Optional<Offer> findById(String id);
 
-    Logger log = LoggingService.createCategoryLogger("offer");
+    void save(Offer offer);
+
+    void addChangeCallback(Runnable callback);
 }

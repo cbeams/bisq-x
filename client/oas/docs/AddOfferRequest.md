@@ -1,6 +1,6 @@
 
 
-# AddRequest
+# AddOfferRequest
 
 
 ## Properties

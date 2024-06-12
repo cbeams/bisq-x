@@ -15,7 +15,7 @@
  * along with Bisq. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bisq.core.domain.trade;
+package bisq.core.domain.trading.offerbook;
 
 import bisq.core.network.p2p.P2PMessage;
 import bisq.core.network.p2p.P2PMessage.Operation;
@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import jakarta.inject.Singleton;
-
-import static bisq.core.domain.trade.OfferbookFeature.log;
 
 @Singleton
 public class P2POfferbook implements P2PMessageListener, Offerbook {
@@ -72,7 +70,7 @@ public class P2POfferbook implements P2PMessageListener, Offerbook {
 
     @Override
     public void save(Offer offer) {
-        log.debug("Adding {}", offer);
+        OfferbookFeature.log.debug("Adding {}", offer);
         if (offers.stream().noneMatch(existing -> existing.id().equals(offer.id()))) {
             offers.add(offer);
             messageStore.add(new P2PMessage(MESSAGE_TYPE, offer.id(), offer.details()), this);

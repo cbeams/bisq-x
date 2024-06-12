@@ -19,7 +19,7 @@ package bisq.core.oas;
 
 import bisq.core.api.InfoController;
 import bisq.core.domain.identity.api.IdentityController;
-import bisq.core.domain.trade.api.OfferController;
+import bisq.core.domain.trading.offerbook.api.OfferbookController;
 import bisq.core.logging.api.LoggingController;
 
 import io.micronaut.openapi.annotation.OpenAPIInclude;
@@ -39,7 +39,7 @@ import jakarta.inject.Singleton;
 @OpenAPIInclude(tags = @Tag(name = "(Hidden)"), classes = SwaggerUIController.class)
 @OpenAPIInclude(tags = @Tag(name = "Info"), classes = InfoController.class)
 @OpenAPIInclude(tags = @Tag(name = "Logging"), classes = LoggingController.class)
-@OpenAPIInclude(tags = @Tag(name = "Offer"), classes = OfferController.class)
+@OpenAPIInclude(tags = @Tag(name = "Offerbook"), classes = OfferbookController.class)
 @OpenAPIInclude(tags = @Tag(name = "User"), classes = IdentityController.class)
 @Singleton
 public class OpenApiSpecification {
@@ -50,7 +50,7 @@ public class OpenApiSpecification {
                 InfoController.class,
                 SwaggerUIController.class,
                 LoggingController.class,
-                OfferController.class,
+                OfferbookController.class,
                 IdentityController.class,
         };
     }

@@ -117,16 +117,16 @@ Class | Method | HTTP request | Description
 *LoggingEndpoint* | [**getLoggingCategories**](docs/LoggingEndpoint.md#getLoggingCategories) | **GET** /logging/categories | 
 *LoggingEndpoint* | [**getLoggingCategory**](docs/LoggingEndpoint.md#getLoggingCategory) | **GET** /logging/categories/{name} | 
 *LoggingEndpoint* | [**updateLoggingCategory**](docs/LoggingEndpoint.md#updateLoggingCategory) | **PUT** /logging/categories | 
-*OfferEndpoint* | [**add**](docs/OfferEndpoint.md#add) | **POST** /trade/offers | 
-*OfferEndpoint* | [**delete**](docs/OfferEndpoint.md#delete) | **DELETE** /trade/offers/{id} | 
-*OfferEndpoint* | [**listAll**](docs/OfferEndpoint.md#listAll) | **GET** /trade/offers | 
-*OfferEndpoint* | [**show**](docs/OfferEndpoint.md#show) | **GET** /trade/offers/{id} | 
+*OfferbookEndpoint* | [**addOffer**](docs/OfferbookEndpoint.md#addOffer) | **POST** /trading/offerbook | 
+*OfferbookEndpoint* | [**getOffer**](docs/OfferbookEndpoint.md#getOffer) | **GET** /trading/offerbook/{offerId} | 
+*OfferbookEndpoint* | [**getOffers**](docs/OfferbookEndpoint.md#getOffers) | **GET** /trading/offerbook | 
+*OfferbookEndpoint* | [**removeOffer**](docs/OfferbookEndpoint.md#removeOffer) | **DELETE** /trading/offerbook/{offerId} | 
 *UserEndpoint* | [**create**](docs/UserEndpoint.md#create) | **POST** /identities | 
 
 
 ## Documentation for Models
 
- - [AddRequest](docs/AddRequest.md)
+ - [AddOfferRequest](docs/AddOfferRequest.md)
  - [CreateRequest](docs/CreateRequest.md)
  - [Identity](docs/Identity.md)
  - [Info](docs/Info.md)

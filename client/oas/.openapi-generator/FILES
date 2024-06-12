@@ -1,7 +1,7 @@
 .travis.yml
 README.md
 api/openapi.yaml
-docs/AddRequest.md
+docs/AddOfferRequest.md
 docs/CreateRequest.md
 docs/Identity.md
 docs/Info.md
@@ -9,7 +9,7 @@ docs/InfoEndpoint.md
 docs/LoggingCategory.md
 docs/LoggingEndpoint.md
 docs/Offer.md
-docs/OfferEndpoint.md
+docs/OfferbookEndpoint.md
 docs/UpdateLoggingCategoryRequest.md
 docs/UserEndpoint.md
 src/main/AndroidManifest.xml
@@ -32,10 +32,10 @@ src/main/java/bisq/client/oas/auth/HttpBasicAuth.java
 src/main/java/bisq/client/oas/auth/HttpBearerAuth.java
 src/main/java/bisq/client/oas/endpoint/InfoEndpoint.java
 src/main/java/bisq/client/oas/endpoint/LoggingEndpoint.java
-src/main/java/bisq/client/oas/endpoint/OfferEndpoint.java
+src/main/java/bisq/client/oas/endpoint/OfferbookEndpoint.java
 src/main/java/bisq/client/oas/endpoint/UserEndpoint.java
 src/main/java/bisq/client/oas/model/AbstractOpenApiSchema.java
-src/main/java/bisq/client/oas/model/AddRequest.java
+src/main/java/bisq/client/oas/model/AddOfferRequest.java
 src/main/java/bisq/client/oas/model/CreateRequest.java
 src/main/java/bisq/client/oas/model/Identity.java
 src/main/java/bisq/client/oas/model/Info.java

@@ -48,18 +48,18 @@ import java.util.Set;
 import bisq.client.oas.JSON;
 
 /**
- * AddRequest
+ * AddOfferRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.5.0")
-public class AddRequest {
+public class AddOfferRequest {
   public static final String SERIALIZED_NAME_OFFER = "offer";
   @SerializedName(SERIALIZED_NAME_OFFER)
   private Offer offer;
 
-  public AddRequest() {
+  public AddOfferRequest() {
   }
 
-  public AddRequest offer(Offer offer) {
+  public AddOfferRequest offer(Offer offer) {
     this.offer = offer;
     return this;
   }
@@ -87,8 +87,8 @@ public class AddRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AddRequest addRequest = (AddRequest) o;
-    return Objects.equals(this.offer, addRequest.offer);
+    AddOfferRequest addOfferRequest = (AddOfferRequest) o;
+    return Objects.equals(this.offer, addOfferRequest.offer);
   }
 
   @Override
@@ -99,7 +99,7 @@ public class AddRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AddRequest {\n");
+    sb.append("class AddOfferRequest {\n");
     sb.append("    offer: ").append(toIndentedString(offer)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -133,20 +133,20 @@ public class AddRequest {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to AddRequest
+  * @throws IOException if the JSON Element is invalid with respect to AddOfferRequest
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!AddRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in AddRequest is not found in the empty JSON string", AddRequest.openapiRequiredFields.toString()));
+        if (!AddOfferRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in AddOfferRequest is not found in the empty JSON string", AddOfferRequest.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!AddRequest.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `AddRequest` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!AddOfferRequest.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `AddOfferRequest` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -160,22 +160,22 @@ public class AddRequest {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!AddRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'AddRequest' and its subtypes
+       if (!AddOfferRequest.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'AddOfferRequest' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<AddRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(AddRequest.class));
+       final TypeAdapter<AddOfferRequest> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(AddOfferRequest.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<AddRequest>() {
+       return (TypeAdapter<T>) new TypeAdapter<AddOfferRequest>() {
            @Override
-           public void write(JsonWriter out, AddRequest value) throws IOException {
+           public void write(JsonWriter out, AddOfferRequest value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public AddRequest read(JsonReader in) throws IOException {
+           public AddOfferRequest read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -186,18 +186,18 @@ public class AddRequest {
   }
 
  /**
-  * Create an instance of AddRequest given an JSON string
+  * Create an instance of AddOfferRequest given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of AddRequest
-  * @throws IOException if the JSON string is invalid with respect to AddRequest
+  * @return An instance of AddOfferRequest
+  * @throws IOException if the JSON string is invalid with respect to AddOfferRequest
   */
-  public static AddRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, AddRequest.class);
+  public static AddOfferRequest fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, AddOfferRequest.class);
   }
 
  /**
-  * Convert an instance of AddRequest to an JSON string
+  * Convert an instance of AddOfferRequest to an JSON string
   *
   * @return JSON string
   */

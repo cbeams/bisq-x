@@ -21,8 +21,8 @@ import bisq.client.oas.ApiClient;
 import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.endpoint.InfoEndpoint;
-import bisq.client.oas.endpoint.OfferEndpoint;
-import bisq.client.oas.model.AddRequest;
+import bisq.client.oas.endpoint.OfferbookEndpoint;
+import bisq.client.oas.model.AddOfferRequest;
 import bisq.client.oas.model.Offer;
 
 import java.time.Duration;
@@ -36,7 +36,7 @@ public class BisqDcaDemo {
         bisqClient.setBasePath("http://localhost:2141");
 
         var info = new InfoEndpoint(bisqClient).getInfo();
-        var offers = new OfferEndpoint(bisqClient);
+        var offerbook = new OfferbookEndpoint(bisqClient);
         var interval = Duration.ofSeconds(2);
 
         System.out.println("Connected to node version " + info.getVersion());
@@ -45,7 +45,7 @@ public class BisqDcaDemo {
             try {
                 Offer offer = new Offer().details("BLAH");
                 System.out.println("Placing buy offer: " + offer);
-                offers.add(new AddRequest().offer(offer));
+                offerbook.addOffer(new AddOfferRequest().offer(offer));
                 Thread.sleep(interval);
             } catch (InterruptedException ex) {
                 System.err.println("Error: " + ex.getMessage());

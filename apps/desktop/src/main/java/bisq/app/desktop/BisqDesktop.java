@@ -17,7 +17,7 @@
 
 package bisq.app.desktop;
 
-import bisq.core.domain.trade.Offer;
+import bisq.core.domain.trading.offerbook.Offer;
 import bisq.core.logging.LoggingService;
 import bisq.core.node.BisqNode;
 import bisq.core.node.Options;

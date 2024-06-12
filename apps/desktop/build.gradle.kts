@@ -16,7 +16,7 @@ javafx {
 
 dependencies {
     implementation(project(":core:node"))
-    implementation(project(":core:domain:trade"))
+    implementation(project(":core:domain:trading"))
     implementation(project(":core:network:p2p"))
     implementation(project(":core:logging"))
     implementation("ch.qos.logback:logback-classic:1.5.3")

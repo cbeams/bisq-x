@@ -7,7 +7,7 @@ include(
     "core:oas",
     "core:node",
     "core:domain",
-    "core:domain:trade",
+    "core:domain:trading",
     "core:network",
     "core:network:http",
     "core:network:p2p",

@@ -22,7 +22,7 @@ import bisq.client.oas.ApiException;
 import bisq.client.oas.Configuration;
 import bisq.client.oas.endpoint.InfoEndpoint;
 import bisq.client.oas.endpoint.LoggingEndpoint;
-import bisq.client.oas.endpoint.OfferEndpoint;
+import bisq.client.oas.endpoint.OfferbookEndpoint;
 import bisq.client.oas.model.LoggingCategory;
 import bisq.client.oas.model.UpdateLoggingCategoryRequest;
 
@@ -174,7 +174,7 @@ public class BisqCLI {
 
     private void listoffers(List<String> args) {
         try {
-            System.out.println(new OfferEndpoint(bisqClient).listAll());
+            System.out.println(new OfferbookEndpoint(bisqClient).getOffers());
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
             System.err.println("Status code: " + e.getCode());

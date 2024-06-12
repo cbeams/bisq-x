@@ -94,9 +94,9 @@ paths:
       - Logging
       x-accepts:
       - application/json
-  /trade/offers:
+  /trading/offerbook:
     get:
-      operationId: listAll
+      operationId: getOffers
       responses:
         "200":
           content:
@@ -105,18 +105,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/Offer'
                 type: array
-          description: listAll 200 response
+          description: getOffers 200 response
       tags:
-      - Offer
+      - Offerbook
       x-accepts:
       - application/json
     post:
-      operationId: add
+      operationId: addOffer
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/add_request'
+              $ref: '#/components/schemas/addOffer_request'
         required: true
       responses:
         "200":
@@ -124,19 +124,19 @@ paths:
             application/json:
               schema:
                 type: object
-          description: add 200 response
+          description: addOffer 200 response
       tags:
-      - Offer
+      - Offerbook
       x-content-type: application/json
       x-accepts:
       - application/json
-  /trade/offers/{id}:
+  /trading/offerbook/{offerId}:
     delete:
-      operationId: delete
+      operationId: removeOffer
       parameters:
       - explode: false
         in: path
-        name: id
+        name: offerId
         required: true
         schema:
           type: string
@@ -147,17 +147,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Offer'
-          description: delete 200 response
+          description: removeOffer 200 response
       tags:
-      - Offer
+      - Offerbook
       x-accepts:
       - application/json
     get:
-      operationId: show
+      operationId: getOffer
       parameters:
       - explode: false
         in: path
-        name: id
+        name: offerId
         required: true
         schema:
           type: string
@@ -168,9 +168,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Offer'
-          description: show 200 response
+          description: getOffer 200 response
       tags:
-      - Offer
+      - Offerbook
       x-accepts:
       - application/json
 components:
@@ -232,7 +232,7 @@ components:
         loggingCategory:
           $ref: '#/components/schemas/LoggingCategory'
       type: object
-    add_request:
+    addOffer_request:
       properties:
         offer:
           $ref: '#/components/schemas/Offer'
