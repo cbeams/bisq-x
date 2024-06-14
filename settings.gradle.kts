@@ -3,7 +3,7 @@ include(
     "apps:cli",
     "apps:desktop",
     "apps:daemon",
-    "client:java",
+    "clients:java",
     "core:oas",
     "core:node",
     "core:domain",

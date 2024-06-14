@@ -13,7 +13,7 @@ application {
 }
 
 dependencies {
-    implementation(project(":client:java"))
+    implementation(project(":clients:java"))
     implementation("net.sf.jopt-simple:jopt-simple:5.0.4")
 }
 
