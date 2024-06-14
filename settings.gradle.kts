@@ -4,6 +4,7 @@ include(
     "apps:desktop",
     "apps:daemon",
     "clients:java",
+    "clients:kotlin",
     "core:oas",
     "core:node",
     "core:domain",
