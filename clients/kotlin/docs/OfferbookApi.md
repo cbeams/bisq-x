@@ -19,8 +19,8 @@ Method | HTTP request | Description
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import bisq.client.kotlin.infrastructure.*
+//import bisq.client.kotlin.models.*
 
 val apiInstance = OfferbookApi()
 val addOfferRequest : AddOfferRequest =  // AddOfferRequest | 
@@ -64,8 +64,8 @@ No authorization required
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import bisq.client.kotlin.infrastructure.*
+//import bisq.client.kotlin.models.*
 
 val apiInstance = OfferbookApi()
 val offerId : kotlin.String = offerId_example // kotlin.String | 
@@ -109,8 +109,8 @@ No authorization required
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import bisq.client.kotlin.infrastructure.*
+//import bisq.client.kotlin.models.*
 
 val apiInstance = OfferbookApi()
 try {
@@ -150,8 +150,8 @@ No authorization required
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import bisq.client.kotlin.infrastructure.*
+//import bisq.client.kotlin.models.*
 
 val apiInstance = OfferbookApi()
 val offerId : kotlin.String = offerId_example // kotlin.String | 

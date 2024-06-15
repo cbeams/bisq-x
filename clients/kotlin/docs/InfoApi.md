@@ -16,8 +16,8 @@ Method | HTTP request | Description
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import bisq.client.kotlin.infrastructure.*
+//import bisq.client.kotlin.models.*
 
 val apiInstance = InfoApi()
 try {

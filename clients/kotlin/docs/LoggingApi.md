@@ -18,8 +18,8 @@ Method | HTTP request | Description
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import bisq.client.kotlin.infrastructure.*
+//import bisq.client.kotlin.models.*
 
 val apiInstance = LoggingApi()
 try {
@@ -59,8 +59,8 @@ No authorization required
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import bisq.client.kotlin.infrastructure.*
+//import bisq.client.kotlin.models.*
 
 val apiInstance = LoggingApi()
 val name : kotlin.String = name_example // kotlin.String | 
@@ -104,8 +104,8 @@ No authorization required
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import bisq.client.kotlin.infrastructure.*
+//import bisq.client.kotlin.models.*
 
 val apiInstance = LoggingApi()
 val updateLoggingCategoryRequest : UpdateLoggingCategoryRequest =  // UpdateLoggingCategoryRequest | 
