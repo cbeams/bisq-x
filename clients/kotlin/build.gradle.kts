@@ -15,12 +15,11 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 //
 
 plugins {
-    kotlin("multiplatform") version "1.9.23"
+    kotlin("multiplatform")
     kotlin("plugin.serialization") version "1.9.23"
     id("org.openapi.generator") version "7.6.0"
 }
 
-val kotlin_version = "1.9.23"
 val coroutines_version = "1.7.3"
 val serialization_version = "1.6.1"
 val ktor_version = "2.3.6"
