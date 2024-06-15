@@ -1,13 +1,24 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
+//
+// This build script follows suit with the one found in the :clients:java module.
+// The detailed comments there have not been repeated here to avoid duplication,
+// but most are still relevant to understanding how the openapi client generation
+// process works.
+//
+// A number of sections below have been commented out because they are not needed
+// yet but will likely be needed as the Bisq Mobile KMM application comes together.
+// These commented-out sections were added when initially running openapi-generator
+// to create this module. See the commit log for the exact invocation that was used,
+// and the subsequent tweaks that were made to this build script to get everything
+// working.
+//
+
 plugins {
     kotlin("multiplatform") version "1.9.23"
     kotlin("plugin.serialization") version "1.9.23"
     id("org.openapi.generator") version "7.6.0"
 }
-
-group = "bisq"
-version = "2.1.0"
 
 val kotlin_version = "1.9.23"
 val coroutines_version = "1.7.3"
@@ -126,28 +137,8 @@ openApiGenerate {
 }
 
 tasks.getByName("openApiGenerate") {
-    // openApiGenerate will fail if its `inputSpec` (above) does not exist, and this file
-    // is created by annotation processing that runs during the :core:oas:compileJava
-    // task. The task dependency below ensures that spec generation happens before this
-    // task runs.
-    //
-    // NOTE: openApiGenerate will only run if its `inputSpec` has actually changed since
-    // the last run; otherwise it will consider itself UP-TO-DATE as per Gradle's
-    // incremental build support. [3]
     dependsOn(":core:oas:compileJava")
 
-    // The following `doFirst` logic ensures that any previously generated sources are
-    // removed before the openApiGenerate task runs and re-generates them. Doing this is
-    // critical to ensure that model and controller classes that get renamed or removed in
-    // bisq.core.*.api packages have their corresponding endpoint and model classes deleted
-    // appropriately here in the generated bisq.client.java.* packages. Failing to do
-    // this deletion can easily lead to dead and outdated copies of generated endpoint and
-    // model classes sticking around in the codebase. Remember that the sources being
-    // generating here are not ephemeral: they get generated into the src/ directory as
-    // opposed to the build/ directory and get checked into source control. This means
-    // they will not just "go away" with the next invocation of `gradle clean`. We must
-    // instead explicitly remove them and
-    // that's what happens below.
     doFirst {
         delete(
             "api",          // generated openapi.yaml spec (copied from `inputSpec`)
