@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    kotlin("multiplatform")
-    kotlin("plugin.serialization")
+    kotlin("multiplatform") version "1.9.23"
+    kotlin("plugin.serialization") version "1.9.23"
 }
 
 group = "bisq"
-version = "1.0.0"
+version = "2.1.0"
 
-val kotlin_version = "1.9.20"
+val kotlin_version = "1.9.23"
 val coroutines_version = "1.7.3"
 val serialization_version = "1.6.1"
 val ktor_version = "2.3.6"
@@ -19,13 +19,13 @@ repositories {
 
 kotlin {
     jvm()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    js {
-        browser()
-        nodejs()
-    }
+  //iosX64()
+  //iosArm64()
+  //iosSimulatorArm64()
+  //js {
+  //    browser()
+  //    nodejs()
+  //}
 
     sourceSets {
         commonMain {
@@ -42,60 +42,60 @@ kotlin {
             }
         }
 
-        commonTest {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation("io.ktor:ktor-client-mock:$ktor_version")
-            }
-        }
+      //commonTest {
+      //    dependencies {
+      //        implementation(kotlin("test"))
+      //        implementation("io.ktor:ktor-client-mock:$ktor_version")
+      //    }
+      //}
 
-        jvmMain {
-            dependencies {
-                implementation(kotlin("stdlib-jdk7"))
-                implementation("io.ktor:ktor-client-cio-jvm:$ktor_version")
-            }
-        }
+      jvmMain {
+          dependencies {
+              implementation(kotlin("stdlib-jdk7"))
+              implementation("io.ktor:ktor-client-cio-jvm:$ktor_version")
+          }
+      }
 
-        jvmTest {
-            dependencies {
-                implementation(kotlin("test-junit"))
-            }
-        }
+      //jvmTest {
+      //    dependencies {
+      //        implementation(kotlin("test-junit"))
+      //    }
+      //}
 
-        iosMain {
-            dependencies {
-                api("io.ktor:ktor-client-ios:$ktor_version")
-            }
-        }
+      //iosMain {
+      //    dependencies {
+      //        api("io.ktor:ktor-client-ios:$ktor_version")
+      //    }
+      //}
 
-        jsMain {
-            dependencies {
-                api("io.ktor:ktor-client-js:$ktor_version")
-            }
-        }
+      //jsMain {
+      //    dependencies {
+      //        api("io.ktor:ktor-client-js:$ktor_version")
+      //    }
+      //}
 
-        all {
-            languageSettings.apply {
-                optIn("kotlin.Experimental")
-            }
-        }
+      //all {
+      //    languageSettings.apply {
+      //        optIn("kotlin.Experimental")
+      //    }
+      //}
     }
 }
 
-tasks {
-    register("iosTest") {
-        val device = project.findProperty("device")?.toString() ?: "iPhone 8"
-        dependsOn("linkDebugTestIosX64")
-        group = JavaBasePlugin.VERIFICATION_GROUP
-        description = "Execute unit tests on ${device} simulator"
-        doLast {
-            val binary = kotlin.targets.getByName<KotlinNativeTarget>("iosX64").binaries.getTest("DEBUG")
-            exec {
-                commandLine("xcrun", "simctl", "spawn", device, binary.outputFile)
-            }
-        }
-    }
-    register("test") {
-        dependsOn("allTests")
-    }
-}
+//tasks {
+//    register("iosTest") {
+//        val device = project.findProperty("device")?.toString() ?: "iPhone 8"
+//        dependsOn("linkDebugTestIosX64")
+//        group = JavaBasePlugin.VERIFICATION_GROUP
+//        description = "Execute unit tests on ${device} simulator"
+//        doLast {
+//            val binary = kotlin.targets.getByName<KotlinNativeTarget>("iosX64").binaries.getTest("DEBUG")
+//            exec {
+//                commandLine("xcrun", "simctl", "spawn", device, binary.outputFile)
+//            }
+//        }
+//    }
+//    register("test") {
+//        dependsOn("allTests")
+//    }
+//}
