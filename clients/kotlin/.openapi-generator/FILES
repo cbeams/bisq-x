@@ -2,10 +2,10 @@ README.md
 docs/AddOfferRequest.md
 docs/CreateRequest.md
 docs/Identity.md
-docs/Info.md
-docs/InfoOperations.md
 docs/LoggingCategory.md
 docs/LoggingOperations.md
+docs/NodeInfo.md
+docs/NodeInfoOperations.md
 docs/Offer.md
 docs/OfferbookOperations.md
 docs/UpdateLoggingCategoryRequest.md
@@ -27,11 +27,11 @@ src/commonMain/kotlin/bisq/client/kotlin/infrastructure/RequestMethod.kt
 src/commonMain/kotlin/bisq/client/kotlin/models/AddOfferRequest.kt
 src/commonMain/kotlin/bisq/client/kotlin/models/CreateRequest.kt
 src/commonMain/kotlin/bisq/client/kotlin/models/Identity.kt
-src/commonMain/kotlin/bisq/client/kotlin/models/Info.kt
 src/commonMain/kotlin/bisq/client/kotlin/models/LoggingCategory.kt
+src/commonMain/kotlin/bisq/client/kotlin/models/NodeInfo.kt
 src/commonMain/kotlin/bisq/client/kotlin/models/Offer.kt
 src/commonMain/kotlin/bisq/client/kotlin/models/UpdateLoggingCategoryRequest.kt
-src/commonMain/kotlin/bisq/client/kotlin/operations/InfoOperations.kt
 src/commonMain/kotlin/bisq/client/kotlin/operations/LoggingOperations.kt
+src/commonMain/kotlin/bisq/client/kotlin/operations/NodeInfoOperations.kt
 src/commonMain/kotlin/bisq/client/kotlin/operations/OfferbookOperations.kt
 src/commonMain/kotlin/bisq/client/kotlin/operations/UserOperations.kt

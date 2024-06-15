@@ -84,19 +84,19 @@ import bisq.client.java.ApiClient;
 import bisq.client.java.ApiException;
 import bisq.client.java.Configuration;
 import bisq.client.java.models.*;
-import bisq.client.java.operations.InfoOperations;
+import bisq.client.java.operations.LoggingOperations;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    InfoOperations apiInstance = new InfoOperations(defaultClient);
+    LoggingOperations apiInstance = new LoggingOperations(defaultClient);
     try {
-      Info result = apiInstance.getInfo();
+      List<LoggingCategory> result = apiInstance.getLoggingCategories();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling InfoOperations#getInfo");
+      System.err.println("Exception when calling LoggingOperations#getLoggingCategories");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -113,10 +113,10 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*InfoOperations* | [**getInfo**](docs/InfoOperations.md#getInfo) | **GET** /info | 
 *LoggingOperations* | [**getLoggingCategories**](docs/LoggingOperations.md#getLoggingCategories) | **GET** /logging/categories | 
 *LoggingOperations* | [**getLoggingCategory**](docs/LoggingOperations.md#getLoggingCategory) | **GET** /logging/categories/{name} | 
 *LoggingOperations* | [**updateLoggingCategory**](docs/LoggingOperations.md#updateLoggingCategory) | **PUT** /logging/categories | 
+*NodeInfoOperations* | [**getNodeInfo**](docs/NodeInfoOperations.md#getNodeInfo) | **GET** /info | 
 *OfferbookOperations* | [**addOffer**](docs/OfferbookOperations.md#addOffer) | **POST** /trading/offerbook | 
 *OfferbookOperations* | [**getOffer**](docs/OfferbookOperations.md#getOffer) | **GET** /trading/offerbook/{offerId} | 
 *OfferbookOperations* | [**getOffers**](docs/OfferbookOperations.md#getOffers) | **GET** /trading/offerbook | 
@@ -129,8 +129,8 @@ Class | Method | HTTP request | Description
  - [AddOfferRequest](docs/AddOfferRequest.md)
  - [CreateRequest](docs/CreateRequest.md)
  - [Identity](docs/Identity.md)
- - [Info](docs/Info.md)
  - [LoggingCategory](docs/LoggingCategory.md)
+ - [NodeInfo](docs/NodeInfo.md)
  - [Offer](docs/Offer.md)
  - [UpdateLoggingCategoryRequest](docs/UpdateLoggingCategoryRequest.md)
 

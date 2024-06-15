@@ -1,15 +1,15 @@
-# InfoOperations
+# NodeInfoOperations
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getInfo**](InfoOperations.md#getInfo) | **GET** /info | 
+[**getNodeInfo**](NodeInfoOperations.md#getNodeInfo) | **GET** /info | 
 
 
-<a id="getInfo"></a>
-# **getInfo**
-> Info getInfo()
+<a id="getNodeInfo"></a>
+# **getNodeInfo**
+> NodeInfo getNodeInfo()
 
 
 
@@ -19,15 +19,15 @@ Method | HTTP request | Description
 //import bisq.client.kotlin.infrastructure.*
 //import bisq.client.kotlin.models.*
 
-val apiInstance = InfoOperations()
+val apiInstance = NodeInfoOperations()
 try {
-    val result : Info = apiInstance.getInfo()
+    val result : NodeInfo = apiInstance.getNodeInfo()
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling InfoOperations#getInfo")
+    println("4xx response calling NodeInfoOperations#getNodeInfo")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling InfoOperations#getInfo")
+    println("5xx response calling NodeInfoOperations#getNodeInfo")
     e.printStackTrace()
 }
 ```
@@ -37,7 +37,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Info**](Info.md)
+[**NodeInfo**](NodeInfo.md)
 
 ### Authorization
 

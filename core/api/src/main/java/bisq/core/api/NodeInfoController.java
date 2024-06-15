@@ -17,11 +17,14 @@
 
 package bisq.core.api;
 
-import io.micronaut.serde.annotation.Serdeable;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
 
-import jakarta.validation.constraints.NotBlank;
+@Controller
+public class NodeInfoController implements ApiController {
 
-@Serdeable
-public record Info(@NotBlank String version) {
-
+    @Get("/info")
+    public NodeInfo getNodeInfo() {
+        return new NodeInfo("v2.1.0");
+    }
 }

@@ -1,15 +1,15 @@
-# InfoOperations
+# NodeInfoOperations
 
 All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**getInfo**](InfoOperations.md#getInfo) | **GET** /info |  |
+| [**getNodeInfo**](NodeInfoOperations.md#getNodeInfo) | **GET** /info |  |
 
 
-<a id="getInfo"></a>
-# **getInfo**
-> Info getInfo()
+<a id="getNodeInfo"></a>
+# **getNodeInfo**
+> NodeInfo getNodeInfo()
 
 
 
@@ -20,19 +20,19 @@ import bisq.client.java.ApiClient;
 import bisq.client.java.ApiException;
 import bisq.client.java.Configuration;
 import bisq.client.java.models.*;
-import bisq.client.java.operations.InfoOperations;
+import bisq.client.java.operations.NodeInfoOperations;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost");
 
-    InfoOperations apiInstance = new InfoOperations(defaultClient);
+    NodeInfoOperations apiInstance = new NodeInfoOperations(defaultClient);
     try {
-      Info result = apiInstance.getInfo();
+      NodeInfo result = apiInstance.getNodeInfo();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling InfoOperations#getInfo");
+      System.err.println("Exception when calling NodeInfoOperations#getNodeInfo");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -47,7 +47,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Info**](Info.md)
+[**NodeInfo**](NodeInfo.md)
 
 ### Authorization
 
@@ -61,5 +61,5 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | getInfo 200 response |  -  |
+| **200** | getNodeInfo 200 response |  -  |
 

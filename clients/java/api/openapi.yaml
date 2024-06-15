@@ -28,16 +28,16 @@ paths:
       - application/json
   /info:
     get:
-      operationId: getInfo
+      operationId: getNodeInfo
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Info'
-          description: getInfo 200 response
+                $ref: '#/components/schemas/NodeInfo'
+          description: getNodeInfo 200 response
       tags:
-      - Info
+      - NodeInfo
       x-accepts:
       - application/json
   /logging/categories:
@@ -183,16 +183,6 @@ components:
       required:
       - nym
       type: object
-    Info:
-      example:
-        version: version
-      properties:
-        version:
-          minLength: 1
-          type: string
-      required:
-      - version
-      type: object
     LoggingCategory:
       example:
         level: level
@@ -207,6 +197,16 @@ components:
       required:
       - level
       - name
+      type: object
+    NodeInfo:
+      example:
+        version: version
+      properties:
+        version:
+          minLength: 1
+          type: string
+      required:
+      - version
       type: object
     Offer:
       example:

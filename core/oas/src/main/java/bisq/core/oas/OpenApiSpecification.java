@@ -17,7 +17,7 @@
 
 package bisq.core.oas;
 
-import bisq.core.api.InfoController;
+import bisq.core.api.NodeInfoController;
 import bisq.core.domain.identity.api.IdentityController;
 import bisq.core.domain.trading.offerbook.api.OfferbookController;
 import bisq.core.logging.api.LoggingController;
@@ -37,7 +37,7 @@ import jakarta.inject.Singleton;
         servers = @Server(url = "/")
 )
 @OpenAPIInclude(tags = @Tag(name = "(Hidden)"), classes = SwaggerUIController.class)
-@OpenAPIInclude(tags = @Tag(name = "Info"), classes = InfoController.class)
+@OpenAPIInclude(tags = @Tag(name = "NodeInfo"), classes = NodeInfoController.class)
 @OpenAPIInclude(tags = @Tag(name = "Logging"), classes = LoggingController.class)
 @OpenAPIInclude(tags = @Tag(name = "Offerbook"), classes = OfferbookController.class)
 @OpenAPIInclude(tags = @Tag(name = "User"), classes = IdentityController.class)
@@ -47,7 +47,7 @@ public class OpenApiSpecification {
     @SuppressWarnings("unused")
     private static void forStructure101() {
         var includes = new Class[]{
-                InfoController.class,
+                NodeInfoController.class,
                 SwaggerUIController.class,
                 LoggingController.class,
                 OfferbookController.class,

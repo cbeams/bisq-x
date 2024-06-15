@@ -36,10 +36,10 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*InfoOperations* | [**getInfo**](docs/InfoOperations.md#getinfo) | **GET** /info | 
 *LoggingOperations* | [**getLoggingCategories**](docs/LoggingOperations.md#getloggingcategories) | **GET** /logging/categories | 
 *LoggingOperations* | [**getLoggingCategory**](docs/LoggingOperations.md#getloggingcategory) | **GET** /logging/categories/{name} | 
 *LoggingOperations* | [**updateLoggingCategory**](docs/LoggingOperations.md#updateloggingcategory) | **PUT** /logging/categories | 
+*NodeInfoOperations* | [**getNodeInfo**](docs/NodeInfoOperations.md#getnodeinfo) | **GET** /info | 
 *OfferbookOperations* | [**addOffer**](docs/OfferbookOperations.md#addoffer) | **POST** /trading/offerbook | 
 *OfferbookOperations* | [**getOffer**](docs/OfferbookOperations.md#getoffer) | **GET** /trading/offerbook/{offerId} | 
 *OfferbookOperations* | [**getOffers**](docs/OfferbookOperations.md#getoffers) | **GET** /trading/offerbook | 
@@ -53,8 +53,8 @@ Class | Method | HTTP request | Description
  - [bisq.client.kotlin.models.AddOfferRequest](docs/AddOfferRequest.md)
  - [bisq.client.kotlin.models.CreateRequest](docs/CreateRequest.md)
  - [bisq.client.kotlin.models.Identity](docs/Identity.md)
- - [bisq.client.kotlin.models.Info](docs/Info.md)
  - [bisq.client.kotlin.models.LoggingCategory](docs/LoggingCategory.md)
+ - [bisq.client.kotlin.models.NodeInfo](docs/NodeInfo.md)
  - [bisq.client.kotlin.models.Offer](docs/Offer.md)
  - [bisq.client.kotlin.models.UpdateLoggingCategoryRequest](docs/UpdateLoggingCategoryRequest.md)
 

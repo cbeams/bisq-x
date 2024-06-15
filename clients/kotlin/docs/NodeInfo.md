@@ -1,5 +1,5 @@
 
-# Info
+# NodeInfo
 
 ## Properties
 Name | Type | Description | Notes

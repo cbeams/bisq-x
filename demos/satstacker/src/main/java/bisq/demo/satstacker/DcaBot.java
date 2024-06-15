@@ -22,7 +22,7 @@ import bisq.client.java.ApiException;
 import bisq.client.java.Configuration;
 import bisq.client.java.models.AddOfferRequest;
 import bisq.client.java.models.Offer;
-import bisq.client.java.operations.InfoOperations;
+import bisq.client.java.operations.NodeInfoOperations;
 import bisq.client.java.operations.OfferbookOperations;
 
 import java.time.Duration;
@@ -35,7 +35,7 @@ public class DcaBot {
         ApiClient bisqClient = Configuration.getDefaultApiClient();
         bisqClient.setBasePath("http://localhost:2141");
 
-        var info = new InfoOperations(bisqClient).getInfo();
+        var info = new NodeInfoOperations(bisqClient).getNodeInfo();
         var offerbook = new OfferbookOperations(bisqClient);
         var interval = Duration.ofSeconds(2);
 

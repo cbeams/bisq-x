@@ -27,7 +27,7 @@ import kotlinx.serialization.encoding.*
  */
 @Serializable
 
-data class Info (
+data class NodeInfo (
 
     @SerialName(value = "version") @Required val version: kotlin.String
 

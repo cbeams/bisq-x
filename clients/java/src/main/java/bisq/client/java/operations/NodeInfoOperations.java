@@ -27,7 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import bisq.client.java.models.Info;
+import bisq.client.java.models.NodeInfo;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -35,16 +35,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InfoOperations {
+public class NodeInfoOperations {
     private ApiClient localVarApiClient;
     private int localHostIndex;
     private String localCustomBaseUrl;
 
-    public InfoOperations() {
+    public NodeInfoOperations() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public InfoOperations(ApiClient apiClient) {
+    public NodeInfoOperations(ApiClient apiClient) {
         this.localVarApiClient = apiClient;
     }
 
@@ -73,17 +73,17 @@ public class InfoOperations {
     }
 
     /**
-     * Build call for getInfo
+     * Build call for getNodeInfo
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> getInfo 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getNodeInfo 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getInfoCall(final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getNodeInfoCall(final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -128,41 +128,41 @@ public class InfoOperations {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getInfoValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return getInfoCall(_callback);
+    private okhttp3.Call getNodeInfoValidateBeforeCall(final ApiCallback _callback) throws ApiException {
+        return getNodeInfoCall(_callback);
 
     }
 
     /**
      * 
      * 
-     * @return Info
+     * @return NodeInfo
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> getInfo 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getNodeInfo 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public Info getInfo() throws ApiException {
-        ApiResponse<Info> localVarResp = getInfoWithHttpInfo();
+    public NodeInfo getNodeInfo() throws ApiException {
+        ApiResponse<NodeInfo> localVarResp = getNodeInfoWithHttpInfo();
         return localVarResp.getData();
     }
 
     /**
      * 
      * 
-     * @return ApiResponse&lt;Info&gt;
+     * @return ApiResponse&lt;NodeInfo&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> getInfo 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getNodeInfo 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Info> getInfoWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = getInfoValidateBeforeCall(null);
-        Type localVarReturnType = new TypeToken<Info>(){}.getType();
+    public ApiResponse<NodeInfo> getNodeInfoWithHttpInfo() throws ApiException {
+        okhttp3.Call localVarCall = getNodeInfoValidateBeforeCall(null);
+        Type localVarReturnType = new TypeToken<NodeInfo>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -175,13 +175,13 @@ public class InfoOperations {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> getInfo 200 response </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> getNodeInfo 200 response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getInfoAsync(final ApiCallback<Info> _callback) throws ApiException {
+    public okhttp3.Call getNodeInfoAsync(final ApiCallback<NodeInfo> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getInfoValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<Info>(){}.getType();
+        okhttp3.Call localVarCall = getNodeInfoValidateBeforeCall(_callback);
+        Type localVarReturnType = new TypeToken<NodeInfo>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

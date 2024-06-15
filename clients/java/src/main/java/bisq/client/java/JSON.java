@@ -103,8 +103,8 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.java.models.AddOfferRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.java.models.CreateRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.java.models.Identity.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new bisq.client.java.models.Info.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.java.models.LoggingCategory.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new bisq.client.java.models.NodeInfo.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.java.models.Offer.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new bisq.client.java.models.UpdateLoggingCategoryRequest.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();

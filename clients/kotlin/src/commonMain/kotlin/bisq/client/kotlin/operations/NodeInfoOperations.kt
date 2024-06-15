@@ -15,7 +15,7 @@
 
 package bisq.client.kotlin.operations
 
-import bisq.client.kotlin.models.Info
+import bisq.client.kotlin.models.NodeInfo
 
 import bisq.client.kotlin.infrastructure.*
 import io.ktor.client.HttpClient
@@ -28,7 +28,7 @@ import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
-open class InfoOperations : ApiClient {
+open class NodeInfoOperations : ApiClient {
 
     constructor(
         baseUrl: String = ApiClient.BASE_URL,
@@ -45,10 +45,10 @@ open class InfoOperations : ApiClient {
     /**
      * 
      * 
-     * @return Info
+     * @return NodeInfo
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getInfo(): HttpResponse<Info> {
+    open suspend fun getNodeInfo(): HttpResponse<NodeInfo> {
 
         val localVariableAuthNames = listOf<String>()
 

@@ -17,11 +17,11 @@
 
 package bisq.app.mobile.android
 
-import bisq.client.kotlin.models.Info
-import bisq.client.kotlin.operations.InfoOperations
+import bisq.client.kotlin.models.NodeInfo
+import bisq.client.kotlin.operations.NodeInfoOperations
 
 suspend fun main() {
-    val infoOperations = InfoOperations("http://localhost:2141")
-    val result: Info = infoOperations.getInfo().body();
+    val infoOperations = NodeInfoOperations("http://localhost:2141")
+    val result: NodeInfo = infoOperations.getNodeInfo().body();
     println(result)
 }
