@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a id="create"></a>
 # **create**
-> kotlin.String create(createRequest)
+> kotlin.Any create(createRequest)
 
 
 
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 val apiInstance = UserOperations()
 val createRequest : CreateRequest =  // CreateRequest | 
 try {
-    val result : kotlin.String = apiInstance.create(createRequest)
+    val result : kotlin.Any = apiInstance.create(createRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling UserOperations#create")
@@ -41,7 +41,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**kotlin.String**
+[**kotlin.Any**](kotlin.Any.md)
 
 ### Authorization
 
