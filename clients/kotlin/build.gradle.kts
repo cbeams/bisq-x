@@ -13,6 +13,8 @@ val coroutines_version = "1.7.3"
 val serialization_version = "1.6.1"
 val ktor_version = "2.3.6"
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
 repositories {
     mavenCentral()
 }
