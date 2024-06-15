@@ -17,7 +17,6 @@
 
 package bisq.demo.satstacker;
 
-import bisq.client.java.infrastructure.ApiClient;
 import bisq.client.java.infrastructure.ApiException;
 import bisq.client.java.infrastructure.Configuration;
 import bisq.client.java.models.AddOfferRequest;
@@ -32,14 +31,13 @@ public class DcaBot {
     public static void main(String... args) throws ApiException {
         System.out.println("Bisq DCA bot demo");
 
-        ApiClient bisqClient = Configuration.getDefaultApiClient();
-        bisqClient.setBasePath("http://localhost:2141");
+        var bisqClient = Configuration.getDefaultApiClient().setBasePath("http://localhost:2141");
 
-        var info = new NodeInfoOperations(bisqClient).getNodeInfo();
+        var nodeInfo = new NodeInfoOperations(bisqClient).getNodeInfo();
         var offerbook = new OfferbookOperations(bisqClient);
         var interval = Duration.ofSeconds(2);
 
-        System.out.println("Connected to node version " + info.getVersion());
+        System.out.println("Connected to node version " + nodeInfo.getVersion());
         System.out.printf("Placing buy offers every %s until killed\n", interval);
         while (true) {
             try {

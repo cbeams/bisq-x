@@ -17,7 +17,6 @@
 
 package bisq.demo.marketmaker;
 
-import bisq.client.java.infrastructure.ApiClient;
 import bisq.client.java.infrastructure.ApiException;
 import bisq.client.java.infrastructure.Configuration;
 import bisq.client.java.operations.NodeInfoOperations;
@@ -27,11 +26,9 @@ public class MarketMakerBot {
     public static void main(String... args) throws ApiException {
         System.out.println("Placeholder Bisq market maker bot demo");
 
-        ApiClient bisqClient = Configuration.getDefaultApiClient();
-        bisqClient.setBasePath("http://localhost:2141");
+        var bisqClient = Configuration.getDefaultApiClient().setBasePath("http://localhost:2141");
+        var nodeInfo = new NodeInfoOperations(bisqClient).getNodeInfo();
 
-        var info = new NodeInfoOperations(bisqClient).getNodeInfo();
-
-        System.out.println("Connected to node version " + info.getVersion());
+        System.out.println("Connected to node version " + nodeInfo.getVersion());
     }
 }

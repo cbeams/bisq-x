@@ -119,8 +119,8 @@ public class BisqCLI {
     private void info(List<String> args) {
         try {
             var infoOperations = new NodeInfoOperations(bisqClient);
-            var info = infoOperations.getNodeInfo();
-            System.out.println(info.toJson());
+            var nodeInfo = infoOperations.getNodeInfo();
+            System.out.println(nodeInfo.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
             System.err.println("Status code: " + e.getCode());

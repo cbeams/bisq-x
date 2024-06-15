@@ -21,7 +21,10 @@ import bisq.client.kotlin.models.NodeInfo
 import bisq.client.kotlin.operations.NodeInfoOperations
 
 suspend fun main() {
+    println("Placeholder Bisq Mobile Android app")
+
     val infoOperations = NodeInfoOperations("http://localhost:2141")
-    val result: NodeInfo = infoOperations.getNodeInfo().body();
-    println(result)
+    val nodeInfo: NodeInfo = infoOperations.getNodeInfo().body()
+
+    println("Connected to node version " + nodeInfo.version)
 }
