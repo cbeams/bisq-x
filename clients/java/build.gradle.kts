@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.openapi.generator") version "7.5.0"
+    id("org.openapi.generator") version "7.6.0"
 }
 
 // It's an open question which version of Java we should target for this client library;
