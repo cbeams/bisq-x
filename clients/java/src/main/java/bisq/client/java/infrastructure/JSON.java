@@ -11,7 +11,7 @@
  */
 
 
-package bisq.client.java;
+package bisq.client.java.infrastructure;
 
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.google.gson.Gson;

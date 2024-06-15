@@ -13,7 +13,7 @@
 
 package bisq.client.java.models;
 
-import bisq.client.java.ApiException;
+import bisq.client.java.infrastructure.ApiException;
 import java.util.Objects;
 import java.lang.reflect.Type;
 import java.util.Map;

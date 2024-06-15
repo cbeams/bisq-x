@@ -39,7 +39,7 @@ openApiGenerate {
     generatorName = "java"
     inputSpec = "$rootDir/core/oas/build/classes/java/main/META-INF/swagger/bisq-openapi-2.1.0.yml"
     outputDir = projectDir.path
-    invokerPackage = basePackage
+    invokerPackage = "${basePackage}.infrastructure"
     apiPackage = "${basePackage}.operations"
     modelPackage = "${basePackage}.models"
     apiNameSuffix = "Operations"

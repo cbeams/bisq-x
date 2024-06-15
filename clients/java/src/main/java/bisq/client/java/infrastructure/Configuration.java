@@ -11,7 +11,7 @@
  */
 
 
-package bisq.client.java;
+package bisq.client.java.infrastructure;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.6.0")
 public class Configuration {

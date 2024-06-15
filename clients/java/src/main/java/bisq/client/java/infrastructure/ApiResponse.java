@@ -11,7 +11,7 @@
  */
 
 
-package bisq.client.java;
+package bisq.client.java.infrastructure;
 
 import java.util.List;
 import java.util.Map;

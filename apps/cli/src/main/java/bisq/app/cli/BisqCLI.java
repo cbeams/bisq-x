@@ -17,9 +17,9 @@
 
 package bisq.app.cli;
 
-import bisq.client.java.ApiClient;
-import bisq.client.java.ApiException;
-import bisq.client.java.Configuration;
+import bisq.client.java.infrastructure.ApiClient;
+import bisq.client.java.infrastructure.ApiException;
+import bisq.client.java.infrastructure.Configuration;
 import bisq.client.java.models.LoggingCategory;
 import bisq.client.java.models.UpdateLoggingCategoryRequest;
 import bisq.client.java.operations.LoggingOperations;

@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import bisq.client.java.JSON;
+import bisq.client.java.infrastructure.JSON;
 
 /**
  * NodeInfo

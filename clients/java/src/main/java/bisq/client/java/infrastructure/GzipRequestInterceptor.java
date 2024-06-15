@@ -11,7 +11,7 @@
  */
 
 
-package bisq.client.java;
+package bisq.client.java.infrastructure;
 
 import okhttp3.*;
 import okio.Buffer;

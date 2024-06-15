@@ -13,14 +13,14 @@
 
 package bisq.client.java.operations;
 
-import bisq.client.java.ApiCallback;
-import bisq.client.java.ApiClient;
-import bisq.client.java.ApiException;
-import bisq.client.java.ApiResponse;
-import bisq.client.java.Configuration;
-import bisq.client.java.Pair;
-import bisq.client.java.ProgressRequestBody;
-import bisq.client.java.ProgressResponseBody;
+import bisq.client.java.infrastructure.ApiCallback;
+import bisq.client.java.infrastructure.ApiClient;
+import bisq.client.java.infrastructure.ApiException;
+import bisq.client.java.infrastructure.ApiResponse;
+import bisq.client.java.infrastructure.Configuration;
+import bisq.client.java.infrastructure.Pair;
+import bisq.client.java.infrastructure.ProgressRequestBody;
+import bisq.client.java.infrastructure.ProgressResponseBody;
 
 import com.google.gson.reflect.TypeToken;
 

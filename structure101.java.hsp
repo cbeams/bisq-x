@@ -37,21 +37,57 @@
   <excludes>
     <exclude expression="*.*&amp;amp;*" active="true" />
     <exclude expression="*.*&amp;*" active="true" />
-    <exclude expression="main.bisq.client.java.JSON" active="true" />
-    <exclude expression="main.bisq.client.java.StringUtil" active="true" />
-    <exclude expression="main.bisq.client.java.ProgressRequestBody" active="true" />
-    <exclude expression="main.bisq.client.java.Pair" active="true" />
-    <exclude expression="main.bisq.client.java.ApiCallback" active="true" />
-    <exclude expression="main.bisq.client.java.ServerVariable" active="true" />
-    <exclude expression="main.bisq.client.java.ProgressResponseBody" active="true" />
-    <exclude expression="main.bisq.client.java.ServerConfiguration" active="true" />
-    <exclude expression="main.bisq.client.java.GzipRequestInterceptor" active="true" />
+    <exclude expression="main.bisq.client.java.infrastructure.JSON" active="true" />
+    <exclude expression="main.bisq.client.java.infrastructure.StringUtil" active="true" />
+    <exclude expression="main.bisq.client.java.infrastructure.ProgressRequestBody" active="true" />
+    <exclude expression="main.bisq.client.java.infrastructure.Pair" active="true" />
+    <exclude expression="main.bisq.client.java.infrastructure.ApiCallback" active="true" />
+    <exclude expression="main.bisq.client.java.infrastructure.ServerVariable" active="true" />
+    <exclude expression="main.bisq.client.java.infrastructure.ProgressResponseBody" active="true" />
+    <exclude expression="main.bisq.client.java.infrastructure.ServerConfiguration" active="true" />
+    <exclude expression="main.bisq.client.java.infrastructure.GzipRequestInterceptor" active="true" />
   </excludes>
   <excludes-from-xs>
     <exclude-from-xs expression="main.bisq.core.network.p2p.P2PServer$ClientHandler" active="true" />
   </excludes-from-xs>
   <restructuring>
-    <set version="3" name="Action list 1" hiview="Codemap" active="true" todo="false" list="0" />
+    <set version="3" name="Action list 1" hiview="Codemap" active="true" todo="false" list="0">
+      <action type="group-smart-move" active="true" last-applied="true" description="Move main.bisq.client.kotlin.auth to main.bisq.client.kotlin.infrastructure">
+        <composite-set>
+          <action type="smart-move" active="true" last-applied="true" description="Move main.bisq.client.kotlin.auth to main.bisq.client.kotlin.infrastructure">
+            <composite-set>
+              <action type="move" active="true" last-applied="true" description="Move main.bisq.client.kotlin.auth to main.bisq.client.kotlin.infrastructure">
+                <params>
+                  <source-fqn fqn="main.bisq.client.kotlin.auth" type="package">
+                    <node name="main" type="jar" />
+                    <node name="bisq" type="package" />
+                    <node name="client" type="package" />
+                    <node name="kotlin" type="package" />
+                    <node name="auth" type="package" />
+                  </source-fqn>
+                  <to-fqn fqn="main.bisq.client.kotlin.infrastructure" type="package">
+                    <node name="main" type="jar" />
+                    <node name="bisq" type="package" />
+                    <node name="client" type="package" />
+                    <node name="kotlin" type="package" />
+                    <node name="infrastructure" type="package" />
+                  </to-fqn>
+                </params>
+              </action>
+            </composite-set>
+            <params>
+              <container-fqn fqn="main.bisq.client.kotlin.infrastructure" type="package">
+                <node name="main" type="jar" />
+                <node name="bisq" type="package" />
+                <node name="client" type="package" />
+                <node name="kotlin" type="package" />
+                <node name="infrastructure" type="package" />
+              </container-fqn>
+            </params>
+          </action>
+        </composite-set>
+      </action>
+    </set>
   </restructuring>
   <grid-set sep="." version="7.0.25101" />
 </local-project>

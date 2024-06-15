@@ -11,10 +11,10 @@
  */
 
 
-package bisq.client.java.auth;
+package bisq.client.java.infrastructure.auth;
 
-import bisq.client.java.ApiException;
-import bisq.client.java.Pair;
+import bisq.client.java.infrastructure.ApiException;
+import bisq.client.java.infrastructure.Pair;
 
 import java.net.URI;
 import java.util.Map;

@@ -17,12 +17,10 @@
 
 package bisq.demo.marketmaker;
 
-import bisq.client.java.ApiClient;
-import bisq.client.java.ApiException;
-import bisq.client.java.Configuration;
+import bisq.client.java.infrastructure.ApiClient;
+import bisq.client.java.infrastructure.ApiException;
+import bisq.client.java.infrastructure.Configuration;
 import bisq.client.java.operations.NodeInfoOperations;
-
-import java.time.Duration;
 
 public class MarketMakerBot {
 
@@ -33,7 +31,6 @@ public class MarketMakerBot {
         bisqClient.setBasePath("http://localhost:2141");
 
         var info = new NodeInfoOperations(bisqClient).getNodeInfo();
-        var interval = Duration.ofSeconds(2);
 
         System.out.println("Connected to node version " + info.getVersion());
     }
