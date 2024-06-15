@@ -26,7 +26,7 @@ import kotlinx.serialization.encoding.*
  *
  * @param identity 
  */
-@Serializable@Serializable
+@Serializable
 
 data class CreateRequest (
 

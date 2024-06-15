@@ -25,7 +25,7 @@ import kotlinx.serialization.encoding.*
  *
  * @param version 
  */
-@Serializable@Serializable
+@Serializable
 
 data class Info (
 

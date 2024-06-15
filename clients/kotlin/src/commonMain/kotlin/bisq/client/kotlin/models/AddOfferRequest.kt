@@ -26,7 +26,7 @@ import kotlinx.serialization.encoding.*
  *
  * @param offer 
  */
-@Serializable@Serializable
+@Serializable
 
 data class AddOfferRequest (
 

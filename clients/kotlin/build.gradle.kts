@@ -101,3 +101,51 @@ kotlin {
 //        dependsOn("allTests")
 //    }
 //}
+
+// work around https://github.com/OpenAPITools/openapi-generator/issues/18904
+tasks.register<ReplaceInFilesTask>("dedupeSerializableAnnotation") {
+    group = "Custom"
+    description = "Replaces occurrences of @Serializable@Serializable with @Serializable in source files " +
+            "to work around the bug described at https://github.com/OpenAPITools/openapi-generator/issues/18904"
+
+    sourceDir.set(file("src"))
+    targetString.set("@Serializable@Serializable")
+    replacementString.set("@Serializable")
+}
+
+abstract class ReplaceInFilesTask : DefaultTask() {
+    @get:InputDirectory
+    abstract val sourceDir: DirectoryProperty
+
+    @get:Input
+    abstract val targetString: Property<String>
+
+    @get:Input
+    abstract val replacementString: Property<String>
+
+    @TaskAction
+    fun replaceStrings() {
+        val target = targetString.get()
+        val replacement = replacementString.get()
+        val sourceDir = sourceDir.get().asFile
+
+        if (sourceDir.exists()) {
+            sourceDir.walkTopDown()
+                .filter { it.isFile }
+                .forEach { file ->
+                    val content = file.readText()
+                    val newContent = content.replace(target, replacement)
+                    if (content != newContent) {
+                        file.writeText(newContent)
+                        logger.info("Removed any duplicate @Serializable annotation from: ${file.absolutePath}")
+                    }
+                }
+        } else {
+            println("Source directory does not exist: $sourceDir")
+        }
+    }
+}
+
+tasks.getByName("compileKotlinJvm").dependsOn("dedupeSerializableAnnotation")
+//tasks.getByName("compileKotlinJvm").dependsOn("openApiGenerate")
+//tasks.getByName("openApiGenerate").finalizedBy("dedupeSerializableAnnotation")

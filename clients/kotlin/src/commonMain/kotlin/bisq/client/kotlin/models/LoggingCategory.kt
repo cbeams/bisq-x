@@ -26,7 +26,7 @@ import kotlinx.serialization.encoding.*
  * @param name 
  * @param level 
  */
-@Serializable@Serializable
+@Serializable
 
 data class LoggingCategory (
 
