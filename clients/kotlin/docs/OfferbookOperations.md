@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 <a id="addOffer"></a>
 # **addOffer**
-> kotlin.Any addOffer(addOfferRequest)
+> kotlin.String addOffer(addOfferRequest)
 
 
 
@@ -25,7 +25,7 @@ Method | HTTP request | Description
 val apiInstance = OfferbookOperations()
 val addOfferRequest : AddOfferRequest =  // AddOfferRequest | 
 try {
-    val result : kotlin.Any = apiInstance.addOffer(addOfferRequest)
+    val result : kotlin.String = apiInstance.addOffer(addOfferRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling OfferbookOperations#addOffer")
@@ -44,7 +44,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**kotlin.Any**](kotlin.Any.md)
+**kotlin.String**
 
 ### Authorization
 

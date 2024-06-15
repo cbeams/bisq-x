@@ -3,6 +3,7 @@ include(
     "apps:cli",
     "apps:desktop",
     "apps:daemon",
+    "apps:mobile:android",
     "clients:java",
     "clients:kotlin",
     "core:oas",

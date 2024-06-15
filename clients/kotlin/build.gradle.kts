@@ -116,11 +116,13 @@ openApiGenerate {
     modelPackage = "${basePackage}.models"
     generateApiTests = false
     generateModelTests = false
+    configOptions.put("library", "multiplatform")
     configOptions.put("omitGradlePluginVersions", "true")
     configOptions.put("omitGradleWrapper", "true")
     configOptions.put("serializationLibrary", "kotlinx_serialization")
     configOptions.put("dateLibrary", "kotlinx-datetime")
     configOptions.put("apiSuffix", "Operations")
+    configOptions.put("sourceFolder", "src/commonMain/kotlin")
 }
 
 tasks.getByName("openApiGenerate") {
