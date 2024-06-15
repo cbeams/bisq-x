@@ -24,3 +24,7 @@
 proguard-rules.pro
 build.gradle.kts
 settings.gradle.kts
+src/commonTest/kotlin/util/Coroutine.kt
+src/iosTest/kotlin/util/Coroutine.kt
+src/jsTest/kotlin/util/Coroutine.kt
+src/jvmTest/kotlin/util/Coroutine.kt
