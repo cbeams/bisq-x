@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<local-project language="java" version="7.0.24372" xml-version="3" flavor="j2se">
+<local-project language="java" version="7.0.25101" xml-version="3" flavor="j2se">
   <property name="show-as-module" value="false" />
   <property name="force-classpath" value="false" />
   <property name="enabled-optional-measures" value="" />
@@ -18,7 +18,9 @@
     <classpathentry kind="lib" path="apps/cli/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="apps/daemon/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="apps/desktop/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="apps/mobile/android/build/classes/kotlin/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="clients/java/build/classes/java/main" module="main" displaymodule="main" />
+    <classpathentry kind="lib" path="clients/kotlin/build/classes/kotlin/jvm/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/oas/build/classes/java/main" module="main" displaymodule="main" />
     <classpathentry kind="lib" path="core/node/build/classes/java/main" module="main" displaymodule="main" />
@@ -51,5 +53,5 @@
   <restructuring>
     <set version="3" name="Action list 1" hiview="Codemap" active="true" todo="false" list="0" />
   </restructuring>
-  <grid-set sep="." version="7.0.24372" />
+  <grid-set sep="." version="7.0.25101" />
 </local-project>
