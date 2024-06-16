@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.openapi.generator") version "7.5.0"
+    id("org.openapi.generator") version "7.6.0"
 }
 
 // It's an open question which version of Java we should target for this client library;
@@ -39,7 +39,7 @@ openApiGenerate {
     generatorName = "java"
     inputSpec = "$rootDir/core/oas/build/classes/java/main/META-INF/swagger/bisq-openapi-2.1.0.yml"
     outputDir = projectDir.path
-    invokerPackage = basePackage
+    invokerPackage = "${basePackage}.infrastructure"
     apiPackage = "${basePackage}.operations"
     modelPackage = "${basePackage}.models"
     apiNameSuffix = "Operations"

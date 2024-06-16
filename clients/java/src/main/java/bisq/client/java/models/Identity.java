@@ -44,12 +44,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import bisq.client.java.JSON;
+import bisq.client.java.infrastructure.JSON;
 
 /**
  * Identity
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.6.0")
 public class Identity {
   public static final String SERIALIZED_NAME_NYM = "nym";
   @SerializedName(SERIALIZED_NAME_NYM)

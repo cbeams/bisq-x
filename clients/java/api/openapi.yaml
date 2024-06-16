@@ -12,7 +12,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/create_request'
+              $ref: "#/components/schemas/create_request"
         required: true
       responses:
         "200":
@@ -28,16 +28,16 @@ paths:
       - application/json
   /info:
     get:
-      operationId: getInfo
+      operationId: getNodeInfo
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Info'
-          description: getInfo 200 response
+                $ref: "#/components/schemas/NodeInfo"
+          description: getNodeInfo 200 response
       tags:
-      - Info
+      - NodeInfo
       x-accepts:
       - application/json
   /logging/categories:
@@ -49,7 +49,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/LoggingCategory'
+                  $ref: "#/components/schemas/LoggingCategory"
                 type: array
           description: getLoggingCategories 200 response
       tags:
@@ -62,7 +62,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/updateLoggingCategory_request'
+              $ref: "#/components/schemas/updateLoggingCategory_request"
         required: true
       responses:
         "200":
@@ -88,7 +88,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoggingCategory'
+                $ref: "#/components/schemas/LoggingCategory"
           description: getLoggingCategory 200 response
       tags:
       - Logging
@@ -103,7 +103,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Offer'
+                  $ref: "#/components/schemas/Offer"
                 type: array
           description: getOffers 200 response
       tags:
@@ -116,7 +116,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/addOffer_request'
+              $ref: "#/components/schemas/addOffer_request"
         required: true
       responses:
         "200":
@@ -146,7 +146,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Offer'
+                $ref: "#/components/schemas/Offer"
           description: removeOffer 200 response
       tags:
       - Offerbook
@@ -167,7 +167,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Offer'
+                $ref: "#/components/schemas/Offer"
           description: getOffer 200 response
       tags:
       - Offerbook
@@ -183,16 +183,6 @@ components:
       required:
       - nym
       type: object
-    Info:
-      example:
-        version: version
-      properties:
-        version:
-          minLength: 1
-          type: string
-      required:
-      - version
-      type: object
     LoggingCategory:
       example:
         level: level
@@ -207,6 +197,16 @@ components:
       required:
       - level
       - name
+      type: object
+    NodeInfo:
+      example:
+        version: version
+      properties:
+        version:
+          minLength: 1
+          type: string
+      required:
+      - version
       type: object
     Offer:
       example:
@@ -225,16 +225,16 @@ components:
     create_request:
       properties:
         identity:
-          $ref: '#/components/schemas/Identity'
+          $ref: "#/components/schemas/Identity"
       type: object
     updateLoggingCategory_request:
       properties:
         loggingCategory:
-          $ref: '#/components/schemas/LoggingCategory'
+          $ref: "#/components/schemas/LoggingCategory"
       type: object
     addOffer_request:
       properties:
         offer:
-          $ref: '#/components/schemas/Offer'
+          $ref: "#/components/schemas/Offer"
       type: object
 

@@ -24,6 +24,7 @@
 #
 .github/
 .gitignore
+.travis.yml
 build.sbt
 build.gradle
 git_push.sh

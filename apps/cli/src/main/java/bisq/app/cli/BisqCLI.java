@@ -17,13 +17,13 @@
 
 package bisq.app.cli;
 
-import bisq.client.java.ApiClient;
-import bisq.client.java.ApiException;
-import bisq.client.java.Configuration;
+import bisq.client.java.infrastructure.ApiClient;
+import bisq.client.java.infrastructure.ApiException;
+import bisq.client.java.infrastructure.Configuration;
 import bisq.client.java.models.LoggingCategory;
 import bisq.client.java.models.UpdateLoggingCategoryRequest;
-import bisq.client.java.operations.InfoOperations;
 import bisq.client.java.operations.LoggingOperations;
+import bisq.client.java.operations.NodeInfoOperations;
 import bisq.client.java.operations.OfferbookOperations;
 
 import joptsimple.OptionParser;
@@ -118,9 +118,9 @@ public class BisqCLI {
 
     private void info(List<String> args) {
         try {
-            var infoOperations = new InfoOperations(bisqClient);
-            var info = infoOperations.getInfo();
-            System.out.println(info.toJson());
+            var infoOperations = new NodeInfoOperations(bisqClient);
+            var nodeInfo = infoOperations.getNodeInfo();
+            System.out.println(nodeInfo.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling api");
             System.err.println("Status code: " + e.getCode());
