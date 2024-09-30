@@ -50,6 +50,8 @@ The sections below are stubs for now but will come to include detailed informati
 6. Run `bisq-cli listoffers` in a second terminal window
 7. Repeat steps 5 and 6, but this time run `bisqd --debug` and notice what changes
 8. Play with the interactive API docs at  http://localhost:2140/swagger-ui
-9. Watch the [project walkthrough video](https://www.loom.com/share/37469ec1857140fdb3f638dbea7dd22b)
 
 ## Next Steps
+
+1. Watch the [project walkthrough video](https://www.loom.com/share/37469ec1857140fdb3f638dbea7dd22b)
+2. Watch the [Bisq X OpenAPI spec and client libraries video](https://www.loom.com/share/dccd603dd6d140398d40fd6fe868bb63)
