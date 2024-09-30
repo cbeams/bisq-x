@@ -47,8 +47,9 @@ The sections below are stubs for now but will come to include detailed informati
 3. Run `./gradlew build` and expect to see `BUILD SUCCESS`
 4. Run `export PATH=$PATH:$BISQ_X_HOME/bin`
 5. Run `bisqd`
-6. Run `bisq-cli` in a second terminal window
-7. Repeat steps 6 and 7, but this time run `bisqd --debug` and notice what changes
+6. Run `bisq-cli listoffers` in a second terminal window
+7. Repeat steps 5 and 6, but this time run `bisqd --debug` and notice what changes
 8. Play with the interactive API docs at  http://localhost:2140/swagger-ui
+9. Watch the [project walkthrough video](https://www.loom.com/share/37469ec1857140fdb3f638dbea7dd22b)
 
 ## Next Steps
