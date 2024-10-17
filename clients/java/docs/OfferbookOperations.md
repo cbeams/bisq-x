@@ -4,10 +4,10 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addOffer**](OfferbookOperations.md#addOffer) | **POST** /trading/offerbook |  |
-| [**getOffer**](OfferbookOperations.md#getOffer) | **GET** /trading/offerbook/{offerId} |  |
-| [**getOffers**](OfferbookOperations.md#getOffers) | **GET** /trading/offerbook |  |
-| [**removeOffer**](OfferbookOperations.md#removeOffer) | **DELETE** /trading/offerbook/{offerId} |  |
+| [**addOffer**](OfferbookOperations.md#addOffer) | **POST** /offerbook |  |
+| [**getOffer**](OfferbookOperations.md#getOffer) | **GET** /offerbook/{offerId} |  |
+| [**getOffers**](OfferbookOperations.md#getOffers) | **GET** /offerbook |  |
+| [**removeOffer**](OfferbookOperations.md#removeOffer) | **DELETE** /offerbook/{offerId} |  |
 
 
 <a id="addOffer"></a>

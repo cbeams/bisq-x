@@ -94,7 +94,7 @@ paths:
       - Logging
       x-accepts:
       - application/json
-  /trading/offerbook:
+  /offerbook:
     get:
       operationId: getOffers
       responses:
@@ -130,7 +130,7 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-  /trading/offerbook/{offerId}:
+  /offerbook/{offerId}:
     delete:
       operationId: removeOffer
       parameters:

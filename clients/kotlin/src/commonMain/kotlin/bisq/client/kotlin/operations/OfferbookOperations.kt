@@ -61,7 +61,7 @@ open class OfferbookOperations : ApiClient {
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.POST,
-            "/trading/offerbook",
+            "/offerbook",
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = false,
@@ -95,7 +95,7 @@ open class OfferbookOperations : ApiClient {
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/trading/offerbook/{offerId}".replace("{" + "offerId" + "}", "$offerId"),
+            "/offerbook/{offerId}".replace("{" + "offerId" + "}", "$offerId"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = false,
@@ -127,7 +127,7 @@ open class OfferbookOperations : ApiClient {
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/trading/offerbook",
+            "/offerbook",
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = false,
@@ -169,7 +169,7 @@ open class OfferbookOperations : ApiClient {
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/trading/offerbook/{offerId}".replace("{" + "offerId" + "}", "$offerId"),
+            "/offerbook/{offerId}".replace("{" + "offerId" + "}", "$offerId"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = false,

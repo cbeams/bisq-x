@@ -40,10 +40,10 @@ Class | Method | HTTP request | Description
 *LoggingOperations* | [**getLoggingCategory**](docs/LoggingOperations.md#getloggingcategory) | **GET** /logging/categories/{name} | 
 *LoggingOperations* | [**updateLoggingCategory**](docs/LoggingOperations.md#updateloggingcategory) | **PUT** /logging/categories | 
 *NodeInfoOperations* | [**getNodeInfo**](docs/NodeInfoOperations.md#getnodeinfo) | **GET** /info | 
-*OfferbookOperations* | [**addOffer**](docs/OfferbookOperations.md#addoffer) | **POST** /trading/offerbook | 
-*OfferbookOperations* | [**getOffer**](docs/OfferbookOperations.md#getoffer) | **GET** /trading/offerbook/{offerId} | 
-*OfferbookOperations* | [**getOffers**](docs/OfferbookOperations.md#getoffers) | **GET** /trading/offerbook | 
-*OfferbookOperations* | [**removeOffer**](docs/OfferbookOperations.md#removeoffer) | **DELETE** /trading/offerbook/{offerId} | 
+*OfferbookOperations* | [**addOffer**](docs/OfferbookOperations.md#addoffer) | **POST** /offerbook | 
+*OfferbookOperations* | [**getOffer**](docs/OfferbookOperations.md#getoffer) | **GET** /offerbook/{offerId} | 
+*OfferbookOperations* | [**getOffers**](docs/OfferbookOperations.md#getoffers) | **GET** /offerbook | 
+*OfferbookOperations* | [**removeOffer**](docs/OfferbookOperations.md#removeoffer) | **DELETE** /offerbook/{offerId} | 
 *UserOperations* | [**create**](docs/UserOperations.md#create) | **POST** /identities | 
 
 

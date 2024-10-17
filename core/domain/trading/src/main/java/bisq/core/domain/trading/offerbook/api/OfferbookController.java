@@ -30,7 +30,7 @@ import io.micronaut.http.annotation.Post;
 import java.net.URI;
 import java.util.List;
 
-@Controller("/trading/offerbook")
+@Controller("/offerbook")
 public class OfferbookController implements ApiController {
 
     private final Offerbook offerbook;
@@ -55,7 +55,7 @@ public class OfferbookController implements ApiController {
     @Post()
     public HttpResponse<?> addOffer(Offer offer) {
         offerbook.save(Offer.withDetails(offer.details()));
-        return HttpResponse.created(URI.create("/trading/offerbook/" + offer.id()));
+        return HttpResponse.created(URI.create("/offerbook/" + offer.id()));
     }
 
     @Delete("/{offerId}")

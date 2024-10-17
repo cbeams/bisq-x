@@ -102,7 +102,7 @@ public class OfferbookOperations {
         Object localVarPostBody = addOfferRequest;
 
         // create path and map variables
-        String localVarPath = "/trading/offerbook";
+        String localVarPath = "/offerbook";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -225,7 +225,7 @@ public class OfferbookOperations {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/trading/offerbook/{offerId}"
+        String localVarPath = "/offerbook/{offerId}"
             .replace("{" + "offerId" + "}", localVarApiClient.escapeString(offerId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -347,7 +347,7 @@ public class OfferbookOperations {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/trading/offerbook";
+        String localVarPath = "/offerbook";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -461,7 +461,7 @@ public class OfferbookOperations {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/trading/offerbook/{offerId}"
+        String localVarPath = "/offerbook/{offerId}"
             .replace("{" + "offerId" + "}", localVarApiClient.escapeString(offerId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
