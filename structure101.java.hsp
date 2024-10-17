@@ -46,6 +46,13 @@
     <exclude expression="main.bisq.client.java.infrastructure.ProgressResponseBody" active="true" />
     <exclude expression="main.bisq.client.java.infrastructure.ServerConfiguration" active="true" />
     <exclude expression="main.bisq.client.java.infrastructure.GzipRequestInterceptor" active="true" />
+    <exclude expression="main.bisq.core.Assembly" active="true" />
+    <exclude expression="main.bisq.core.Layer" active="true" />
+    <exclude expression="main.bisq.core.Feature" active="true" />
+    <exclude expression="main.bisq.core.Subsystem" active="true" />
+    <exclude expression="main.bisq.core.Component" active="true" />
+    <exclude expression="main.bisq.core.oas.*" active="true" />
+    <exclude expression="main.bisq.core.domain.trading.offerbook.OfferbookFeature" active="true" />
   </excludes>
   <excludes-from-xs>
     <exclude-from-xs expression="main.bisq.core.network.p2p.P2PServer$ClientHandler" active="true" />
