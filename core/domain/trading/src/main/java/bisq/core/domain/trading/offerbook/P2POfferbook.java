@@ -34,8 +34,8 @@ public class P2POfferbook implements P2PMessageListener, Offerbook {
 
     private final P2PMessageStore messageStore;
 
-    private List<Offer> offers = new ArrayList<>();
-    private ArrayList<Runnable> callbacks = new ArrayList<>();
+    private final List<Offer> offers = new ArrayList<>();
+    private final ArrayList<Runnable> callbacks = new ArrayList<>();
 
     public P2POfferbook(P2PMessageStore messageStore) {
         this.messageStore = messageStore;
