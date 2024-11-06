@@ -51,10 +51,12 @@ The sections below are stubs for now but will come to include detailed informati
 7. Repeat steps 5 and 6, but this time run `bisqd --debug` and notice what changes
 8. Play with the interactive API docs at  http://localhost:2140/swagger-ui
 
-## Next Steps
+## Related Resources
 
 - Watch the [project walkthrough video](https://www.loom.com/share/37469ec1857140fdb3f638dbea7dd22b) (24m Loom video recorded Jun 4 2024)
 - Watch the [Bisq X OpenAPI spec and client libraries video](https://www.loom.com/share/dccd603dd6d140398d40fd6fe868bb63) (22m Loom video recorded Sep 30 2024)
 - Watch [A vision and high-level architecture for Bisq Mobile](https://www.loom.com/share/a35dd2b3aa92428e8c7de6461f3cdffb) (1h 12m Loom video recorded Oct 14 2024)
 - Read ["Bisq Easy Mobile" discussion #2665](https://github.com/bisq-network/bisq2/discussions/2665)
 - Watch [A response to Bisq Easy Mobile discussion #2665](https://www.loom.com/share/f76555e470dd449593da7b9057b7a745) (28 min Loom video recorded Oct 14 2024)
+- Watch [Bisq Mobile: Android Full Node Debate](https://www.loom.com/share/f5001f311c964b3d9d44b46831ca7d3d) (1h 34m Loom video recorded Oct 24 2024)
+    - Includes a detailed walk-through of API implementation and moving parts from [0:51:00–1:18:30](https://www.loom.com/share/f5001f311c964b3d9d44b46831ca7d3d?t=3060)
